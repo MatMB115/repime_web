@@ -9,6 +9,8 @@ module.exports = {
     extend: {
       colors:{
         'repimeblue': '#65D8E4',
+        'repimehardblue': '#00a699',
+        'repimepink': '#FF5A5F',
       },
     },
   },
