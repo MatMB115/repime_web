@@ -79,7 +79,7 @@ const UserMenu = () => {
                         text-sm
                         "
                 >
-                    <div className="flex flex-col cursor-pointer">
+                    <div className="flex flex-col cursor-pointer rounded-xl border-[1px]">
                         <>
                             <MenuItem
                                 onClick={() => {}}
