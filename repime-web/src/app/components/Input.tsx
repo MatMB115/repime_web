@@ -76,7 +76,7 @@ const Input: React.FC<InputProps> = ({
                     peer-placeholder-shown:translate-y-0
                     peer-focus:scale-75
                     peer-focus:-translate-y-4
-                    ${errors[id] ? 'text-repimepink' : 'text-zinc-500'}
+                    ${errors[id] ? 'text-repimehardblue' : 'text-zinc-500'}
                 `}
 
             >

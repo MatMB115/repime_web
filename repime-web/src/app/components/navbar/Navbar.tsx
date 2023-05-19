@@ -15,12 +15,12 @@ const Navbar = () => {
                 <Container>
                     <div
                         className="
-                        flex
-                        flex-row
-                        items-center
-                        justify-between
-                        gap-3
-                        md:gap-0
+                            flex
+                            flex-row
+                            items-center
+                            justify-between
+                            gap-3
+                            md:gap-0
                         "
                     >
                         <Logo />
