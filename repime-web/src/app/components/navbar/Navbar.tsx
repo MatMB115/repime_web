@@ -4,12 +4,13 @@ import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
+import Categories from "./Categories";
 
 const Navbar = () => {
     return (
         <div className="fixed w-full bg-white z-10 shadow-sm">
             <div className="
-            py-4
+            py-3
             border-b-[1px]"
             >
                 <Container>
@@ -29,6 +30,7 @@ const Navbar = () => {
                     </div>
                 </Container>
             </div>
+            <Categories/>
         </div>
     );
 }

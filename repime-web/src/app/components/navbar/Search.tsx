@@ -29,7 +29,7 @@ const Search = () => {
                     className="
                         text-sm
                         font-bold
-                        px-4
+                        px-8
                     "
                 >
                     Busque por vagas
