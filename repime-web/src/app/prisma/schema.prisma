@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model tb_cidade {
+  id                     Int                      @id @default(autoincrement())
+  nome                   String                   @db.VarChar(50)
+  pais                   String                   @db.VarChar(50)
+  uf                     String                   @db.VarChar(2)
+  tb_residencia_endereco tb_residencia_endereco[]
+  tb_universidade        tb_universidade[]
+}
+
+model tb_foto_vaga {
+  id      Int     @id @default(autoincrement())
+  id_vaga Int
+  foto    String
+  tb_vaga tb_vaga @relation(fields: [id_vaga], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tb_kitnet {
+  id                     Int                    @id @default(autoincrement())
+  tempo_de_contato       String?                @db.VarChar(10)
+  id_residencia          Int
+  tb_residencia_endereco tb_residencia_endereco @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tb_republica {
+  id                     Int                    @id @default(autoincrement())
+  fundacao               String?                @db.VarChar(50)
+  tem_trote              Boolean
+  e_masculina            Boolean
+  id_residencia          Int
+  tb_residencia_endereco tb_residencia_endereco @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tb_residencia_endereco {
+  id              Int            @id @default(autoincrement())
+  nome            String         @db.VarChar(50)
+  e_mobiliado     Boolean
+  tem_garagem     Boolean
+  tem_empregada   Boolean
+  tem_animais     Boolean
+  oferece_almoco  Boolean
+  oferece_janta   Boolean
+  end_numero      Int
+  end_rua         String         @db.VarChar(75)
+  end_bairro      String         @db.VarChar(75)
+  end_complemento String         @db.VarChar(75)
+  end_cep         String         @db.VarChar(8)
+  id_cidade       Int
+  id_user         Int
+  tb_kitnet       tb_kitnet[]
+  tb_republica    tb_republica[]
+  tb_cidade       tb_cidade      @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_usuario      tb_usuario     @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_vaga         tb_vaga[]
+}
+
+model tb_universidade {
+  id        Int       @id @default(autoincrement())
+  id_cidade Int
+  nome      String    @db.VarChar(50)
+  tb_cidade tb_cidade @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tb_usuario {
+  id                     Int                      @id @default(autoincrement())
+  nome                   String                   @db.VarChar(50)
+  foto                   String?
+  senha                  String
+  email                  String                   @unique @db.VarChar(50)
+  contato                String?                  @db.VarChar(50)
+  is_administrador       Boolean?
+  tb_residencia_endereco tb_residencia_endereco[]
+}
+
+model tb_vaga {
+  id                     Int                    @id @default(autoincrement())
+  mensalidade            Float
+  informacoes_adicionais String?                @db.VarChar(100)
+  id_residencia          Int
+  tb_foto_vaga           tb_foto_vaga[]
+  tb_residencia_endereco tb_residencia_endereco @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
