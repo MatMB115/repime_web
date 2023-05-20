@@ -17,17 +17,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }));
 
         return res.status(200).json({
-            'cod_ret': 0,
-            'msg_ret': "Usuário criado com sucesso!"
+            "repime": {
+                'cod_ret': 0,
+                'msg_ret': "Usuário criado com sucesso!"
+            }
         });
 
     } catch (e) {
-        console.log((e as Error).message)
         return res.status(500).json({
-            'cod_ret': 1,
-            'msg_ret': (e as Error).message
+            "repime": {
+                'cod_ret': 1,
+                'msg_ret': (e as Error).message
+            }
         });
-
     }
 }
 
