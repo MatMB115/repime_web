@@ -29,9 +29,10 @@ const RegisterModal = () => {
         }
     } = useForm<FieldValues>({
         defaultValues:{
-            name: '',
             email: '',
-            password: ''
+            nome: '',
+            senha: '',
+            contato: ''
         }
     });
 
@@ -43,7 +44,7 @@ const RegisterModal = () => {
                 registerModal.onClose();
             })
             .catch((error) =>{
-                toast.error('Algo deu errado.')
+                toast.error(error.value);
             })
             .finally(() => {
                 setIsLoading(false);
@@ -51,14 +52,14 @@ const RegisterModal = () => {
     }
 
     const bodyContent = (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-">
             <Heading
                 title="Bem vindo ao RepiME"
                 subtitle="Crie uma conta"
                 center
             />
             <Input 
-                id="Email"
+                id="email"
                 label="Email"
                 disabled={isLoading}
                 register={register}
@@ -67,7 +68,7 @@ const RegisterModal = () => {
             />
 
             <Input 
-                id="name"
+                id="nome"
                 label="Nome"
                 disabled={isLoading}
                 register={register}
@@ -76,9 +77,17 @@ const RegisterModal = () => {
             />
 
             <Input 
-                id="password"
+                id="senha"
                 type="password"
-                label="Password"
+                label="Senha"
+                disabled={isLoading}
+                register={register}
+                errors={errors}
+                required
+            />
+            <Input 
+                id="contato"
+                label="Contato"
                 disabled={isLoading}
                 register={register}
                 errors={errors}
@@ -88,7 +97,7 @@ const RegisterModal = () => {
     )
 
     const footerContent = (
-        <div className="flex flex-col gap-4 mt-3">
+        <div className="flex flex-col gap-2 mt-3">
             <hr />
             <Button
                 outline
