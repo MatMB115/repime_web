@@ -3,6 +3,8 @@ import Container from "../Container";
 import { GiCardJoker, GiPathDistance } from 'react-icons/gi'
 import { AiFillDollarCircle, AiOutlineHome } from 'react-icons/ai'
 import { BiHotel } from 'react-icons/bi'
+import CategoryBox from "../CategoryBox";
+import { useSearchParams } from "next/navigation";
 
 export const categories = [
     {
@@ -33,6 +35,9 @@ export const categories = [
 ]
 
 const Categories = () => {
+    const params = useSearchParams();
+    const category = params?.get('category');
+    
     return ( 
         <Container>
             <div
@@ -45,7 +50,14 @@ const Categories = () => {
                     overflow-x-auto
                 "
             >
-
+                {categories.map((item) => (
+                    <CategoryBox
+                        key={item.label}
+                        label={item.label}
+                        selected={category === item.label}
+                        icon={item.icon}
+                    />
+                ))}
             </div>
         </Container>
     );
