@@ -17,18 +17,9 @@ CREATE TABLE tb_usuario(
     nome VARCHAR(50) NOT NULL,
     foto text,
     senha text NOT NULL,
-    email VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE tb_usuario_convencional(
-    id int NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
     contato VARCHAR(50),
-    FOREIGN KEY (id) REFERENCES tb_usuario(id)
-);
-
-CREATE TABLE tb_usuario_administrador(
-    id_usuario int NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES tb_usuario(id)
+    is_administrador boolean
 );
 
 CREATE TABLE tb_residencia_endereco(
@@ -52,12 +43,14 @@ CREATE TABLE tb_residencia_endereco(
 );
 
 CREATE TABLE tb_kitnet(
+    id SERIAL PRIMARY KEY,
     tempo_de_contato VARCHAR(10),
     id_residencia int NOT NULL,
     FOREIGN KEY (id_residencia) REFERENCES tb_residencia_endereco(id)
 );
 
 CREATE TABLE tb_republica(
+    id SERIAL PRIMARY KEY,
     fundacao VARCHAR(50),
     tem_trote boolean NOT NULL,
     e_masculina boolean NOT NULL,
@@ -74,6 +67,7 @@ CREATE TABLE tb_vaga(
 );
 
 CREATE TABLE tb_foto_vaga(
+    id SERIAL PRIMARY KEY,
     id_vaga int NOT NULL,
     foto text NOT NULL,
     FOREIGN KEY (id_vaga) REFERENCES tb_vaga(id)
