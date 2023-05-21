@@ -67,6 +67,12 @@ As orientações estão divididas nos seguintes tópicos:
  - [x] Permitir o anúncio de novas vagas para usuários cadastrados;
  - [x] Marcar no mapa as vagas já cadastradas.
 
+
+---
+## TODO :no_good:
+
+- [X] No cadastro, criar input de validação de senha, além de uma descrição do que é uma senha forte.
+
 ---
 ## Banco de dados :chair: :game_die:
 A aplicação utiliza um banco relacional presente no modelo entidade relacionamento abaixo, a modelagem visa permitir o registro dos cadastros de usuários, vagas, residências, locadores, vagas e cidades. A hospedagem foi feita no Heroku com o add-on Heroku Postgres e a aplicação conversa diretamento com o banco. O pgAdmin4 facilitou o processo de criação e vizualização das tabelas/relacionamentos.
