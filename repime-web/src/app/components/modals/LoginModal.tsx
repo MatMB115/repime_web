@@ -1,5 +1,6 @@
 'use client'
 
+import { signIn } from 'next-auth/react'
 import axios from 'axios';
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -11,14 +12,19 @@ import {
 } from "react-hook-form";
 
 import useRegisterModal from '@/app/hooks/useRegisterModal';
+import useLoginModal from '@/app/hooks/useLoginModal';
+
 import Modal from './Modal';
 import Heading from '../Heading';
 import Input from '../Input';
 import toast from 'react-hot-toast';
 import Button from '../Button';
+import { useRouter } from 'next/navigation';
 
-const RegisterModal = () => {
+const LoginModal = () => {
+    const router = useRouter();
     const registerModal = useRegisterModal();
+    const LoginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -30,36 +36,37 @@ const RegisterModal = () => {
     } = useForm<FieldValues>({
         defaultValues:{
             email: '',
-            nome: '',
             senha: '',
-            contato: ''
         }
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) =>{
         setIsLoading(true);
 
-        axios.post('/api/repime/user/register/', data)
-            .then((response) => {
-                console.log(response)
-                if(response.data.cod_ret != 0){
-                    throw new Error();
-                }
-                toast.success('Cadastro efetuado com sucesso');
-            })
-            .catch((err) =>{
-                toast.error('Algo deu errado: ' + err);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            })
+        signIn('credentials', {
+            ...data,
+            redirect: false,
+        })
+        .then((callback) =>{
+            setIsLoading(false);
+
+            if(callback?.ok){
+                toast.success('Logged in');
+                router.refresh();
+                LoginModal.onClose();
+            }
+
+            if(callback?.error){
+                toast.error(callback.error);
+            }
+        })
     }
 
     const bodyContent = (
         <div className="flex flex-col gap-2">
             <Heading
-                title="Bem vindo ao RepiME"
-                subtitle="Crie uma conta"
+                title="Estamos felizes em revê-lo!"
+                subtitle="Entre com sua conta"
                 center
             />
             <Input 
@@ -73,28 +80,9 @@ const RegisterModal = () => {
             />
 
             <Input 
-                id="nome"
-                type="text"
-                label="Nome"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
-
-            <Input 
                 id="senha"
                 type="password"
                 label="Senha"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
-            <Input 
-                id="contato"
-                type="text"
-                label="Contato"
                 disabled={isLoading}
                 register={register}
                 errors={errors}
@@ -148,10 +136,10 @@ const RegisterModal = () => {
     return (
         <Modal 
             disabled={isLoading}
-            isOpen={registerModal.isOpen}
-            title="Cadastro"
+            isOpen={LoginModal.isOpen}
+            title="Entrar"
             actionLabel="Continue"
-            onClose={registerModal.onClose}
+            onClose={LoginModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
             body={bodyContent}
             footer={footerContent}
@@ -159,4 +147,4 @@ const RegisterModal = () => {
     );
 }
  
-export default RegisterModal;
+export default LoginModal;
