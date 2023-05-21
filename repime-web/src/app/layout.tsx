@@ -5,6 +5,7 @@ import Navbar from './components/navbar/Navbar'
 import './globals.css'
 import { Nunito } from 'next/font/google'
 import ToasterProvider from './providers/ToasterProvider'
+import getCurrentUser from './actions/getCurrentUser'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -14,11 +15,12 @@ export const metadata = {
 }
 
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
+	const currentUser = await getCurrentUser();
 	return (
 		<html lang="en">
 			<body className={nunito.className}>
@@ -26,7 +28,7 @@ export default function RootLayout({
 					<ToasterProvider />
 					<LoginModal />
 					<RegisterModal />
-					<Navbar />
+					<Navbar currentUser={currentUser}/>
 				</ClienteOnly>
 				{children}
 			</body>
