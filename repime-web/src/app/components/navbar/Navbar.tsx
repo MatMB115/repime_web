@@ -1,4 +1,5 @@
 'use client';
+import { tb_usuario as User } from "@prisma/client"
 
 import Container from "../Container";
 import Logo from "./Logo";
@@ -6,7 +7,15 @@ import Search from "./Search";
 import UserMenu from "./UserMenu";
 import Categories from "./Categories";
 
-const Navbar = () => {
+interface NavbarProps {
+    currentUser?: User | null;
+}
+
+const Navbar: React.FC<NavbarProps> = ({
+    currentUser
+}) => {
+
+    console.log(currentUser)
     return (
         <div className="fixed w-full bg-white z-10 shadow-sm">
             <div className="
@@ -26,7 +35,7 @@ const Navbar = () => {
                     >
                         <Logo />
                         <Search />
-                        <UserMenu />
+                        <UserMenu currentUser={currentUser} />
                     </div>
                 </Container>
             </div>

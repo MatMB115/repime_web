@@ -1,14 +1,14 @@
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/darlosss/repime?color=a015f5">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/MatMB115/repime_web?color=a015f5">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/darlosss/repime">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/MatMB115/repime_web">
 
-  <a href="https://github.com/darlosss/repime/releases/tag/RepiMe">
+  <a href="https://github.com/MatMB115/repime_web/releases/tag/RepiMe">
     <img alt="Application Status" src="https://img.shields.io/badge/app status-off-f23838">
   </a>
 
-  <a href="https://github.com/darlosss/repime/commits/main">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/darlosss/repime">
+  <a href="https://github.com/MatMB115/repime_web/commits/main">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/MatMB115/repime_web">
   </a>
   <a href="https://www.heroku.com/">
   <img alt="Host database" src="https://img.shields.io/badge/database host-Heroku-red">
