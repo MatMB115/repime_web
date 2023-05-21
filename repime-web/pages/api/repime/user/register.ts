@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         (await prisma.tb_usuario.create({
             data: {
                 nome: req.body.nome,
-                senha: bcrypt.hashSync(req.body.senha, 10),
+                senha: req.body.senha == null || req.body.senha == "" ? null : bcrypt.hashSync(req.body.senha, 10),
                 email: req.body.email,
                 contato: req.body.contato,
                 is_administrador: false

@@ -73,7 +73,7 @@ model tb_usuario {
   id                     Int                      @id @default(autoincrement())
   nome                   String                   @db.VarChar(50)
   foto                   String?
-  senha                  String
+  senha                  String?
   email                  String                   @unique @db.VarChar(50)
   contato                String?                  @db.VarChar(50)
   is_administrador       Boolean?
