@@ -16,6 +16,7 @@ import Heading from '../Heading';
 import Input from '../Input';
 import toast from 'react-hot-toast';
 import Button from '../Button';
+import validator from 'validator';
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -38,8 +39,26 @@ const RegisterModal = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) =>{
         setIsLoading(true);
+        
+        let validData = true;
 
-        axios.post('/api/repime/user/register/', data)
+        if(!validator.isEmail(data.email)) {
+            toast.error('Email inválido!');
+            validData = false;
+        }
+
+        if(!validator.isMobilePhone(data.contato, 'pt-BR')) {
+            toast.error('Contato inválido!');
+            validData = false;
+        }
+
+        if(!validator.isStrongPassword(data.senha)) {
+            toast.error("Senha muito fraca!");
+            validData = false;
+        }
+        
+        if(validData) {
+            axios.post('/api/repime/user/register/', data)
             .then((response) => {
                 if(response.data.repime.cod_ret != 0){
                     throw new Error();
@@ -50,11 +69,10 @@ const RegisterModal = () => {
             .catch((err) =>{
                 toast.error('Algo deu errado: ' + err);
             })
-            .finally(() => {
-                setIsLoading(false);
-            })
+        }
+        setIsLoading(false);
     }
-
+    
     const bodyContent = (
         <div className="flex flex-col gap-2">
             <Heading
@@ -98,6 +116,7 @@ const RegisterModal = () => {
                 disabled={isLoading}
                 register={register}
                 errors={errors}
+                placeholder='XX YYYYYYYYY'
                 required
             />
         </div>
