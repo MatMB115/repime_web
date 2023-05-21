@@ -14,13 +14,13 @@ export const metadata = {
 	description: 'Find your new home',
 }
 
-
 export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
 	const currentUser = await getCurrentUser();
+
 	return (
 		<html lang="en">
 			<body className={nunito.className}>
@@ -28,7 +28,7 @@ export default async function RootLayout({
 					<ToasterProvider />
 					<LoginModal />
 					<RegisterModal />
-					<Navbar currentUser={currentUser}/>
+					<Navbar currentUser={currentUser} />
 				</ClienteOnly>
 				{children}
 			</body>

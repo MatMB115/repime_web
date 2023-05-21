@@ -4,17 +4,9 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-
 import prisma from "../../../src/app/libs/prisma_db"
 
-import { tb_usuario as UserModel } from '@prisma/client';
 
-// Problemas do Next que não são nossos, usar o authorize espera um objeto com id string
-declare module "next-auth" {
-  interface User extends UserModel {
-    id: number;
-  }
-}
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -68,6 +60,15 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token, user }) {
+      session.user = token as any;
+      return session;
+    },
+  },
 }
 
 export default NextAuth(authOptions);
