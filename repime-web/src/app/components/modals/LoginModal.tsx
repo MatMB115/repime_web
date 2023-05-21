@@ -1,5 +1,6 @@
 'use client'
 
+import { signIn } from 'next-auth/react'
 import axios from 'axios';
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -11,15 +12,19 @@ import {
 } from "react-hook-form";
 
 import useRegisterModal from '@/app/hooks/useRegisterModal';
+import useLoginModal from '@/app/hooks/useLoginModal';
+
 import Modal from './Modal';
 import Heading from '../Heading';
 import Input from '../Input';
 import toast from 'react-hot-toast';
 import Button from '../Button';
-import validator from 'validator';
+import { useRouter } from 'next/navigation';
 
-const RegisterModal = () => {
+const LoginModal = () => {
+    const router = useRouter();
     const registerModal = useRegisterModal();
+    const LoginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -31,53 +36,37 @@ const RegisterModal = () => {
     } = useForm<FieldValues>({
         defaultValues:{
             email: '',
-            nome: '',
             senha: '',
-            contato: ''
         }
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) =>{
         setIsLoading(true);
-        
-        let validData = true;
 
-        if(!validator.isEmail(data.email)) {
-            toast.error('Email inválido!');
-            validData = false;
-        }
+        signIn('credentials', {
+            ...data,
+            redirect: false,
+        })
+        .then((callback) =>{
+            setIsLoading(false);
 
-        if(!validator.isMobilePhone(data.contato, 'pt-BR')) {
-            toast.error('Contato inválido!');
-            validData = false;
-        }
+            if(callback?.ok){
+                toast.success('Logged in');
+                router.refresh();
+                LoginModal.onClose();
+            }
 
-        if(!validator.isStrongPassword(data.senha)) {
-            toast.error("Senha muito fraca!");
-            validData = false;
-        }
-        
-        if(validData) {
-            axios.post('/api/repime/user/register/', data)
-            .then((response) => {
-                if(response.data.repime.cod_ret != 0){
-                    throw new Error();
-                }
-                toast.success('Cadastro efetuado com sucesso');
-                registerModal.onClose();
-            })
-            .catch((err) =>{
-                toast.error('Algo deu errado: ' + err);
-            })
-        }
-        setIsLoading(false);
+            if(callback?.error){
+                toast.error(callback.error);
+            }
+        })
     }
-    
+
     const bodyContent = (
         <div className="flex flex-col gap-2">
             <Heading
-                title="Bem vindo ao RepiME"
-                subtitle="Crie uma conta"
+                title="Estamos felizes em revê-lo!"
+                subtitle="Entre com sua conta"
                 center
             />
             <Input 
@@ -91,32 +80,12 @@ const RegisterModal = () => {
             />
 
             <Input 
-                id="nome"
-                type="text"
-                label="Nome"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
-
-            <Input 
                 id="senha"
                 type="password"
                 label="Senha"
                 disabled={isLoading}
                 register={register}
                 errors={errors}
-                required
-            />
-            <Input 
-                id="contato"
-                type="text"
-                label="Contato"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                placeholder='XX YYYYYYYYY'
                 required
             />
         </div>
@@ -167,10 +136,10 @@ const RegisterModal = () => {
     return (
         <Modal 
             disabled={isLoading}
-            isOpen={registerModal.isOpen}
-            title="Cadastro"
+            isOpen={LoginModal.isOpen}
+            title="Entrar"
             actionLabel="Continue"
-            onClose={registerModal.onClose}
+            onClose={LoginModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
             body={bodyContent}
             footer={footerContent}
@@ -178,4 +147,4 @@ const RegisterModal = () => {
     );
 }
  
-export default RegisterModal;
+export default LoginModal;
