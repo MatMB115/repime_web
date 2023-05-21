@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if (user == null) throw Error("Usuário não foi encontrado.");
 
-        const match = await bcrypt.compare(req.body.senha, user.senha);
+        const match = await bcrypt.compare(req.body.senha, user.senha!);
 
         if (!match) throw Error("Senha incorreta");
 
