@@ -5,9 +5,9 @@ import bcrypt from 'bcrypt';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        (await prisma.tb_usuario.create({
+        (await prisma.user.create({
             data: {
-                nome: req.body.nome,
+                name: req.body.nome,
                 senha: req.body.senha == null || req.body.senha == "" ? null : bcrypt.hashSync(req.body.senha, 10),
                 email: req.body.email,
                 contato: req.body.contato,

@@ -62,12 +62,10 @@ const RegisterModal = () => {
         
         if(validData) {
             axios.post('/api/repime/user/register/', data)
-            .then((response) => {
-                if(response.data.repime.cod_ret != 0){
-                    throw new Error();
-                }
+            .then(() => {
                 toast.success('Cadastro efetuado com sucesso');
                 registerModal.onClose();
+                loginModal.onOpen();
             })
             .catch((err) =>{
                 toast.error('Algo deu errado: ' + err);
