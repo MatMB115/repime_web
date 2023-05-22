@@ -6,8 +6,6 @@ import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "../../../src/app/libs/prisma_db"
 
-
-
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -29,7 +27,8 @@ export const authOptions: AuthOptions = {
         if (!credentials?.email || !credentials?.senha) {
           throw new Error('Invalid credentials');
         }
-        const user = await prisma.tb_usuario.findUnique({
+
+        const user = await prisma.user.findUnique({
           where: {
             email: credentials.email
           }

@@ -7,39 +7,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model tb_cidade {
+model User {
+  id                     String     @id @default(cuid())
+  name                   String
+  email                  String?    @unique @db.VarChar(50) 
+  emailVerified        DateTime?  @map("email_verified")
+  image                   String?
+  senha                  String?
+  contato                String?    @db.VarChar(15)
+  is_administrador       Boolean?
+  tb_residencia          Residencia[]
+  accounts               Account[]
+  sessions               Session[]
+  @@map("tb_usuario")
+}
+
+model Cidade {
   id                     Int                      @id @default(autoincrement())
   nome                   String                   @db.VarChar(50)
   pais                   String                   @db.VarChar(50)
   uf                     String                   @db.VarChar(2)
-  tb_residencia_endereco tb_residencia_endereco[]
-  tb_universidade        tb_universidade[]
+  tb_residencia          Residencia[]
+  tb_universidade        Universidade[]
+  @@map("tb_cidade")
 }
 
-model tb_foto_vaga {
+model FotoVaga {
   id      Int     @id @default(autoincrement())
   id_vaga Int
   foto    String
-  tb_vaga tb_vaga @relation(fields: [id_vaga], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_vaga Vaga @relation(fields: [id_vaga], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  @@map("tb_foto_vaga")
 }
 
-model tb_kitnet {
+model Kitnet {
   id                     Int                    @id @default(autoincrement())
   tempo_de_contato       String?                @db.VarChar(10)
   id_residencia          Int
-  tb_residencia_endereco tb_residencia_endereco @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  @@map("tb_kitnet")
 }
 
-model tb_republica {
+model Republica {
   id                     Int                    @id @default(autoincrement())
   fundacao               String?                @db.VarChar(50)
   tem_trote              Boolean
   e_masculina            Boolean
   id_residencia          Int
-  tb_residencia_endereco tb_residencia_endereco @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  @@map("tb_republica")
 }
 
-model tb_residencia_endereco {
+model Residencia {
   id              Int            @id @default(autoincrement())
   nome            String         @db.VarChar(50)
   e_mobiliado     Boolean
@@ -54,37 +73,73 @@ model tb_residencia_endereco {
   end_complemento String         @db.VarChar(75)
   end_cep         String         @db.VarChar(8)
   id_cidade       Int
-  id_user         Int
-  tb_kitnet       tb_kitnet[]
-  tb_republica    tb_republica[]
-  tb_cidade       tb_cidade      @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tb_usuario      tb_usuario     @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tb_vaga         tb_vaga[]
+  id_user         String
+  tb_kitnet       Kitnet[]
+  tb_republica    Republica[]
+  tb_cidade       Cidade      @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_usuario      User     @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_vaga         Vaga[]
+  @@map("tb_residencia")
 }
 
-model tb_universidade {
+model Universidade {
   id        Int       @id @default(autoincrement())
   id_cidade Int
   nome      String    @db.VarChar(50)
-  tb_cidade tb_cidade @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_cidade Cidade @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  @@map("tb_universidade")
 }
 
-model tb_usuario {
-  id                     Int                      @id @default(autoincrement())
-  nome                   String                   @db.VarChar(50)
-  foto                   String?
-  senha                  String?
-  email                  String                   @unique @db.VarChar(50)
-  contato                String?                  @db.VarChar(50)
-  is_administrador       Boolean?
-  tb_residencia_endereco tb_residencia_endereco[]
-}
-
-model tb_vaga {
+model Vaga {
   id                     Int                    @id @default(autoincrement())
   mensalidade            Float
   informacoes_adicionais String?                @db.VarChar(100)
   id_residencia          Int
-  tb_foto_vaga           tb_foto_vaga[]
-  tb_residencia_endereco tb_residencia_endereco @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_foto_vaga           FotoVaga[]
+  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  @@map("tb_vaga")
+}
+
+model Account  {
+  id                 String    @id @default(cuid())
+  userId             String    @map("user_id")
+  type               String?
+  provider           String
+  providerAccountId  String    @map("provider_account_id")
+  token_type         String?
+  refresh_token      String?   @db.Text
+  access_token       String?   @db.Text
+  expires_at         Int?
+  scope              String?
+  id_token           String?   @db.Text
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("tb_conta")
+}
+
+model Session {
+  id           String  @id @default(cuid())
+  userId       String?  @map("user_id")
+  sessionToken String   @db.Text @map("session_token") @unique
+  accessToken  String?  @db.Text @map("access_token")
+  expires      DateTime
+  user         User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  @@map("tb_sessoes")
+}
+
+model VerificationRequest  {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+  @@map("tb_verifica_requisicoes")
 }

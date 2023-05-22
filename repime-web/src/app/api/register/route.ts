@@ -17,11 +17,11 @@ export async function POST(
 
     const hashedPassword = await bcrypt.hash(senha, 12)
 
-    const user = await prisma.tb_usuario.create({
+    const user = await prisma.user.create({
         data: {
             email,
             nome,
-            hashedPassword,
+            senha,
             contato,
             is_administrador: false
         }

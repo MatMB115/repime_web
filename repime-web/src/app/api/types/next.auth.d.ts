@@ -1,14 +1,8 @@
-import { tb_usuario } from "@prisma/client";
+import { User } from "@prisma/client";
 import NextAuth from "next-auth/next";
 
 declare module "next-auth" {
     interface Session {
-        user: tb_usuario
+        user: User;
     };
-}
-
-declare module "next-auth" {
-    interface User extends UserModel {
-        id: number;
-    }
 }
