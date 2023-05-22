@@ -13,7 +13,7 @@ import Input from "../inputs/Input";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { tb_usuario as User } from '@prisma/client';
+import { User } from '@prisma/client';
 
 enum STEPS {
     CATEGORY = 0,
