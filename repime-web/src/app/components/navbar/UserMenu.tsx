@@ -7,25 +7,38 @@ import MenuItem from './MenuItem';
 
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
-import { tb_usuario as User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 interface UserMenuProps {
-    currentUser?: User | null
+    currentUser?: User | null;
+    msg: string; 
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
-    currentUser
+    currentUser,
+    msg
 }) => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
+
     const [isOpen, setIsOpen] = useState(false);
+    const router = useRouter();
 
     const toggleOpen = useCallback(() =>{
         setIsOpen((value) => !value);
     }, []);
     
-    console.log(currentUser);
+    const onResidence = useCallback(() =>{
+        if (!currentUser){
+            toast.error("Faça login primeiro!");
+            return loginModal.onOpen();
+        }
+        
+        return router.push(`/residences/${currentUser?.id}`);
+    }, [currentUser, loginModal]);
 
     return ( 
         <div className="relative">
@@ -38,7 +51,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 "
             >
                 <div 
-                    onClick={() => {}}
+                    onClick={onResidence}
                     className="
                         hidden
                         md:block
@@ -52,7 +65,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         cursor-pointer
                     "
                 >
-                    Cadastre sua vaga
+                    {msg}
                 </div>
                 <div
                     onClick={toggleOpen}
@@ -74,7 +87,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 >
                     <AiOutlineMenu />
                     <div className="hidden md:block">
-                        <Avatar />
+                        <Avatar src={currentUser?.image}/>
                     </div>
                 </div>
             </div>

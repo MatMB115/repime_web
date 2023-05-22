@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const user = (await prisma.tb_usuario.findFirst({
+        const user = (await prisma.user.findFirst({
             where: {
                 email: req.body.email
             }
@@ -25,8 +25,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 'result': {
                     'user': {
                         id: user.id,
-                        nome: user.nome,
-                        foto: user.foto,
+                        nome: user.name,
+                        foto: user.image,
                         email: user.email,
                         contato: user.contato,
                     }
