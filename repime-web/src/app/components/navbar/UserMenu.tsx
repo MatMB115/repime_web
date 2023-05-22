@@ -7,8 +7,12 @@ import MenuItem from './MenuItem';
 
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
+<<<<<<< HEAD
 import useResidenceModal from '@/app/hooks/useResidenceModal';
 import { tb_usuario as User } from '@prisma/client';
+=======
+import { User } from '@prisma/client';
+>>>>>>> 74cf161f1cba774f41b343cd8b50b73012a23bc7
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
@@ -88,7 +92,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 >
                     <AiOutlineMenu />
                     <div className="hidden md:block">
-                        <Avatar />
+                        <Avatar src={currentUser?.image}/>
                     </div>
                 </div>
             </div>

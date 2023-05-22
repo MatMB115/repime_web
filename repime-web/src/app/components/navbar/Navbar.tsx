@@ -1,5 +1,5 @@
 'use client';
-import { tb_usuario as User } from "@prisma/client"
+import { User } from "@prisma/client"
 
 import Container from "../Container";
 import Logo from "./Logo";
