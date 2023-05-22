@@ -7,6 +7,7 @@ import MenuItem from './MenuItem';
 
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
+import useResidenceModal from '@/app/hooks/useResidenceModal';
 import { tb_usuario as User } from '@prisma/client';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -14,13 +15,16 @@ import { toast } from 'react-hot-toast';
 
 interface UserMenuProps {
     currentUser?: User | null;
+    msg: string; 
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
-    currentUser
+    currentUser,
+    msg
 }) => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
+    const residenceModal = useResidenceModal();
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
 
@@ -62,7 +66,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         cursor-pointer
                     "
                 >
-                    Cadastre sua residência
+                    {msg}
                 </div>
                 <div
                     onClick={toggleOpen}

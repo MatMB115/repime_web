@@ -23,7 +23,7 @@ export async function POST(
             nome,
             hashedPassword,
             contato,
-            is_administrador: false
+            is_administrador
         }
     });
 

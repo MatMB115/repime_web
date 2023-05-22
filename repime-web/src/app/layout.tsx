@@ -28,7 +28,7 @@ export default async function RootLayout({
 					<ToasterProvider />
 					<LoginModal />
 					<RegisterModal />
-					<Navbar currentUser={currentUser} />
+					<Navbar msg={'Cadastre sua residência'} currentUser={currentUser} />
 				</ClienteOnly>
 				{children}
 			</body>

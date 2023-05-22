@@ -1,7 +1,9 @@
+const residencesPage = async () => {
 
-const residencesPage = () => {
     return ( 
-       <div> teste </div>
+        <>
+            
+        </>
     );
 }
  
