@@ -18,8 +18,8 @@ const AddButton: React.FC<AddButtonProps> = ({
         py-2 
         px-4 
         bottom-10 
-        right-10 
-        bg-repimehardblue 
+        right-10
+        bg-repimehardblue
         rounded-full
         text-white
         items-center
@@ -27,6 +27,7 @@ const AddButton: React.FC<AddButtonProps> = ({
         hover:shadow-md
         transition
         cursor-pointer
+        hover:bg-repimeblue
     ">
         {label}
     </div> 
