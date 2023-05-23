@@ -15,6 +15,8 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { User } from '@prisma/client';
 import InputCheckbox from "../inputs/InputCheckbox";
+import ClienteOnly from "../ClientOnly";
+import EmptyState from "../EmptyState";
 
 enum STEPS {
     CATEGORY = 0,
@@ -33,6 +35,14 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
+
+    if (!currentUser) {
+        return (
+            <ClienteOnly>
+                <EmptyState />
+            </ClienteOnly>
+        )
+    }
 
     const {
         register,

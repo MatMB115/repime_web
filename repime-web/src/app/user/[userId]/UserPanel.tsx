@@ -4,6 +4,7 @@ import Container from "@/app/components/Container";
 import PanelHead from "@/app/components/PanelHead";
 import { User } from "@prisma/client";
 import axios from "axios";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -33,6 +34,7 @@ const UserPanel: React.FC<UserPanelProps> = ({
         axios.post('/api/repime/user/remove', data)
         .then((response) => {
             toast.success(response.data.repime.msg_ret);
+            signOut();
             router.push('/');
         })
         .catch(() => {
