@@ -8,59 +8,64 @@ datasource db {
 }
 
 model User {
-  id                     String     @id @default(cuid())
-  name                   String
-  email                  String?    @unique @db.VarChar(50) 
-  emailVerified        DateTime?  @map("email_verified")
-  image                   String?
-  senha                  String?
-  contato                String?    @db.VarChar(15)
-  is_administrador       Boolean?
-  tb_residencia          Residencia[]
-  accounts               Account[]
-  sessions               Session[]
+  id               String       @id @default(cuid())
+  email            String?      @unique @db.VarChar(50)
+  emailVerified    DateTime?    @map("email_verified")
+  senha            String?
+  contato          String?      @db.VarChar(15)
+  is_administrador Boolean?
+  image            String?
+  name             String
+  accounts         Account[]
+  tb_residencia    Residencia[]
+  sessions         Session[]
+
   @@map("tb_usuario")
 }
 
 model Cidade {
-  id                     Int                      @id @default(autoincrement())
-  nome                   String                   @db.VarChar(50)
-  pais                   String                   @db.VarChar(50)
-  uf                     String                   @db.VarChar(2)
-  tb_residencia          Residencia[]
-  tb_universidade        Universidade[]
+  id              Int            @id @default(autoincrement())
+  nome            String         @db.VarChar(50)
+  pais            String         @db.VarChar(50)
+  uf              String         @db.VarChar(2)
+  tb_residencia   Residencia[]
+  tb_universidade Universidade[]
+
   @@map("tb_cidade")
 }
 
 model FotoVaga {
-  id      Int     @id @default(autoincrement())
+  id      Int    @id @default(autoincrement())
   id_vaga Int
   foto    String
-  tb_vaga Vaga @relation(fields: [id_vaga], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_vaga Vaga   @relation(fields: [id_vaga], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
   @@map("tb_foto_vaga")
 }
 
 model Kitnet {
-  id                     Int                    @id @default(autoincrement())
-  tempo_de_contato       String?                @db.VarChar(10)
-  id_residencia          Int
-  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id               Int        @id @default(autoincrement())
+  tempo_de_contato String?    @db.VarChar(10)
+  id_residencia    Int
+  tb_residencia    Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
   @@map("tb_kitnet")
 }
 
 model Republica {
-  id                     Int                    @id @default(autoincrement())
-  fundacao               String?                @db.VarChar(50)
-  tem_trote              Boolean
-  e_masculina            Boolean
-  id_residencia          Int
+  id            Int        @id @default(autoincrement())
+  fundacao      String?    @db.VarChar(50)
+  tem_trote     Boolean
+  e_masculina   Boolean
+  id_residencia Int
   tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
   @@map("tb_republica")
 }
 
 model Residencia {
-  id              Int            @id @default(autoincrement())
-  nome            String         @db.VarChar(50)
+  id              Int         @id @default(autoincrement())
+  nome            String      @db.VarChar(50)
   e_mobiliado     Boolean
   tem_garagem     Boolean
   tem_empregada   Boolean
@@ -68,71 +73,75 @@ model Residencia {
   oferece_almoco  Boolean
   oferece_janta   Boolean
   end_numero      Int
-  end_rua         String         @db.VarChar(75)
-  end_bairro      String         @db.VarChar(75)
-  end_complemento String         @db.VarChar(75)
-  end_cep         String         @db.VarChar(8)
+  end_rua         String      @db.VarChar(75)
+  end_bairro      String      @db.VarChar(75)
+  end_complemento String      @db.VarChar(75)
+  end_cep         String      @db.VarChar(8)
   id_cidade       Int
   id_user         String
   tb_kitnet       Kitnet[]
   tb_republica    Republica[]
   tb_cidade       Cidade      @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tb_usuario      User     @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_usuario      User        @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tb_vaga         Vaga[]
+
   @@map("tb_residencia")
 }
 
 model Universidade {
-  id        Int       @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   id_cidade Int
-  nome      String    @db.VarChar(50)
+  nome      String @db.VarChar(50)
   tb_cidade Cidade @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
   @@map("tb_universidade")
 }
 
 model Vaga {
-  id                     Int                    @id @default(autoincrement())
+  id                     Int        @id @default(autoincrement())
   mensalidade            Float
-  informacoes_adicionais String?                @db.VarChar(100)
+  informacoes_adicionais String?    @db.VarChar(100)
   id_residencia          Int
   tb_foto_vaga           FotoVaga[]
-  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_residencia          Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
   @@map("tb_vaga")
 }
 
-model Account  {
-  id                 String    @id @default(cuid())
-  userId             String    @map("user_id")
-  type               String?
-  provider           String
-  providerAccountId  String    @map("provider_account_id")
-  token_type         String?
-  refresh_token      String?   @db.Text
-  access_token       String?   @db.Text
-  expires_at         Int?
-  scope              String?
-  id_token           String?   @db.Text
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Account {
+  id                String   @id @default(cuid())
+  userId            String   @map("user_id")
+  type              String?
+  provider          String
+  providerAccountId String   @map("provider_account_id")
+  token_type        String?
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  scope             String?
+  id_token          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("tb_conta")
 }
 
 model Session {
-  id           String  @id @default(cuid())
+  id           String   @id @default(cuid())
   userId       String?  @map("user_id")
-  sessionToken String   @db.Text @map("session_token") @unique
-  accessToken  String?  @db.Text @map("access_token")
+  sessionToken String   @unique @map("session_token")
+  accessToken  String?  @map("access_token")
   expires      DateTime
-  user         User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@map("tb_sessoes")
 }
 
-model VerificationRequest  {
+model VerificationRequest {
   id         String   @id @default(cuid())
   identifier String
   token      String   @unique

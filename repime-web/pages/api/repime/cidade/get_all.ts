@@ -5,21 +5,13 @@ import prisma from "../../../../src/app/libs/prisma_db";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     try {
-        if (req.query.id_usuario == null)
-            throw Error("Inexistência do parametro usuario!")
-
+        const cidades = await prisma.cidade.findMany();
         return res.status(200).json({
             "repime": {
-                'cod_ret': 0,
+                'cod_ret': 1,
                 'msg_ret': "Sucesso",
                 'result': {
-                    "residencias": await prisma.residencia.findMany({
-                        where: {
-                            tb_usuario: {
-                                id: String(req.query.id_usuario)
-                            }
-                        }
-                    })
+                    "cidades": cidades
                 }
             }
         });

@@ -8,17 +8,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!req.query.id_cidade)
             throw Error("Inexistência do parametro id_cidade")
 
-        const kitnet = await prisma.tb_vaga.findMany({
+        const kitnet = await prisma.vaga.findMany({
             select: {
                 id: true,
                 id_residencia: true,
                 informacoes_adicionais: true,
                 mensalidade: true,
                 tb_foto_vaga: true,
-                tb_residencia_endereco: true
+                tb_residencia: true
             },
             where: {
-                tb_residencia_endereco: {
+                tb_residencia: {
                     id_cidade: Number(req.query.id_cidade),
                     tb_kitnet: {
                         some: {}
@@ -27,17 +27,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         });
 
-        const republica = await prisma.tb_vaga.findMany({
+        const republica = await prisma.vaga.findMany({
             select: {
                 id: true,
                 id_residencia: true,
                 informacoes_adicionais: true,
                 mensalidade: true,
                 tb_foto_vaga: true,
-                tb_residencia_endereco: true
+                tb_residencia: true
             },
             where: {
-                tb_residencia_endereco: {
+                tb_residencia: {
                     id_cidade: Number(req.query.id_cidade),
                     tb_republica: {
                         some: {}
