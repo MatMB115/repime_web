@@ -14,6 +14,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { User } from '@prisma/client';
+import InputCheckbox from "../inputs/InputCheckbox";
 
 enum STEPS {
     CATEGORY = 0,
@@ -116,7 +117,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
 
         setIsLoading(true);
 
-        axios.post('/api/listing', data)
+        axios.post('/api/repime/residencia/republica/register', data)
         .then(() => {
             toast.success('Residência cadastrada!');
             router.refresh();
@@ -215,7 +216,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         />
                         <Input 
                             id="endereco.end_numero"
-                            type="text"
+                            type="number"
                             label="Número"
                             disabled={isLoading}
                             register={register}
@@ -259,70 +260,78 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     errors={errors}
                 />
                 <div className="flex flex-col gap-2 text-xl">
-                    <Input 
-                        id="residencia.tem_garagem"
-                        type="checkbox"
-                        label="Tem garagem"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                    />
-                    <Input 
-                        id="residencia.tem_empregada"
-                        type="checkbox"
-                        label="Tem empregada"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                    />
-                    <Input 
-                        id="residencia.tem_animais"
-                        type="checkbox"
-                        label="Tem animais"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                    />
-                    <Input 
-                        id="residencia.e_mobiliado"
-                        type="checkbox"
-                        label="É mobiliado"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                    />
-                    <Input 
-                        id="residencia.oferece_almoco"
-                        type="checkbox"
-                        label="Oferece almoço"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                    />
-                    <Input 
-                        id="residencia.oferece_janta"
-                        type="checkbox"
-                        label="Oferece janta"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                    />
-                    <Input 
-                        id="republica.e_masculina"
-                        type="checkbox"
-                        label="República masculina"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                    />
-                    <Input 
-                        id="republica.tem_trote"
-                        type="checkbox"
-                        label="Tradição de trotes"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                    />
+                    <div className="flex flex-row gap-4 justify-center">
+                        <InputCheckbox 
+                            id="residencia.tem_garagem"
+                            type="checkbox"
+                            label="Tem garagem"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                        <InputCheckbox 
+                            id="residencia.tem_empregada"
+                            type="checkbox"
+                            label="Tem empregada"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                    </div>
+                    <div className="flex flex-row gap-4 justify-center">
+                        <InputCheckbox 
+                            id="residencia.tem_animais"
+                            type="checkbox"
+                            label="Tem animais"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                        <InputCheckbox 
+                            id="residencia.e_mobiliado"
+                            type="checkbox"
+                            label="É mobiliado"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                    </div>
+                    <div className="flex flex-row gap-4 justify-center">
+                        <InputCheckbox 
+                            id="residencia.oferece_almoco"
+                            type="checkbox"
+                            label="Oferece almoço"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                        <InputCheckbox 
+                            id="residencia.oferece_janta"
+                            type="checkbox"
+                            label="Oferece janta"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                    </div>
+                    <div className="flex flex-row gap-4 justify-center">
+                        <InputCheckbox 
+                            id="republica.e_masculina"
+                            type="checkbox"
+                            label="República masculina"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                        <InputCheckbox 
+                            id="republica.tem_trote"
+                            type="checkbox"
+                            label="Tradição de trotes"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                    </div>
                 </div>
             </div>
         )

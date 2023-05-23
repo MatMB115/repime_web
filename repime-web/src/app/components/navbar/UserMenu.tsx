@@ -2,7 +2,7 @@
 
 import { AiOutlineMenu } from 'react-icons/ai';
 import Avatar from '../Avatar';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import MenuItem from './MenuItem';
 
 import useRegisterModal from '@/app/hooks/useRegisterModal';
@@ -36,9 +36,16 @@ const UserMenu: React.FC<UserMenuProps> = ({
             toast.error("Faça login primeiro!");
             return loginModal.onOpen();
         }
-        
+        if(!isOpen){
+            setIsOpen(false);
+        }
         return router.push(`/residences/${currentUser?.id}`);
     }, [currentUser, loginModal]);
+
+    const loggedOut = useCallback(() => {
+        signOut();
+        return router.push(`/`);
+    }, []);
 
     return ( 
         <div className="relative">
@@ -104,7 +111,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         right-0
                         top-12
                         text-sm
-                        "
+                    "
                 >
                     <div className="flex flex-col cursor-pointer rounded-xl border-[1px]">
                         {currentUser ? (
@@ -125,13 +132,13 @@ const UserMenu: React.FC<UserMenuProps> = ({
                                     />
 
                                     <MenuItem
-                                        onClick={() => signOut()}
+                                        onClick={loggedOut}
                                         label="Log out"
                                     />
                                     </>
                                 ) : (
                                     <MenuItem
-                                        onClick={() => signOut()}
+                                        onClick={loggedOut}
                                         label="Log out"
                                     />
                                 )}
