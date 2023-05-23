@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 end_cep: req.body.endereco.end_cep,
                 tb_cidade: {
                     connect: {
-                        id: req.body.cidade.id_cidade
+                        id: Number(req.body.cidade.value)
                     }
                 },
                 tb_usuario: {
@@ -51,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
     } catch (error) {
-        return res.status(200).json({
+        return res.status(500).json({
             "repime": {
                 "cod_ret": 1,
                 "msg_ret": (error as Error).message
