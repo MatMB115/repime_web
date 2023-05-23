@@ -28,9 +28,11 @@ export default async function RootLayout({
 					<ToasterProvider />
 					<LoginModal />
 					<RegisterModal />
-					<Navbar msg={'Cadastre sua residência'} currentUser={currentUser} />
+					<Navbar currentUser={currentUser} />
 				</ClienteOnly>
-				{children}
+				<div className="pb-20 pt-28">
+          			{children}
+        		</div>
 			</body>
 		</html>
 	)

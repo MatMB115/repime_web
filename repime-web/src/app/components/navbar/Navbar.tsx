@@ -9,12 +9,10 @@ import Categories from "./Categories";
 
 interface NavbarProps {
     currentUser?: User | null;
-    msg: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
-    currentUser,
-    msg
+    currentUser
 }) => {
     return (
         <div className="fixed w-full bg-white z-10 shadow-sm">
@@ -35,7 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     >
                         <Logo />
                         <Search />
-                        <UserMenu msg={msg} currentUser={currentUser} />
+                        <UserMenu currentUser={currentUser} />
                     </div>
                 </Container>
             </div>
