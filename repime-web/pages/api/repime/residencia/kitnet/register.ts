@@ -5,7 +5,7 @@ import prisma from "../../../../../src/app/libs/prisma_db";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     try {
-        const residencia = await prisma.tb_residencia_endereco.create({
+        const residencia = await prisma.residencia.create({
             data: {
                 nome: req.body.residencia.nome,
                 e_mobiliado: req.body.residencia.e_mobiliado,
@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 tem_animais: req.body.residencia.tem_animais,
                 oferece_almoco: req.body.residencia.oferece_almoco,
                 oferece_janta: req.body.residencia.oferece_janta,
-                end_numero: req.body.endereco.end_numero,
+                end_numero: Number(req.body.endereco.end_numero),
                 end_rua: req.body.endereco.end_rua,
                 end_bairro: req.body.endereco.end_bairro,
                 end_complemento: req.body.endereco.end_complemento,
@@ -32,10 +32,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         });
 
-        await prisma.tb_kitnet.create({
+        await prisma.kitnet.create({
             data: {
                 tempo_de_contato: req.body.kitnet.tempo_de_contato,
-                tb_residencia_endereco: {
+                tb_residencia: {
                     connect: {
                         id: residencia.id
                     }
