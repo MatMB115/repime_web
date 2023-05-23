@@ -51,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
     } catch (error) {
-        return res.status(200).json({
+        return res.status(500).json({
             "repime": {
                 "cod_ret": 1,
                 "msg_ret": (error as Error).message
