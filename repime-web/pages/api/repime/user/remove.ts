@@ -4,12 +4,12 @@ import prisma from "../../../../src/app/libs/prisma_db";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        if (req.query.id_usuario == null)
+        if (req.body.id_usuario == null)
             throw Error("Inexistência do parametro usuario!")
 
         await prisma.user.delete({
             where: {
-                id: String(req.query.id_usuario)
+                id: String(req.body.id_usuario)
             }
         });
 

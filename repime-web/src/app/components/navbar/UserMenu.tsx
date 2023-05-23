@@ -2,7 +2,7 @@
 
 import { AiOutlineMenu } from 'react-icons/ai';
 import Avatar from '../Avatar';
-import { useCallback, useEffect, useState } from 'react';
+import { use, useCallback, useEffect, useState } from 'react';
 import MenuItem from './MenuItem';
 
 import useRegisterModal from '@/app/hooks/useRegisterModal';
@@ -14,18 +14,18 @@ import { toast } from 'react-hot-toast';
 
 interface UserMenuProps {
     currentUser?: User | null;
-    msg: string; 
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
-    currentUser,
-    msg
+    currentUser
 }) => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
 
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
+
+    const msgResidencia = 'Cadastre sua residência';
 
     const toggleOpen = useCallback(() =>{
         setIsOpen((value) => !value);
@@ -42,6 +42,17 @@ const UserMenu: React.FC<UserMenuProps> = ({
         return router.push(`/residences/${currentUser?.id}`);
     }, [currentUser, loginModal]);
 
+    const onUserPage = useCallback(() =>{
+        if (!currentUser){
+            toast.error("Faça login primeiro!");
+            return loginModal.onOpen();
+        }
+        if(!isOpen){
+            setIsOpen(false);
+        }
+        return router.push(`/user/${currentUser?.id}`);
+    }, [currentUser, loginModal]);
+    
     const loggedOut = useCallback(() => {
         signOut();
         return router.push(`/`);
@@ -72,7 +83,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         cursor-pointer
                     "
                 >
-                    {msg}
+                    {msgResidencia}
                 </div>
                 <div
                     onClick={toggleOpen}
@@ -121,7 +132,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                                     label="Minhas vagas"
                                 />
                                 <MenuItem
-                                    onClick={() => {}}
+                                    onClick={() => onUserPage()}
                                     label="Meu perfil"
                                 />
                                 {currentUser.is_administrador ? (

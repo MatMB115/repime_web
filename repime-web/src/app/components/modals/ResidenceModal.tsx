@@ -15,6 +15,8 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { User } from '@prisma/client';
 import InputCheckbox from "../inputs/InputCheckbox";
+import ClienteOnly from "../ClientOnly";
+import EmptyState from "../EmptyState";
 
 enum STEPS {
     CATEGORY = 0,
@@ -33,6 +35,14 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
+
+    if (!currentUser) {
+        return (
+            <ClienteOnly>
+                <EmptyState />
+            </ClienteOnly>
+        )
+    }
 
     const {
         register,
@@ -63,7 +73,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
             endereco: {
                 end_numero: '',
                 end_rua: '',
-                end_bairo: '',
+                end_bairro: '',
                 end_complemento: '',
                 end_cep: '',
             },
@@ -118,8 +128,8 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         setIsLoading(true);
 
         axios.post('/api/repime/residencia/republica/register', data)
-        .then(() => {
-            toast.success('Residência cadastrada!');
+        .then((response) => {
+            toast.success('Sucesso! ' + response.data.repime.msg_ret);
             router.refresh();
             reset();
             setStep(STEPS.CATEGORY);
@@ -187,7 +197,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         required
                     />
                     <Input 
-                        id="endereco.end_bairo"
+                        id="endereco.end_bairro"
                         type="text"
                         label="Bairro"
                         disabled={isLoading}
