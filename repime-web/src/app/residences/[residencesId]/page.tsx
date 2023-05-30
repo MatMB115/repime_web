@@ -6,7 +6,7 @@ import EmptyState from "@/app/components/EmptyState";
 
 const residencesPage = async () => {
     const currentUser = await getCurrentUser();
-    const currentResidence = await getResidenceUser()
+    
     if (!currentUser) {
         return (
             <ClienteOnly>

@@ -10,7 +10,7 @@ export default async function ResidencesLayout({
     children: React.ReactNode;
   }) {
     const currentUser = await getCurrentUser();
-    const currentResidence = await getResidenceUser(); 
+    
     return (
         <>  
             <ResidenceModal currentUser={currentUser}/>
