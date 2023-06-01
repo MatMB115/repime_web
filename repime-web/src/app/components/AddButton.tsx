@@ -17,7 +17,7 @@ const AddButton: React.FC<AddButtonProps> = ({
         absolute
         py-2 
         px-4 
-        bottom-15 
+        bottom-10 
         right-10
         bg-repimehardblue
         rounded-full

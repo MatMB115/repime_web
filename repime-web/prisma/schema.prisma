@@ -52,7 +52,7 @@ model Kitnet {
   energia          Boolean
   agua             Boolean
   id_residencia    Int
-  tb_residencia    Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_residencia    Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("tb_kitnet")
 }
@@ -63,7 +63,7 @@ model Republica {
   e_masculina   Boolean
   id_residencia Int
   fundacao      String     @db.VarChar(10)
-  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("tb_republica")
 }

@@ -13,7 +13,6 @@ export default async function ResidencesLayout({
     const currentUser = await getCurrentUser();
     const currentResidence = await getResidenceUser(currentUser?.id);
     
-    console.log(currentResidence)
     //gambiarra pai, sapoha de array de residencia ta com nada n
     return (
         <>  
