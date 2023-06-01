@@ -45,21 +45,12 @@ model FotoVaga {
 
 model Kitnet {
   id               Int        @id @default(autoincrement())
-<<<<<<< Updated upstream
-  tempo_de_contato Int  
-  fogao            Boolean 
-  tv               Boolean 
-  internet         Boolean 
-  energia          Boolean 
-  agua             Boolean 
-=======
   tempo_de_contato Int
   fogao            Boolean
   tv               Boolean
   internet         Boolean
   energia          Boolean
   agua             Boolean
->>>>>>> Stashed changes
   id_residencia    Int
   tb_residencia    Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -68,10 +59,6 @@ model Kitnet {
 
 model Republica {
   id            Int        @id @default(autoincrement())
-<<<<<<< Updated upstream
-  fundacao      String     @db.VarChar(10)
-=======
->>>>>>> Stashed changes
   tem_trote     Boolean
   e_masculina   Boolean
   id_residencia Int
