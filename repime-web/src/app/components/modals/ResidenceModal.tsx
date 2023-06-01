@@ -109,6 +109,10 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         setStep((value) => value -1);
     };
 
+    const onBackKitnet = () => {
+        setStep((value) => value - 2);
+    };
+
     const onNext = () => {
         setStep((value) => value + 1);
     };
@@ -132,6 +136,18 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         return "Voltar";
     }, [step]);
 
+    const handleSecondaryAction = useMemo(() => {
+        if (step === STEPS.CATEGORY){
+            return undefined;
+        }
+        else if (step === STEPS.INFOKITNET) {
+            return onBackKitnet;
+        }
+        else {
+            return onBack;
+        }
+    }, [step]);
+
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         if (step !== STEPS.INFOREPUBLICA && step !== STEPS.INFOKITNET) {
             if(step === STEPS.LOCATION && category === 'Kitnets') {
@@ -141,8 +157,6 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         }
         
         setIsLoading(true);
-
-        console.log(category);
 
         const endpoint = category === 'República'? '/api/repime/residencia/republica/register' : '/api/repime/residencia/kitnet/register';
 
@@ -474,7 +488,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
             onSubmit={handleSubmit(onSubmit)}
             actionLabel={actionLabel}
             secondaryActionLabel={secondaryActionLabel}
-            secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
+            secondaryAction={handleSecondaryAction}
             title="Cadastre sua residência"
             body={bodyContent}
         />
