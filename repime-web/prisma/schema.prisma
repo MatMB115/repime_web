@@ -45,7 +45,7 @@ model FotoVaga {
 
 model Kitnet {
   id               Int        @id @default(autoincrement())
-  tempo_de_contato Int        @db.VarChar(10)
+  tempo_de_contato String?    @db.VarChar(10)
   id_residencia    Int
   tb_residencia    Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
