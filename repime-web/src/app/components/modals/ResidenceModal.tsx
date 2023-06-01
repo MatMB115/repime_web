@@ -21,7 +21,8 @@ import EmptyState from "../EmptyState";
 enum STEPS {
     CATEGORY = 0,
     LOCATION = 1,
-    INFO = 2,
+    INFOREPUBLICA = 2,
+    INFOKITNET = 3
 }
 
 interface ResidenceModalProps {
@@ -81,6 +82,9 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                 fundacao: '',
                 tem_trote: false,
                 e_masculina: false
+            },
+            kitnet: {
+                tempo_contrato: 0
             }
         }
     });
@@ -105,7 +109,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     };
 
     const actionLabel = useMemo(() => {
-        if (step === STEPS.INFO){
+        if (step === STEPS.INFOREPUBLICA || step === STEPS.INFOKITNET) {
             return "Criar";
         }
 
@@ -121,11 +125,13 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     }, [step]);
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        if (step !== STEPS.INFO){
+        if (step !== STEPS.INFOREPUBLICA || STEPS.INFOKITNET) {
             return onNext();
         }
-
         setIsLoading(true);
+        
+        const endpoint = category === 'República'? 
+
 
         axios.post('/api/repime/residencia/republica/register', data)
         .then((response) => {
