@@ -11,13 +11,12 @@ export default async function getResidenceUser(id_usuario: string | undefined) {
         id_usuario: id_usuario
       }
     });
-
-    if(response.data.repime.result) {
+    if(response.data.repime.result.residencias.length == 0){
       return null;
     }
-    return response.data
-    
+    return response.data.repime.result.residencias[0]; //sapoha é um array caralho
   } catch (err) {
     console.log(err);
+    return null
   }
 }
