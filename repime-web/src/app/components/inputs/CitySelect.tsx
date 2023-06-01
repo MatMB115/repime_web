@@ -31,6 +31,7 @@ const CitySelect: React.FC<CitySelectProps> = ({
                 options={cities}
                 value={value}
                 onChange={(value) => onChange(value as any)}
+                required
             />
         </div>
     );

@@ -34,7 +34,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         await prisma.kitnet.create({
             data: {
-                tempo_de_contato: req.body.kitnet.tempo_de_contato,
+                tempo_de_contato: Number(req.body.kitnet.tempo_contrato),
+                fogao: req.body.kitnet.fogao,
+                tv: req.body.kitnet.agua,
+                internet: req.body.kitnet.agua,
+                energia: req.body.kitnet.agua,
+                agua: req.body.kitnet.agua,
                 tb_residencia: {
                     connect: {
                         id: residencia.id

@@ -45,7 +45,12 @@ model FotoVaga {
 
 model Kitnet {
   id               Int        @id @default(autoincrement())
-  tempo_de_contato Int        @db.VarChar(10)
+  tempo_de_contato Int  
+  fogao            Boolean 
+  tv               Boolean 
+  internet         Boolean 
+  energia          Boolean 
+  agua             Boolean 
   id_residencia    Int
   tb_residencia    Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -54,7 +59,7 @@ model Kitnet {
 
 model Republica {
   id            Int        @id @default(autoincrement())
-  fundacao      String?    @db.VarChar(50)
+  fundacao      String     @db.VarChar(10)
   tem_trote     Boolean
   e_masculina   Boolean
   id_residencia Int

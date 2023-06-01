@@ -11,8 +11,12 @@ export default async function getResidenceUser(id_usuario: string | undefined) {
         id_usuario: id_usuario
       }
     });
-    console.log(response.data.repime.result);
-    return response.data;
+
+    if(response.data.repime.result) {
+      return null;
+    }
+    return response.data
+    
   } catch (err) {
     console.log(err);
   }
