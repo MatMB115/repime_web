@@ -1,5 +1,3 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
-
 export default async function ResidenceLayout({
     children,
   }: {
