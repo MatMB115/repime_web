@@ -7,31 +7,31 @@ import ResidencePanel from "@/app/components/residence/ResidencePanel";
 import EmptyState from "@/app/components/EmptyState";
 
 export default async function ResidencesLayout({
-    children,
-  }: {
-    children: React.ReactNode;
-  }) {
-    const currentUser = await getCurrentUser();
-    const currentResidence = await getResidenceUser(currentUser?.id);
-        
-    if (!currentUser && !currentResidence){
-      return (
-          <ClienteOnly>
-              <EmptyState 
-              title="Não foram encontrados resultados"
-              subtitle="Faça o login primeiro"/>
-          </ClienteOnly>
-      );
-  }
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const currentUser = await getCurrentUser();
+  const currentResidence = await getResidenceUser(currentUser?.id);
 
+  if (!currentUser && !currentResidence) {
     return (
-        <>  
-          <ClienteOnly>
-            <ResidenceModal currentUser={currentUser}/>
-            <ResidencePanel residences={currentResidence}/>
-            <AddButton label={"+"}/>
-            {children}
-          </ClienteOnly>           
-        </>
+      <ClienteOnly>
+        <EmptyState
+          title="Não foram encontrados resultados"
+          subtitle="Faça o login primeiro" />
+      </ClienteOnly>
     );
   }
+
+  return (
+    <>
+      <ClienteOnly>
+        <ResidenceModal currentUser={currentUser} />
+        <ResidencePanel residences={currentResidence} />
+        <AddButton label={"+"} />
+        {children}
+      </ClienteOnly>
+    </>
+  );
+}

@@ -51,8 +51,8 @@ model Kitnet {
   internet         Boolean
   energia          Boolean
   agua             Boolean
-  id_residencia    Int
-  tb_residencia    Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_residencia    Int        @unique
+  tb_residencia    Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade)
 
   @@map("tb_kitnet")
 }
@@ -61,16 +61,16 @@ model Republica {
   id            Int        @id @default(autoincrement())
   tem_trote     Boolean
   e_masculina   Boolean
-  id_residencia Int
+  id_residencia Int        @unique
   fundacao      String     @db.VarChar(10)
-  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade)
 
   @@map("tb_republica")
 }
 
 model Residencia {
-  id              Int         @id @default(autoincrement())
-  nome            String      @db.VarChar(50)
+  id              Int        @id @default(autoincrement())
+  nome            String     @db.VarChar(50)
   e_mobiliado     Boolean
   tem_garagem     Boolean
   tem_empregada   Boolean
@@ -78,16 +78,16 @@ model Residencia {
   oferece_almoco  Boolean
   oferece_janta   Boolean
   end_numero      Int
-  end_rua         String      @db.VarChar(75)
-  end_bairro      String      @db.VarChar(75)
-  end_complemento String      @db.VarChar(75)
-  end_cep         String      @db.VarChar(8)
+  end_rua         String     @db.VarChar(75)
+  end_bairro      String     @db.VarChar(75)
+  end_complemento String     @db.VarChar(75)
+  end_cep         String     @db.VarChar(8)
   id_cidade       Int
   id_user         String
-  tb_kitnet       Kitnet[]
-  tb_republica    Republica[]
-  tb_cidade       Cidade      @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tb_usuario      User        @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_kitnet       Kitnet?
+  tb_republica    Republica?
+  tb_cidade       Cidade     @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_usuario      User       @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tb_vaga         Vaga[]
 
   @@map("tb_residencia")
@@ -108,7 +108,7 @@ model Vaga {
   informacoes_adicionais String?    @db.VarChar(100)
   id_residencia          Int
   tb_foto_vaga           FotoVaga[]
-  tb_residencia          Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_residencia          Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("tb_vaga")
 }
