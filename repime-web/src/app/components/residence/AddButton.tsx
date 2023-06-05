@@ -1,6 +1,6 @@
 'use client';
 
-import useResidenceModal from "../hooks/useResidenceModal";
+import useResidenceModal from "../../hooks/useResidenceModal";
 
 interface AddButtonProps {
     label: string;

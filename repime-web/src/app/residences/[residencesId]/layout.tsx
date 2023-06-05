@@ -1,9 +1,10 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import AddButton from "@/app/components/AddButton";
+import AddButton from "@/app/components/residence/AddButton";
 import ResidenceModal from "@/app/components/modals/ResidenceModal";
-import ResidencesBox from "./ResidencesBox";
 import getResidenceUser from "@/app/actions/getResidenceUser";
 import ClienteOnly from "@/app/components/ClientOnly";
+import ResidencePanel from "@/app/components/residence/ResidencePanel";
+import EmptyState from "@/app/components/EmptyState";
 
 export default async function ResidencesLayout({
     children,
@@ -12,13 +13,22 @@ export default async function ResidencesLayout({
   }) {
     const currentUser = await getCurrentUser();
     const currentResidence = await getResidenceUser(currentUser?.id);
-    
-    //gambiarra pai, sapoha de array de residencia ta com nada n
+        
+    if (!currentUser && !currentResidence){
+      return (
+          <ClienteOnly>
+              <EmptyState 
+              title="Não foram encontrados resultados"
+              subtitle="Faça o login primeiro"/>
+          </ClienteOnly>
+      );
+  }
+
     return (
         <>  
           <ClienteOnly>
             <ResidenceModal currentUser={currentUser}/>
-            <ResidencesBox residence={currentResidence}/>
+            <ResidencePanel residences={currentResidence}/>
             <AddButton label={"+"}/>
             {children}
           </ClienteOnly>           
