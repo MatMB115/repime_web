@@ -62,15 +62,15 @@ const UserPanel: React.FC<UserPanelProps> = ({
                         items-center
                     "
                 >
-                    <div className="p-6 border-[2px] border-repimeblue rounded-lg m-4">
+                    <div className="p-6 border-[2px] border-zinc-400 rounded-lg m-4">
                         <div>
                             Usuário da sessão: {currentUser?.name}
                         </div>
-                        <hr className="border-repimeblue"/>
+                        <hr className="border-zinc-400"/>
                         <div>
                             Email: {currentUser?.email}
                         </div>
-                        <hr className="border-repimeblue"/>
+                        <hr className="border-zinc-400"/>
                         <div>
                             Contato: {currentUser?.contato}
                         </div>

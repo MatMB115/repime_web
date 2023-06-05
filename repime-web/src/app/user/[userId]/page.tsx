@@ -9,9 +9,11 @@ const userPage = async () => {
     if (!currentUser) {
         return (
             <ClienteOnly>
-                <EmptyState />
+                <EmptyState 
+                title="Não foram encontrados resultados"
+                subtitle="Faça o login primeiro"/>
             </ClienteOnly>
-        )
+        );
     }
     
     return ( 

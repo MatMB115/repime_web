@@ -15,13 +15,12 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { User } from '@prisma/client';
 import InputCheckbox from "../inputs/InputCheckbox";
-import ClienteOnly from "../ClientOnly";
-import EmptyState from "../EmptyState";
 
 enum STEPS {
     CATEGORY = 0,
     LOCATION = 1,
-    INFO = 2,
+    INFOREPUBLICA = 2,
+    INFOKITNET = 3
 }
 
 interface ResidenceModalProps {
@@ -35,14 +34,6 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
-
-    if (!currentUser) {
-        return (
-            <ClienteOnly>
-                <EmptyState />
-            </ClienteOnly>
-        )
-    }
 
     const {
         register,
@@ -81,6 +72,14 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                 fundacao: '',
                 tem_trote: false,
                 e_masculina: false
+            },
+            kitnet: {
+                tempo_contrato: '',
+                fogao: false,
+                tv: false,
+                internet: false,
+                energia: false,
+                agua: false
             }
         }
     });
@@ -100,12 +99,19 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         setStep((value) => value -1);
     };
 
+    const onBackKitnet = () => {
+        setStep((value) => value - 2);
+    };
+
     const onNext = () => {
         setStep((value) => value + 1);
     };
 
+    const onNextKitnet = () => {
+        setStep((value) => value + 2);
+    }
     const actionLabel = useMemo(() => {
-        if (step === STEPS.INFO){
+        if (step === STEPS.INFOREPUBLICA){
             return "Criar";
         }
 
@@ -120,14 +126,31 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         return "Voltar";
     }, [step]);
 
+    const handleSecondaryAction = useMemo(() => {
+        if (step === STEPS.CATEGORY){
+            return undefined;
+        }
+        else if (step === STEPS.INFOKITNET) {
+            return onBackKitnet;
+        }
+        else {
+            return onBack;
+        }
+    }, [step]);
+
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        if (step !== STEPS.INFO){
+        if (step !== STEPS.INFOREPUBLICA && step !== STEPS.INFOKITNET) {
+            if(step === STEPS.LOCATION && category === 'Kitnets') {
+                return onNextKitnet();
+            }
             return onNext();
         }
-
+        
         setIsLoading(true);
 
-        axios.post('/api/repime/residencia/republica/register', data)
+        const endpoint = category === 'República'? '/api/repime/residencia/republica/register' : '/api/repime/residencia/kitnet/register';
+
+        axios.post(endpoint, data)
         .then((response) => {
             toast.success('Sucesso! ' + response.data.repime.msg_ret);
             router.refresh();
@@ -231,7 +254,6 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             disabled={isLoading}
                             register={register}
                             errors={errors}
-                            required
                         />
                     </div>
                 </div>
@@ -245,7 +267,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         )
     }
 
-    if (step === STEPS.INFO) {
+    if (step === STEPS.INFOREPUBLICA) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading 
@@ -347,6 +369,108 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         )
     }
 
+    if (step === STEPS.INFOKITNET) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading 
+                    title="Quais as características das kitnets?"
+                    subtitle="Nos diga mais sobre sua residência"
+                />
+                <Input 
+                    id="residencia.nome"
+                    type="text"
+                    label="Nome"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+                <Input 
+                    id="kitnet.tempo_contrato"
+                    type="number"
+                    label="Tempo de contrato (em meses)"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                />
+                <div className="flex flex-col gap-2 text-xl">
+                    <div className="flex flex-row gap-4 justify-center">
+                        <InputCheckbox 
+                            id="residencia.tem_garagem"
+                            type="checkbox"
+                            label="Tem garagem"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                        <InputCheckbox 
+                            id="residencia.tem_animais"
+                            type="checkbox"
+                            label="Permite animais"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                    </div>
+                    <div className="flex flex-row gap-4 justify-center">
+                        <InputCheckbox 
+                            id="residencia.e_mobiliado"
+                            type="checkbox"
+                            label="É mobiliado"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                        <InputCheckbox 
+                            id="kitnet.fogao"
+                            type="checkbox"
+                            label="Possui fogão a gas"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                    </div>
+                    <div className="flex flex-row gap-4 justify-center">
+                        <InputCheckbox 
+                            id="kitnet.tv"
+                            type="checkbox"
+                            label="Possui tv a cabo"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                        <InputCheckbox 
+                            id="kitnet.internet"
+                            type="checkbox"
+                            label="Internet inclusa no valor"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                    </div>
+                    <div className="flex flex-row gap-4 justify-center">
+                        <InputCheckbox 
+                            id="kitnet.energia"
+                            type="checkbox"
+                            label="Energia inclusa no valor"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                        <InputCheckbox 
+                            id="kitnet.agua"
+                            type="checkbox"
+                            label="Água inclusa no valor"
+                            disabled={isLoading}
+                            register={register}
+                            errors={errors}
+                        />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return ( 
         <Modal 
             isOpen={residenceModal.isOpen}
@@ -354,7 +478,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
             onSubmit={handleSubmit(onSubmit)}
             actionLabel={actionLabel}
             secondaryActionLabel={secondaryActionLabel}
-            secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
+            secondaryAction={handleSecondaryAction}
             title="Cadastre sua residência"
             body={bodyContent}
         />
