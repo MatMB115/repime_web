@@ -14,10 +14,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 'msg_ret': "Sucesso",
                 'result': {
                     "residencias": await prisma.residencia.findMany({
+                        include: {
+                            tb_kitnet: true,
+                            tb_republica: true,
+                            tb_vaga: true,
+                        },
                         where: {
-                            tb_usuario: {
-                                id: String(req.query.id_usuario)
-                            }
+                            id_user: String(req.query.id_usuario),
                         }
                     })
                 }
