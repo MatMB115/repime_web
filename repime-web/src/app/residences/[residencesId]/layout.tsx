@@ -5,33 +5,38 @@ import getResidenceUser from "@/app/actions/getResidenceUser";
 import ClienteOnly from "@/app/components/ClientOnly";
 import ResidencePanel from "@/app/components/residence/ResidencePanel";
 import EmptyState from "@/app/components/EmptyState";
+import PrivateRoute from "@/app/components/PrivateRoute";
 
 export default async function ResidencesLayout({
-    children,
-  }: {
-    children: React.ReactNode;
-  }) {
-    const currentUser = await getCurrentUser();
-    const currentResidence = await getResidenceUser(currentUser?.id);
-        
-    if (!currentUser && !currentResidence){
-      return (
-          <ClienteOnly>
-              <EmptyState 
-              title="Não foram encontrados resultados"
-              subtitle="Faça o login primeiro"/>
-          </ClienteOnly>
-      );
-  }
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const currentUser = await getCurrentUser();
+  const currentResidences = await getResidenceUser(currentUser?.id);
+  const path = '/residences/';
 
+  if (!currentUser && !currentResidences) {
     return (
-        <>  
-          <ClienteOnly>
-            <ResidenceModal currentUser={currentUser}/>
-            <ResidencePanel residences={currentResidence}/>
-            <AddButton label={"+"}/>
-            {children}
-          </ClienteOnly>           
-        </>
+      <ClienteOnly>
+        <EmptyState
+          title="Não foram encontrados resultados"
+          subtitle="Faça o login primeiro" />
+      </ClienteOnly>
     );
   }
+
+  return (
+    <>
+      <PrivateRoute user={currentUser!} route={path} >
+        <ClienteOnly>
+          <ResidenceModal currentUser={currentUser} />
+          <ResidencePanel residences={currentResidences} />
+          <AddButton label={"+"} />
+          {children}
+        </ClienteOnly>
+      </PrivateRoute>
+
+    </>
+  );
+}

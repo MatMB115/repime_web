@@ -23,6 +23,7 @@ const ResidencePanel: React.FC<ResidencePanelProps> = ({
             <div>
                 {residences.map((item)=>(
                     <ResidencesBox
+                    key={item.id}
                     residence={item}
                     />
                 ))}

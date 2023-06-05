@@ -12,7 +12,7 @@ import CitySelect from "../inputs/CitySelect";
 import Input from "../inputs/Input";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { User } from '@prisma/client';
 import InputCheckbox from "../inputs/InputCheckbox";
 
@@ -30,6 +30,7 @@ interface ResidenceModalProps {
 const ResidenceModal: React.FC<ResidenceModalProps> = ({
     currentUser
 }) => {
+
     const residenceModal = useResidenceModal();
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);

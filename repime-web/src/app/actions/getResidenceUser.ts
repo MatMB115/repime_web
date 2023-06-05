@@ -6,6 +6,9 @@ export interface ResidenceParam {
 
 export default async function getResidenceUser(id_usuario: string | undefined) {
   try {
+    if(!id_usuario){
+      return null
+    }
     const response = await axios.get('http://localhost:3000/api/repime/residencia/get_per_user', {
       params: {
         id_usuario: id_usuario

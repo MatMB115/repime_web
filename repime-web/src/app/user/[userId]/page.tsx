@@ -1,11 +1,12 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClienteOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
-import UserPanel from "./UserPanel";
+import PrivateRoute from "@/app/components/PrivateRoute";
+import UserPanel from "@/app/components/UserPanel";
 
 const userPage = async () => {
     const currentUser = await getCurrentUser();
-    
+    const path = '/user/'
     if (!currentUser) {
         return (
             <ClienteOnly>
@@ -17,11 +18,14 @@ const userPage = async () => {
     }
     
     return ( 
-        <ClienteOnly>
+        <PrivateRoute user={currentUser} route={path}>
+            <ClienteOnly>
             <UserPanel 
                 currentUser={currentUser}
             />          
-        </ClienteOnly>
+            </ClienteOnly>
+        </PrivateRoute>
+        
     );
 }
  
