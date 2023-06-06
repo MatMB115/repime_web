@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export interface ResidenceParam {
-  id_usuario?: string;
+    id_usuario?: string;
 }
 
 export default async function getResidenceUser(id_usuario: string | undefined) {
@@ -19,8 +19,8 @@ export default async function getResidenceUser(id_usuario: string | undefined) {
       return null;
     }
     return response.data.repime.result.residencias;
-  } catch (err) {
-    console.log(err);
-    return null
-  }
+    } catch (err) {
+        console.log(err);
+        return null
+    }
 }

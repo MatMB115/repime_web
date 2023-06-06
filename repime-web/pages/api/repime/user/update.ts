@@ -25,13 +25,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         })
 
-
         return res.status(200).json({
             "repime": {
                 'cod_ret': 0,
                 'msg_ret': "Usuario(a) " + user.name + " foi atualizado(a) com sucesso!"
             }
         });
+
     } catch (e) {
         return res.status(500).json({
             "repime": {

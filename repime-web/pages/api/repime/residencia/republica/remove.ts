@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (req.body.id == null)
             throw Error("Inexistência do parametro id!")
 
-        await prisma.residencia.delete({
+        await prisma.republica.delete({
             where: {
                 id: req.body.id
             }
@@ -28,3 +28,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
     }
 }
+
