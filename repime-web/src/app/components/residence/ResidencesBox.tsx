@@ -31,7 +31,7 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         
-        axios.post('/api/repime/residencia/republica/remove', data)
+        axios.post('/api/repime/residencia/remove', data)
         .then((response) => {
             toast.success(response.data.repime.msg_ret);
             router.refresh();
