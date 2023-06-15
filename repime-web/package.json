@@ -22,6 +22,7 @@
     "eslint-config-next": "13.4.2",
     "next": "^13.4.2",
     "next-auth": "^4.22.1",
+    "next-cloudinary": "^4.12.0",
     "next.js": "^1.0.3",
     "prisma": "^4.14.1",
     "query-string": "^8.1.0",

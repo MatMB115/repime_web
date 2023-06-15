@@ -6,6 +6,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import usePlaceModal from "../../hooks/usePlaceModal";
+import PlaceModal from "../modals/PlaceModal";
 
 interface ResidencesBoxProps {
     key: number;
@@ -17,6 +19,8 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
 }) => {
     
     const router = useRouter();
+    const placeModal = usePlaceModal();
+    placeModal.id = residence.id;
 
     const { 
         handleSubmit,
@@ -63,7 +67,7 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
                             </div>
 
                             <div className="bg-repimehardblue rounded-3xl p-1">
-                                <button onClick={() => {}}>Cadastrar</button>
+                                <button onClick={placeModal.onOpen}>Inserir vaga</button>
                             </div>
                         </div>
                     </div>
