@@ -53,13 +53,17 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
                     </div>
                     
                     <div className="float-right">
-                        <div className="flex flex-col gap-4 items-center">
+                        <div className="flex flex-row gap-4 py-4 items-center">
                             <div className="bg-repimeblue rounded-3xl p-1">
-                                <button>Update</button>
+                                <button onClick={() => {}}>Atualizar</button>
                             </div>
                             
                             <div className="bg-repimepink rounded-3xl p-1">
-                                <button onClick={handleSubmit(onSubmit)}>Delete</button>
+                                <button onClick={handleSubmit(onSubmit)}>Deletar</button>
+                            </div>
+
+                            <div className="bg-repimehardblue rounded-3xl p-1">
+                                <button onClick={() => {}}>Cadastrar</button>
                             </div>
                         </div>
                     </div>
