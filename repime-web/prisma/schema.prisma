@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
 }
 
 datasource db {
@@ -156,4 +157,28 @@ model VerificationRequest {
 
   @@unique([identifier, token])
   @@map("tb_verifica_requisicoes")
+}
+
+view residencia_vagas_fotos_cidade {
+  id_vaga                Int      @unique
+  mensalidade            Float?
+  informacoes_adicionais String?  @db.VarChar(100)
+  id_foto_vaga           Int?
+  foto                   String?
+  id_residencia          Int?
+  residencia_nome        String?  @db.VarChar(50)
+  e_mobiliado            Boolean?
+  tem_garagem            Boolean?
+  tem_animais            Boolean?
+  oferece_almoco         Boolean?
+  oferece_janta          Boolean?
+  end_numero             Int?
+  end_rua                String?  @db.VarChar(75)
+  end_bairro             String?  @db.VarChar(75)
+  end_complemento        String?  @db.VarChar(75)
+  end_cep                String?  @db.VarChar(8)
+  id_cidade              Int?
+  cidade_nome            String?  @db.VarChar(50)
+  pais                   String?  @db.VarChar(50)
+  uf                     String?  @db.VarChar(2)
 }

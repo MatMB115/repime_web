@@ -1,11 +1,54 @@
+import getCurrentUser from "./actions/getCurrentUser";
+import getPlaces from "./actions/getPlaces";
 import ClienteOnly from "./components/ClientOnly";
 import Container from "./components/Container";
+import EmptyState from "./components/EmptyState";
+import PlaceCard from "./components/places/PlaceCard";
 
-export default function Home() {
+
+export default async function Home() {
+  const places = await getPlaces();
+  const currentUser = await getCurrentUser();
+
+  if (places.length === 0){
+    return(
+      <ClienteOnly>
+        <EmptyState  
+          title="Não há vagas cadastradas" 
+          subtitle="Seja o primeiro"
+        />
+      </ClienteOnly>
+    )
+  }
+  
   return (
     <ClienteOnly>
       <Container>
-        <div>RepiME</div>
+        <div 
+          className="
+            pt-24
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            md:grid-cols-3
+            lg:grid-cols-4
+            xl:grid-cols-5
+            2xl:grid-cols-6
+            gap-8
+          "
+        >
+          {places.map((place: any) => {
+            return (
+              <div>
+                <PlaceCard
+                  key={place.id}
+                  currentUser={currentUser}
+                  data={place}
+                />
+              </div>
+            )
+          })}
+        </div>
       </Container>
     </ClienteOnly>
   )
