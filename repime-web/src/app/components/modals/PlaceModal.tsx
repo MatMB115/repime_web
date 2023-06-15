@@ -1,8 +1,5 @@
 'use client';
 import { useMemo, useState } from "react";
-
-import useResidenceModal from "@/app/hooks/useResidenceModal";
-
 import Modal from "./Modal";
 import Heading from "../Heading";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
