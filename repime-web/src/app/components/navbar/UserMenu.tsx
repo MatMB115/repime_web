@@ -128,8 +128,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         {currentUser ? (
                             <>
                                 <MenuItem
-                                    onClick={() => {}}
-                                    label="Minhas vagas"
+                                    onClick={onResidence}
+                                    label="Minhas Residências"
                                 />
                                 <MenuItem
                                     onClick={() => onUserPage()}

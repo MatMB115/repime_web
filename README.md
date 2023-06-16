@@ -27,22 +27,22 @@
 
 <p align="center">
   <a href="https://github.com/MatMB115/repime_web">
-    <img src="https://imgur.com/Dpz0GiD.png" height="200" width="800" alt="RepiMe-logo" />
+    <img src="https://imgur.com/Dpz0GiD.png" height="150" width="700" alt="RepiMe-logo" />
   </a>
 </p>
 
 <p align="center">
-    <a style="padding: 5%;" href="https://nextjs.org/">
-        <img align="center" alt="RepiMe-Flutter" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original-wordmark.svg">
+    <a href="https://nextjs.org/">
+        <img align="center" alt="RepiMe-Flutter" height="60" width="60" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original-wordmark.svg">
     </a>
-    <a style="padding: 5%;" href="https://www.typescriptlang.org/">
-        <img align="center" alt="RepiMe-Dart" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg">
+    <a href="https://www.typescriptlang.org/">
+        <img align="center" alt="RepiMe-Dart" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg">
     </a>
-    <a style="padding: 5%;" href="https://nodejs.org/en">
-        <img align="center" alt="RepiMe-Dart" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg">
+    <a href="https://nodejs.org/en">
+        <img align="center" alt="RepiMe-Dart" height="70" width="70" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg">
     </a>
-    <a style="padding: 5%;" href="https://www.npmjs.com/">
-        <img align="center" alt="RepiMe-Dart" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg">
+    <a href="https://www.npmjs.com/">
+        <img align="center" alt="RepiMe-Dart" height="70" width="60" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg">
     </a>
 </p>
 
@@ -51,7 +51,7 @@
 A aplicação web RepiMe busca centralizar, gerenciar e organizar as informações sobre as vagas em Repúblicas e Kitnets disponíveis na cidade e universidades suportadas.
 
 ---
-## Sobre
+## Sobre :information_source:
 
 Tendo em vista a forte tradição de repúblicas na cidade de Itajubá, muitos ingressantes nas universidades da cidade buscam acomodações durante o ciclo acadêmico. Nesse cenário, a fraca centralização das informações acerca das vagas gera um estresse que pode ser evitado.
 
@@ -60,15 +60,15 @@ Conforme as atividades da disciplina de Gerência de Projetos de Software e Dese
 As orientações estão divididas nos seguintes tópicos:
 
 - [RepiMe](#repime)
-  - [Sobre](#sobre)
+  - [Sobre :information\_source:](#sobre-information_source)
   - [Funcionalidades :gear:](#funcionalidades-gear)
-  - [To Do :heavy\_check\_mark:](#to-do-heavy_check_mark)
   - [Banco de dados :chair: :game\_die:](#banco-de-dados-chair-game_die)
   - [Pré-requisitos e configuração :hammer\_and\_wrench:](#pré-requisitos-e-configuração-hammer_and_wrench)
   - [Layout :art:](#layout-art)
-    - [Layout para telas de maiores](#layout-para-telas-de-maiores)
-    - [Layout para telas de médias](#layout-para-telas-de-médias)
-    - [Layout para telas de pequenas](#layout-para-telas-de-pequenas)
+    - [Layout para telas de maiores :desktop\_computer:](#layout-para-telas-de-maiores-desktop_computer)
+    - [Layout para telas de médias :computer:](#layout-para-telas-de-médias-computer)
+    - [Layout para telas de pequenas :iphone:](#layout-para-telas-de-pequenas-iphone)
+  - [To Do :heavy\_check\_mark:](#to-do-heavy_check_mark)
   - [Tecnologias :technologist:](#tecnologias-technologist)
   - [Contribuidores](#contribuidores)
 
@@ -83,6 +83,96 @@ As orientações estão divididas nos seguintes tópicos:
  - [ ] Vagas agrupadas por residêncais;
  - [ ] Filtros de vagas;
  - [ ] Dashboard.
+
+---
+## Banco de dados :chair: :game_die:
+A aplicação utiliza um banco relacional presente no modelo entidade relacionamento abaixo, a modelagem visa permitir o registro dos cadastros de usuários, vagas, residências, locadores, vagas e cidades. A hospedagem foi feita no Heroku com o add-on Heroku Postgres e a aplicação conversa diretamento com o banco. O pgAdmin4 facilitou o processo de criação e vizualização das tabelas/relacionamentos.
+
+![MER-RepiMe](https://imgur.com/u761a6r.png)
+
+Todos os comandos SQL utilizados para criar tabelas, tipos e funções estão presentes nesta [path](/database/scripts/) desse repositório. 
+
+Para realizar a conexão com o banco utilizou-se:
+>PostgreSQL - 15.2
+
+>PGadmin4 - 7.2
+
+>Prisma - 4.14.1
+
+---
+## Pré-requisitos e configuração :hammer_and_wrench:
+No geral, para executar a aplicação é recomendado que o sistema já possua:
+
+    > Node.js
+    > npm
+
+A aplicação utiliza tokens de serviços de terceiros:
+
+    Social Login: Github/Google
+    DB Credentials: Heroku
+    Cloundinary
+
+Para executar essa versão é necessário:
+
+```bash
+# Clone este repositório com
+$ git clone https://github.com/MatMB115/repime_web.git
+# OU
+$ git clone git@github.com:MatMB115/repime_web.git
+
+# Navegue até o diretório clonado com terminal
+
+$ cd repime-web
+$ cd repime_web
+
+# Instale as dependências
+$ npm install
+
+# Navegue até a pasta do prisma
+$ cd prisma
+
+# Recupere o schema do banco com ORM Prisma
+# Mude no .env com as credencias do banco criado
+$ npx prisma db pull
+$ npx prisma generate
+
+# Inicar a aplicação como desenvolvedor
+$ npm run dev
+
+# Inicar a aplicação
+$ npm run start
+
+```
+
+Para executar a aplicação como desenvolvedor:
+>npm run dev
+
+---
+## Layout :art:
+Design base do figma - [RepiME](https://www.figma.com/proto/Xdomencyno1SR2ac3t2adb/RepiME?node-id=60-1365&starting-point-node-id=60%3A1365)
+
+### Layout para telas de maiores :desktop_computer:
+<p align="center">
+  <img alt="Home page screenshot" title="#First" src="https://imgur.com/KIbX0z1.png" width="800px">
+  <img alt="Home page screenshot" title="#First" src="https://imgur.com/QOtbdqC.png" width="800px">
+  <img alt="Home page screenshot" title="#First" src="https://imgur.com/QMwNPHJ.png" width="800px">
+</p>
+
+### Layout para telas de médias :computer:
+
+<p align="center">
+  <img alt="Home page tablet screenshot" title="#First" src="https://imgur.com/qRvndSq.png" width="300px">
+  <img alt="User page tablet screenshot" title="#First" src="https://imgur.com/ElqbsvD.png" width="302px">
+  <img alt="Residence tablet page screenshot" title="#First" src="https://imgur.com/E2u5Xy7.png" width="303.5px">
+</p>
+
+
+### Layout para telas de pequenas :iphone:
+<p align="center">
+  <img alt="Home page mobile screenshot" title="#First" src="https://imgur.com/DUQkyHD.png" width="254px">
+  <img alt="User page mobile screenshot" title="#First" src="https://imgur.com/MPBz6yi.png" width="250px">
+  <img alt="Residence mobile page screenshot" title="#First" src="https://imgur.com/A3Er6kY.png" width="254px">
+</p>
 
 ---
 ## To Do :heavy_check_mark:
@@ -160,84 +250,6 @@ As orientações estão divididas nos seguintes tópicos:
       - [ ] Monitoramento e Controle
         - [ ] Acompanhar Projeto
         - [ ] Gerência de Configuração
-
----
-## Banco de dados :chair: :game_die:
-A aplicação utiliza um banco relacional presente no modelo entidade relacionamento abaixo, a modelagem visa permitir o registro dos cadastros de usuários, vagas, residências, locadores, vagas e cidades. A hospedagem foi feita no Heroku com o add-on Heroku Postgres e a aplicação conversa diretamento com o banco. O pgAdmin4 facilitou o processo de criação e vizualização das tabelas/relacionamentos.
-
-![MER-RepiMe](https://imgur.com/ZHFVcgT.png)
-
-Todos os comandos SQL utilizados para criar tabelas, tipos e funções estão presentes nesta [path](/database/scripts/) desse repositório. 
-
-Para realizar a conexão com o banco utilizou-se:
->PostgreSQL - 15.2
-
->PGadmin4 - 7.2
-
->Prisma - 4.14.1
-
----
-## Pré-requisitos e configuração :hammer_and_wrench:
-No geral, para executar a aplicação é recomendado que o sistema já possua:
-
-    > Node.js
-    > npm
-
-A aplicação utiliza tokens de serviços de terceiros:
-
-    Social Login: Github/Google
-    DB Credentials: Heroku
-    Cloundinary
-
-Para executar essa versão é necessário:
-
-```bash
-# Clone este repositório com
-$ git clone https://github.com/MatMB115/repime_web.git
-# OU
-$ git clone git@github.com:MatMB115/repime_web.git
-
-# Navegue até o diretório clonado com terminal
-
-$ cd repime-web
-$ cd repime_web
-
-# Instale as dependências
-$ npm install
-
-# Navegue até a pasta do prisma
-$ cd prisma
-
-# Recupere o schema do banco com ORM Prisma
-# Mude no .env com as credencias do banco criado
-$ npx prisma db pull
-$ npx prisma generate
-
-# Inicar a aplicação como desenvolvedor
-$ npm run dev
-
-# Inicar a aplicação
-$ npm run start
-
-```
-
-Para executar a aplicação como desenvolvedor:
->npm run dev
-
----
-## Layout :art:
-Design base do figma - [RepiME](https://www.figma.com/proto/Xdomencyno1SR2ac3t2adb/RepiME?node-id=60-1365&starting-point-node-id=60%3A1365)
-
-### Layout para telas de maiores
-<p align="center">
-  <img alt="Home page screenshot" title="#First" src="https://imgur.com/Eu3Ov93.png" width="800px">
-</p>
-
-### Layout para telas de médias
-
-
-### Layout para telas de pequenas
-
 ---
 ## Tecnologias :technologist:
     O ponto de início deste projeto foi uma aplicação NextJS, as dependências utilizadas estão presentes no package.json. 
