@@ -9,7 +9,7 @@ export default async function getResidenceUser(id_usuario: string | undefined) {
     if(!id_usuario){
       return null
     }
-    const response = await axios.get('/api/repime/residencia/get_per_user', {
+    const response = await axios.get('http://repime-web.vercel.app/api/repime/residencia/get_per_user', {
       params: {
         id_usuario: id_usuario
       }
