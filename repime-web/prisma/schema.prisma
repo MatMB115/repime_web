@@ -45,15 +45,15 @@ model FotoVaga {
 }
 
 model Kitnet {
-  id               Int        @id @default(autoincrement())
-  tempo_de_contato Int
-  fogao            Boolean
-  tv               Boolean
-  internet         Boolean
-  energia          Boolean
-  agua             Boolean
-  id_residencia    Int        @unique
-  tb_residencia    Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade)
+  id                Int        @id @default(autoincrement())
+  tempo_de_contrato Int
+  fogao             Boolean
+  tv                Boolean
+  internet          Boolean
+  energia           Boolean
+  agua              Boolean
+  id_residencia     Int        @unique
+  tb_residencia     Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade)
 
   @@map("tb_kitnet")
 }
