@@ -75,7 +75,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                 e_masculina: false
             },
             kitnet: {
-                tempo_contrato: '',
+                tempo_contato: '',
                 fogao: false,
                 tv: false,
                 internet: false,
@@ -387,7 +387,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     required
                 />
                 <Input 
-                    id="kitnet.tempo_contrato"
+                    id="kitnet.tempo_contato"
                     type="number"
                     label="Tempo de contrato (em meses)"
                     disabled={isLoading}
