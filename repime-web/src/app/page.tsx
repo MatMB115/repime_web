@@ -37,11 +37,10 @@ export default async function Home() {
             gap-8
           "
         >
-          {places.map((place: any) => {
+          {places.map((place) => {
             return (
-              <div>
+              <div key={place.id_vaga}>
                 <PlaceCard
-                  key={place.id}
                   currentUser={currentUser}
                   data={place}
                 />

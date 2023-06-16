@@ -37,7 +37,7 @@ const PlaceCard: React.FC<PlaceCardProps> = ({
 
     return ( 
         <div 
-            onClick={() => router.push(`/places/${data.id}`)}
+            onClick={() => router.push(`/places/${data.id_vaga}`)}
             className="
                 cols-span-1 cursor-point group
             "
