@@ -75,7 +75,7 @@ const UserPanel: React.FC<UserPanelProps> = ({
                             Contato: {currentUser?.contato}
                         </div>
                     </div>
-                    <div className="p-3 bg-repimepink rounded-3xl">
+                    <div className="p-3 border-repimepink border-[3px] text-repimepink font-bold rounded-3xl">
                         <button onClick={handleSubmit(onSubmit)}>Delete Account</button>
                     </div>
                     

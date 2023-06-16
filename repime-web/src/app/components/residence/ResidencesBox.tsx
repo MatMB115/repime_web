@@ -46,7 +46,7 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
     }
 
     return (
-        <div className="m-2 p-4 max-w-screen-lg mx-auto border-[1px] border-zinc-400 rounded-2xl">
+        <div className="m-2 p-4 max-w-screen-lg mx-auto border-[2px] border-zinc-400 rounded-2xl">
             <div className="flex flex-col gap-6">
                 <div className="flow-root">
                     <div className="float-left">
@@ -58,16 +58,16 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
                     
                     <div className="float-right">
                         <div className="flex flex-row gap-4 py-4 items-center">
-                            <div className="bg-repimeblue rounded-3xl p-1">
+                            <div className="border-repimehardblue border-[3px] font-bold rounded-3xl p-1">
                                 <button onClick={() => {}}>Atualizar</button>
                             </div>
                             
-                            <div className="bg-repimepink rounded-3xl p-1">
-                                <button onClick={handleSubmit(onSubmit)}>Deletar</button>
+                            <div className="border-repimehardblue border-[3px] font-bold rounded-3xl p-1">
+                                <button onClick={placeModal.onOpen}>Inserir vaga</button>
                             </div>
 
-                            <div className="bg-repimehardblue rounded-3xl p-1">
-                                <button onClick={placeModal.onOpen}>Inserir vaga</button>
+                            <div className="border-repimepink border-[3px] font-bold rounded-3xl p-1">
+                                <button onClick={handleSubmit(onSubmit)}>Deletar</button>
                             </div>
                         </div>
                     </div>

@@ -10,62 +10,156 @@
   <a href="https://github.com/MatMB115/repime_web/commits/main">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/MatMB115/repime_web">
   </a>
+  
+  <a href="https://www.heroku.com/">
+  <img alt="Database" src="https://img.shields.io/badge/database PostgreSQL-red">
+  </a>
+
   <a href="https://www.heroku.com/">
   <img alt="Host database" src="https://img.shields.io/badge/database host-Heroku-red">
   </a>
 
 <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
-  <a href="https://github.com/darlosss/repimestargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/darlosss/repime?style=social">
+  <a href="https://github.com/MatMB115/repime_web/stargazers">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/MatMB115/repime_web?style=social">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/darlosss/repime">
-    <img src="https://imgur.com/vKhsgc3.png" height="185" width="185" alt="RepiMe-logo" />
+  <a href="https://github.com/MatMB115/repime_web">
+    <img src="https://imgur.com/Dpz0GiD.png" height="200" width="800" alt="RepiMe-logo" />
   </a>
 </p>
 
 <p align="center">
-    <a href="https://flutter.dev">
-        <img align="center" alt="RepiMe-Flutter" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-plain.svg">
+    <a style="padding: 5%;" href="https://nextjs.org/">
+        <img align="center" alt="RepiMe-Flutter" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original-wordmark.svg">
     </a>
-    <a href="https://dart.dev">
-        <img align="center" alt="RepiMe-Dart" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original-wordmark.svg">
+    <a style="padding: 5%;" href="https://www.typescriptlang.org/">
+        <img align="center" alt="RepiMe-Dart" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg">
     </a>
-
+    <a style="padding: 5%;" href="https://nodejs.org/en">
+        <img align="center" alt="RepiMe-Dart" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg">
+    </a>
+    <a style="padding: 5%;" href="https://www.npmjs.com/">
+        <img align="center" alt="RepiMe-Dart" height="40" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg">
+    </a>
 </p>
 
 # RepiMe
 
-A aplicação mobile RepiMe busca centralizar, gerenciar e organizar as informações sobre as vagas em Repúblicas e Kitnets disponíveis na cidade selecionada.
+A aplicação web RepiMe busca centralizar, gerenciar e organizar as informações sobre as vagas em Repúblicas e Kitnets disponíveis na cidade e universidades suportadas.
 
 ---
 ## Sobre
 
 Tendo em vista a forte tradição de repúblicas na cidade de Itajubá, muitos ingressantes nas universidades da cidade buscam acomodações durante o ciclo acadêmico. Nesse cenário, a fraca centralização das informações acerca das vagas gera um estresse que pode ser evitado.
 
-Conforme as atividades da disciplina de Administração e Gerência de Redes da Universidade Federal de Itajubá, a equipe de desenvolvedores deste projeto propôs uma aplicação que busca auxiliar os universitário no processo para encontrar uma moradia. A aplicação mobile/web RepiMe foi construída com framework Flutter e a linguagem de Dart.
+Conforme as atividades da disciplina de Gerência de Projetos de Software e Desenvolvimento de Sistemas na Web da Universidade Federal de Itajubá, a equipe de desenvolvedores deste projeto propôs uma aplicação que busca auxiliar os universitário no processo para encontrar uma moradia. A aplicação web RepiMe foi construída com framework Next.js.
 
 As orientações estão divididas nos seguintes tópicos:
 
 - [RepiMe](#repime)
   - [Sobre](#sobre)
   - [Funcionalidades :gear:](#funcionalidades-gear)
+  - [To Do :heavy\_check\_mark:](#to-do-heavy_check_mark)
   - [Banco de dados :chair: :game\_die:](#banco-de-dados-chair-game_die)
   - [Pré-requisitos e configuração :hammer\_and\_wrench:](#pré-requisitos-e-configuração-hammer_and_wrench)
   - [Layout :art:](#layout-art)
+    - [Layout para telas de maiores](#layout-para-telas-de-maiores)
+    - [Layout para telas de médias](#layout-para-telas-de-médias)
+    - [Layout para telas de pequenas](#layout-para-telas-de-pequenas)
   - [Tecnologias :technologist:](#tecnologias-technologist)
   - [Contribuidores](#contribuidores)
 
 ---
 ## Funcionalidades :gear:
 
- - [x] Coletar cidade e universidade do usuário;
- - [x] Anunciar novas vagas (características da acomodação);
- - [x] Fornecer as informações para contato com o dono da vaga;
- - [x] Permitir o anúncio de novas vagas para usuários cadastrados;
- - [x] Marcar no mapa as vagas já cadastradas.
+ - [x] CRUD e login do usuário;
+ - [x] CRUD de Kitnets;
+ - [x] CRUD de República;
+ - [x] CRUD de Vagas;
+ - [ ] Visualizar detalhes das vagas;
+ - [ ] Vagas agrupadas por residêncais;
+ - [ ] Filtros de vagas;
+ - [ ] Dashboard.
+
+---
+## To Do :heavy_check_mark:
+
+- [x] Projeto RepiME
+  - [x] Prospecção
+    - [x] Estudo do Tema
+      - [x] Estudar Domínio de Aplicação
+      - [x] Divisão de Tarefas
+  - [x] Análise
+    - [x] Documento de Requisitos
+      - [x] Elaborar DRE
+        - [x] Revisar DRE
+        - [x] Submeter DRE para Aprovação do Cliente
+    - [x] Est. Prel. Tamanho
+      - [x] Estimar Tamanho do Projeto
+      - [x] Revisar Estimativa de Tamanho do Projeto
+    - [x] Est. Prel. Cronograma
+      - [x] Elaborar Cronograma Preliminar
+      - [x] Revisar Cronograma Preliminar
+    - [x] MRB
+      - [x] Elaborar MRB
+      - [x] Revisar MRB
+  - [x] Projeto
+    - [x] Diagrama de Classes
+      - [x] Elaborar Diagrama de Classe
+      - [x] Revisar Diagrama de Classe
+      - [x] Atualizar MRB
+    - [x] Planejamento
+      - [x] Pesquisar Soluções Existentes
+      - [x] Definir Linguagens e Frameworks
+      - [x] Revisar Divisão de Tarefas
+    - [ ] Desenvolvimento
+      - [ ] Release 01
+        - [ ] Implementações
+          - [ ] Manter Usuário - RC01
+            - [x] Implementar RFS01
+            - [ ] Implementar RFS02
+            - [x] Implementar RFS03
+            - [x] Implementar RFS04
+          - [ ] Manter República - RC02
+            - [x] Implementar RFS13
+            - [ ] Implementar RFS14
+            - [x] Implementar RFS15
+            - [x] Implementar RFS16
+          - [x] Testes Release 01
+            - [x] Testar RC01
+            - [x] Testar RC02
+      - [ ] Release 02
+        - [ ] Implementações
+          - [ ] Manter Kitnet - RC04
+            - [x] Implementar RFS17
+            - [ ] Implementar RFS18
+            - [x] Implementar RFS19
+            - [x] Implementar RFS20
+          - [x] Testes Release 02
+            - [x] Testar RC04
+        - [ ] Release 03 
+          - [ ] Implementações
+            - [ ] Manter Vagas - RC03
+              - [x] Implementar RFS09
+              - [ ] Implementar RFS10
+              - [x] Implementar RFS11
+              - [x] Implementar RFS12
+            - [ ] Testes Release 03
+              - [ ] Testar RC03
+        - [ ] Release 04 
+          - [ ] Implementações
+            - [ ] Manter Dashboard - RC05
+              - [ ] Implementar RFS21
+              - [ ] Implementar RFS22
+              - [ ] Implementar RFS23
+            - [ ] Testes Release 04
+              - [ ] Testar RC06
+      - [ ] Monitoramento e Controle
+        - [ ] Acompanhar Projeto
+        - [ ] Gerência de Configuração
 
 ---
 ## Banco de dados :chair: :game_die:
@@ -73,125 +167,132 @@ A aplicação utiliza um banco relacional presente no modelo entidade relacionam
 
 ![MER-RepiMe](https://imgur.com/ZHFVcgT.png)
 
-Todos os comandos SQL utilizados para criar tabelas, tipos e funções estão presentes nesta [path](https://github.com/darlosss/repime/blob/main/database_sql) desse repositório. 
+Todos os comandos SQL utilizados para criar tabelas, tipos e funções estão presentes nesta [path](/database/scripts/) desse repositório. 
 
-Para realizar a conexão com o banco utilizou-se a dependência:
->postgres: ^2.5.2
+Para realizar a conexão com o banco utilizou-se:
+>PostgreSQL - 15.2
+
+>PGadmin4 - 7.2
+
+>Prisma - 4.14.1
 
 ---
 ## Pré-requisitos e configuração :hammer_and_wrench:
 No geral, para executar a aplicação é recomendado que o sistema já possua:
 
-    > Java 8+;
-    > Flutter SDK;
-    > Android Studio;
-    > Visual Studio (para Windows);
-    > Visual Studio Code;
-    > Maven/Gradle.
+    > Node.js
+    > npm
 
-Para verificar o status do Flutter rode no terminal:
->flutter doctor
+A aplicação utiliza tokens de serviços de terceiros:
 
-Deve-se ativar as licenças mais recentes do android com o comando:
->flutter doctor --android-licenses
+    Social Login: Github/Google
+    DB Credentials: Heroku
+    Cloundinary
 
-Se houver problemas com o SDK Command-line do Android, entre no SDK Manager presente no Android Studio e baixe o pacote conforme imagem abaixo.
-
-![SDKMANAGER](https://imgur.com/YI91FMs.png)
-
-Se necessário instale a extensão do Flutter no VSCode com:
->ext install Dart-Code.flutter
-
-O release do projeto fornece um apk para utilizar o aplicativo e, apesar do foco na versão mobile, as versões para Windows e Linux também estão funcionais.
-
-Para executar essas versões é necessário:
+Para executar essa versão é necessário:
 
 ```bash
-
 # Clone este repositório com
-$ git clone https://github.com/darlosss/repime.git
-# ou
-$ git clone git@github.com:darlosss/repime.git
+$ git clone https://github.com/MatMB115/repime_web.git
+# OU
+$ git clone git@github.com:MatMB115/repime_web.git
 
-# Acesse a pasta do projeto no seu terminal/cmd
-$ cd repime
+# Navegue até o diretório clonado com terminal
+
+$ cd repime-web
+$ cd repime_web
 
 # Instale as dependências
-$ flutter pub get
+$ npm install
 
-# Instâncie as versões para Windows/Linux com Flutter
-$ flutter create .
+# Navegue até a pasta do prisma
+$ cd prisma
 
-# Execute a aplicação
-$ flutter run
+# Recupere o schema do banco com ORM Prisma
+# Mude no .env com as credencias do banco criado
+$ npx prisma db pull
+$ npx prisma generate
 
-# O Flutter irá sugerir a plataforma no qual será executada a aplicação
+# Inicar a aplicação como desenvolvedor
+$ npm run dev
+
+# Inicar a aplicação
+$ npm run start
 
 ```
 
-Se quiser rodar a aplicação mobile em modo de debuggação é necessário habilitar a depuração no Android, conectar o aparelho com cabo USB e usar o Run and Debug do VSCode. 
+Para executar a aplicação como desenvolvedor:
+>npm run dev
 
 ---
 ## Layout :art:
-Design base do figma: [Real Estate Mobile App Design](https://dribbble.com/shots/17966349-Real-Estate-Mobile-App-Design)
+Design base do figma - [RepiME](https://www.figma.com/proto/Xdomencyno1SR2ac3t2adb/RepiME?node-id=60-1365&starting-point-node-id=60%3A1365)
+
+### Layout para telas de maiores
 <p align="center">
-  <img alt="RepiMe" title="#First" src="https://imgur.com/2crsdB6.png" width="200px">
-
-  <img alt="RepiMe" title="#HomeNoLogin" src="https://imgur.com/5VFfZY3.png" width="200px">
-
-  <img alt="RepiMe" title="#Login" src="https://imgur.com/YcSMfek.png" width="200px">
-  
-  <img alt="RepiMe" title="#HomeLogin" src="https://imgur.com/9DLNyaa.png" width="200px">
-
-  <img alt="RepiMe" title="#UserRegister" src="https://imgur.com/Gz3JBgI.png" width="200px">
-
-  <img alt="RepiMe" title="#UserRegister2" src="https://imgur.com/NGHSFL9.png" width="200px">
-
-  <img alt="RepiMe" title="#UserRegister3" src="https://imgur.com/9cIJan5.png" width="200px">
-
-  <img alt="RepiMe" title="#User" src="https://imgur.com/xkNz835.png" width="200px">
-
-  <img alt="RepiMe" title="#VagaRegist" src="https://imgur.com/yHZNSpA.png" width="200px">
-
-  <img alt="RepiMe" title="#VagaRegist2" src="https://imgur.com/qSMB5Cb.png" width="200px">
-
-  <img alt="RepiMe" title="#Vaga" src="https://imgur.com/93sUQMK.png" width="200px">
+  <img alt="Home page screenshot" title="#First" src="https://imgur.com/Eu3Ov93.png" width="800px">
 </p>
+
+### Layout para telas de médias
+
+
+### Layout para telas de pequenas
 
 ---
 ## Tecnologias :technologist:
-    O ponto de início deste projeto foi uma aplicação Flutter, as dependências utilizadas estão presentes no pubspec.yaml. 
+    O ponto de início deste projeto foi uma aplicação NextJS, as dependências utilizadas estão presentes no package.json. 
+
 ---
 Aplicação:
 
-    -> Flutter
-    - easy_refresh: ^3.0.5
-    - flutter_launcher_icons: ^0.11.0
-    - flutter_mobx: ^2.0.6+5
-    - flutter_modular: ^5.0.3
-    - image_picker: ^0.8.6
-    - mobx: ^2.1.3
-    - path_provider: ^2.0.11
-    - postgres: ^2.5.2
-    - skeletons: ^0.0.3
-    - cupertino_icons: ^1.0.2
-    - flutter_lints: ^2.0.0
-    - build_runner: ^2.3.2
-    - mobx_codegen: ^2.1.1
+    -> Next.js 13
+      -> Prisma 4.14.1
+        - @next-auth/prisma-adapter: 1.0.6
+        - @prisma/client": 4.14.1
+      - @types/node: 20.2.1
+      - @types/react: 18.2.6
+      - @types/react-dom: 18.2.4
+      - axios: 1.4.0
+      - bcrypt: 5.1.0
+      - bcryptjs: 2.4.3
+      - class-validator: 0.14.0
+      - eslint: 8.40.0
+      - eslint-config-next: 13.4.2
+      - next: 13.4.2
+      - next-auth: 4.22.1
+      - next-cloudinary: 4.12.0
+      - next.js: 1.0.3
+      - query-string: 8.1.0
+      - react: 18.2.0
+      - react-dom: 18.2.0
+      - react-hook-form: 7.43.9
+      - react-hot-toast: 2.4.1
+      - react-icons: 4.8.0
+      - react-select: 5.7.3
+      - typescript: 5.0.4
+      - validator: 13.9.0
+      - zustand: 4.3.8
+      -> DevDepencies
+        - @types/bcrypt: 5.0.0
+        - autoprefixer: 10.4.14
+        - postcss: 8.4.23
+        - tailwindcss: 3.3.2
 ---
 Banco de Dados:
 
-    -> PostgreSQL
-    - pgAdmin4 6.16
+    -> PostgreSQL 15
+    - pgAdmin4 7.2
     - Heroku Postgres Mini
     - BRmodelo
+
 ---
 Utilitários:
 
     -> Dev
-    - Visual Studio Code 1.73
-    - Android Studio Dolphin 2021.3.1
+    - Visual Studio Code 1.79.1
+    - npm 8.19.2
     - Figma
+
 ---  
 
 ## Contribuidores
