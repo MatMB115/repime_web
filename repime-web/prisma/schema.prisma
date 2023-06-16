@@ -46,7 +46,7 @@ model FotoVaga {
 
 model Kitnet {
   id                Int        @id @default(autoincrement())
-  tempo_de_contrato Int
+  tempo_de_contato Int
   fogao             Boolean
   tv                Boolean
   internet          Boolean
