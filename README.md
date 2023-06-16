@@ -86,7 +86,7 @@ As orientações estão divididas nos seguintes tópicos:
 
 ---
 ## Banco de dados :chair: :game_die:
-A aplicação utiliza um banco relacional presente no modelo entidade relacionamento abaixo, a modelagem visa permitir o registro dos cadastros de usuários, vagas, residências, locadores, vagas e cidades. A hospedagem foi feita no Heroku com o add-on Heroku Postgres e a aplicação conversa diretamento com o banco. O pgAdmin4 facilitou o processo de criação e vizualização das tabelas/relacionamentos.
+A aplicação utiliza um banco relacional presente no modelo entidade relacionamento abaixo. A modelagem visa permitir o registro dos cadastros de usuários, vagas, residências, locadores, vagas e cidades. A hospedagem foi feita no Heroku com o add-on Heroku Postgres e a aplicação conversa com o banco através de uma API. O pgAdmin4 facilitou o processo de criação e vizualização das tabelas/relacionamentos.
 
 ![MER-RepiMe](https://imgur.com/u761a6r.png)
 
