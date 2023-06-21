@@ -54,8 +54,8 @@ model Residencia {
   end_complemento   String           @db.VarChar(75)
   end_cep           String           @db.VarChar(8)
   tem_animais       Boolean?
-  oferece_almoco    Boolean
-  oferece_janta     Boolean
+  oferece_almoco    Boolean?
+  oferece_janta     Boolean?
   tipo_republica    tipos_rep?
   fundacao          DateTime?        @db.Date
   tem_trote         Boolean?

@@ -15,6 +15,7 @@ import { toast } from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
 import { User } from '@prisma/client';
 import InputCheckbox from "../inputs/InputCheckbox";
+import RepTypeSelect from "../inputs/RepTypeSelect";
 
 enum STEPS {
     CATEGORY = 0,
@@ -55,39 +56,34 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
             },
             residencia: {
                 nome: '',
-                e_mobiliado: false,
                 tem_garagem: false,
-                tem_animais: false,
-                tem_empregada: false,
-                oferece_almoco: false,
-                oferece_janta: false,
-            },
-            endereco: {
+                tipo: '',
                 end_numero: '',
                 end_rua: '',
                 end_bairro: '',
                 end_complemento: '',
                 end_cep: '',
+                tem_animais: false,
+                oferece_almoco: false,
+                oferece_janta: false,
+                fundacao: null,
+                tem_trote: false,
+                tem_diarista: false,
+                tempo_de_contrato: 0,
+                agua_inclusa: false,
+                internet_inclusa: false,
+                energia_inclusa: false
             },
             republica: {
-                fundacao: '',
-                tem_trote: false,
-                e_masculina: false
-            },
-            kitnet: {
-                tempo_contato: '',
-                fogao: false,
-                tv: false,
-                internet: false,
-                energia: false,
-                agua: false
+                tipo: null
             }
         }
     });
 
-    const category = watch('category')
+    const category = watch('residencia.tipo')
     const location = watch('cidade.id_cidade')
-    
+    const repType = watch('republica.tipo')
+
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
             shouldValidate: true,
@@ -149,9 +145,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         
         setIsLoading(true);
 
-        const endpoint = category === 'República'? '/api/repime/residencia/republica/register' : '/api/repime/residencia/kitnet/register';
-
-        axios.post(endpoint, data)
+        axios.post('/api/repime/residencia/register', data)
         .then((response) => {
             toast.success('Sucesso! ' + response.data.repime.msg_ret);
             router.refresh();
@@ -185,7 +179,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
             >
                 <div key={categories[3].label} className="col-span-1">
                     <CategoryInput
-                        onClick={(category) => setCustomValue('category', category)}
+                        onClick={(category) => setCustomValue('residencia.tipo', category)}
                         selected={category === categories[3].label}
                         label={categories[3].label}
                         icon={categories[3].icon}
@@ -193,7 +187,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                 </div>
                 <div key={categories[4].label} className="col-span-1">
                     <CategoryInput 
-                        onClick={(category) => setCustomValue('category', category)}
+                        onClick={(category) => setCustomValue('residencia.tipo', category)}
                         selected={category === categories[4].label}
                         label={categories[4].label}
                         icon={categories[4].icon}
@@ -212,7 +206,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                 />
                 <div className=" flex flex-col gap-4">
                     <Input 
-                        id="endereco.end_rua"
+                        id="residencia.end_rua"
                         type="text"
                         label="Rua"
                         disabled={isLoading}
@@ -221,7 +215,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         required
                     />
                     <Input 
-                        id="endereco.end_bairro"
+                        id="residencia.end_bairro"
                         type="text"
                         label="Bairro"
                         disabled={isLoading}
@@ -230,7 +224,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         required
                     />
                     <Input 
-                        id="endereco.end_complemento"
+                        id="residencia.end_complemento"
                         type="text"
                         label="Complemento"
                         disabled={isLoading}
@@ -240,7 +234,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     />
                     <div className="flex flex-row gap-3">
                         <Input 
-                            id="endereco.end_cep"
+                            id="residencia.end_cep"
                             type="text"
                             label="CEP"
                             disabled={isLoading}
@@ -249,7 +243,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             required
                         />
                         <Input 
-                            id="endereco.end_numero"
+                            id="residencia.end_numero"
                             type="number"
                             label="Número"
                             disabled={isLoading}
@@ -285,13 +279,19 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     required
                 />
                 <Input 
-                    id="republica.fundacao"
+                    id="residencia.fundacao"
                     type="date"
                     label="Data de fundação"
                     disabled={isLoading}
                     register={register}
                     errors={errors}
                 />
+
+                <RepTypeSelect 
+                    value={repType}
+                    onChange={(value) => setCustomValue('republica.tipo', value)}
+                />
+
                 <div className="flex flex-col gap-2 text-xl">
                     <div className="flex flex-row gap-4 justify-center">
                         <InputCheckbox 
@@ -303,9 +303,9 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             errors={errors}
                         />
                         <InputCheckbox 
-                            id="residencia.tem_empregada"
+                            id="residencia.tem_diarista"
                             type="checkbox"
-                            label="Tem empregada"
+                            label="Tem diarista"
                             disabled={isLoading}
                             register={register}
                             errors={errors}
@@ -321,9 +321,9 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             errors={errors}
                         />
                         <InputCheckbox 
-                            id="residencia.e_mobiliado"
+                            id="residencia.tem_trote"
                             type="checkbox"
-                            label="É mobiliado"
+                            label="Tem trotes"
                             disabled={isLoading}
                             register={register}
                             errors={errors}
@@ -347,24 +347,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             errors={errors}
                         />
                     </div>
-                    <div className="flex flex-row gap-4 justify-center">
-                        <InputCheckbox 
-                            id="republica.e_masculina"
-                            type="checkbox"
-                            label="República masculina"
-                            disabled={isLoading}
-                            register={register}
-                            errors={errors}
-                        />
-                        <InputCheckbox 
-                            id="republica.tem_trote"
-                            type="checkbox"
-                            label="Tradição de trotes"
-                            disabled={isLoading}
-                            register={register}
-                            errors={errors}
-                        />
-                    </div>
+                    
                 </div>
             </div>
         )
@@ -387,7 +370,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     required
                 />
                 <Input 
-                    id="kitnet.tempo_contato"
+                    id="residencia.tempo_de_contrato"
                     type="number"
                     label="Tempo de contrato (em meses)"
                     disabled={isLoading}
@@ -405,43 +388,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             errors={errors}
                         />
                         <InputCheckbox 
-                            id="residencia.tem_animais"
-                            type="checkbox"
-                            label="Permite animais"
-                            disabled={isLoading}
-                            register={register}
-                            errors={errors}
-                        />
-                    </div>
-                    <div className="flex flex-row gap-4 justify-center">
-                        <InputCheckbox 
-                            id="residencia.e_mobiliado"
-                            type="checkbox"
-                            label="É mobiliado"
-                            disabled={isLoading}
-                            register={register}
-                            errors={errors}
-                        />
-                        <InputCheckbox 
-                            id="kitnet.fogao"
-                            type="checkbox"
-                            label="Possui fogão a gas"
-                            disabled={isLoading}
-                            register={register}
-                            errors={errors}
-                        />
-                    </div>
-                    <div className="flex flex-row gap-4 justify-center">
-                        <InputCheckbox 
-                            id="kitnet.tv"
-                            type="checkbox"
-                            label="Possui tv a cabo"
-                            disabled={isLoading}
-                            register={register}
-                            errors={errors}
-                        />
-                        <InputCheckbox 
-                            id="kitnet.internet"
+                            id="residencia.internet_inclusa"
                             type="checkbox"
                             label="Internet inclusa no valor"
                             disabled={isLoading}
@@ -451,7 +398,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     </div>
                     <div className="flex flex-row gap-4 justify-center">
                         <InputCheckbox 
-                            id="kitnet.energia"
+                            id="residencia.energia_inclusa"
                             type="checkbox"
                             label="Energia inclusa no valor"
                             disabled={isLoading}
@@ -459,7 +406,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             errors={errors}
                         />
                         <InputCheckbox 
-                            id="kitnet.agua"
+                            id="residencia.agua_inclusa"
                             type="checkbox"
                             label="Água inclusa no valor"
                             disabled={isLoading}
