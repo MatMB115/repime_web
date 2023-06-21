@@ -15,8 +15,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 'result': {
                     "residencias": await prisma.residencia.findMany({
                         include: {
-                            tb_kitnet: true,
-                            tb_republica: true,
                             tb_vaga: true,
                         },
                         where: {

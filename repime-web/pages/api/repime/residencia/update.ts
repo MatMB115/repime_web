@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from "../../../../../src/app/libs/prisma_db";
+import prisma from "../../../../src/app/libs/prisma_db";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         }
 
-        const republica = await prisma.republica.update({
+        const republica = await prisma.residencia.update({
             data: camposAtualizaveis,
             where: {
                 id: body.id

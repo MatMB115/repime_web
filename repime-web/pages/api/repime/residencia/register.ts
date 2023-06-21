@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from "../../../../../src/app/libs/prisma_db";
+import prisma from "../../../../src/app/libs/prisma_db";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,12 +8,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const residencia = await prisma.residencia.create({
             data: {
                 nome: req.body.residencia.nome,
-                e_mobiliado: req.body.residencia.e_mobiliado,
                 tem_garagem: req.body.residencia.tem_garagem,
-                tem_empregada: req.body.residencia.tem_empregada,
+                tipo: req.body.residencia.tipo,
+                tem_diarista: req.body.residencia.tem_diarista,
                 tem_animais: req.body.residencia.tem_animais,
                 oferece_almoco: req.body.residencia.oferece_almoco,
                 oferece_janta: req.body.residencia.oferece_janta,
+                tem_trote: req.body.residencia.tem_trote,
+                fundacao: req.body.residencia.fundacao,
+                tempo_de_contrato: req.body.residencia.tempo_de_contrato,
+                agua_inclusa: req.body.residencia.agua_inclusa,
+                internet_inclusa: req.body.residencia.internet_inclusa,
+                energia_inclusa: req.body.residencia.energia_inclusa,
                 end_numero: Number(req.body.endereco.end_numero),
                 end_rua: req.body.endereco.end_rua,
                 end_bairro: req.body.endereco.end_bairro,
@@ -32,23 +38,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         });
 
-        await prisma.republica.create({
-            data: {
-                fundacao: req.body.republica.fundacao,
-                tem_trote: req.body.republica.tem_trote,
-                e_masculina: req.body.republica.e_masculina,
-                tb_residencia: {
-                    connect: {
-                        id: residencia.id
-                    }
-                }
-            }
-        });
-
         return res.status(200).json({
             "repime": {
                 "cod_ret": 0,
-                "msg_ret": "A república " + residencia.nome + " foi criada com sucesso!"
+                "msg_ret": "A residência " + residencia.nome + " foi criada com sucesso!"
             }
         });
 
