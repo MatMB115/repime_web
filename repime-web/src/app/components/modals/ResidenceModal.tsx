@@ -377,7 +377,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     register={register}
                     errors={errors}
                 />
-                <div className="flex flex-col gap-2 text-xl">
+                <div className="flex flex-col gap-2 text-lg">
                     <div className="flex flex-row gap-4 justify-center">
                         <InputCheckbox 
                             id="residencia.tem_garagem"

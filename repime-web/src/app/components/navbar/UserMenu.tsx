@@ -55,8 +55,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
     
     const loggedOut = useCallback(() => {
         signOut();
-        return router.push(`/`);
-    }, []);
+        return router.push('/');
+    }, [router]);
 
     return ( 
         <div className="relative">

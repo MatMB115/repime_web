@@ -35,7 +35,7 @@ const UserPanel: React.FC<UserPanelProps> = ({
         .then((response) => {
             toast.success(response.data.repime.msg_ret);
             signOut();
-            router.push('/');
+            return router.push('/');
         })
         .catch(() => {
             toast.error('Algo deu errado');

@@ -6,10 +6,10 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "../inputs/Input";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { usePathname, useRouter } from "next/navigation";
-import { Residencia, User } from '@prisma/client';
+import { useRouter } from "next/navigation";
 import ImageUpload from "../inputs/ImageUpload";
 import usePlaceModal from "@/app/hooks/usePlaceModal";
+import InputCheckbox from "../inputs/InputCheckbox";
 
 enum STEPS {
     DESCRIPTION = 0,
@@ -39,8 +39,9 @@ const PlaceModal = () => {
             tb_residencia: {
                 id: placeModal.id,
             },
-            informacoes_adicionais: '',
+            descricao: '',
             mensalidade: '',
+            e_mobiliado: false
         }
     });
 
@@ -114,7 +115,7 @@ const PlaceModal = () => {
     let bodyContent = (
         <div className="flex flex-col gap-2">
             <Heading 
-                title="Qual o preço e a descrição da sua vaga"
+                title="Nos diga mais sobre sua vaga"
                 subtitle="Informe os detalhes da sua vaga"
             />
             <div className=" flex flex-col gap-4">
@@ -128,7 +129,7 @@ const PlaceModal = () => {
                     required
                 />
                 <Input 
-                    id="informacoes_adicionais"
+                    id="descricao"
                     type="text"
                     label="Informações adicionais sobre sua vaga"
                     disabled={isLoading}
@@ -136,6 +137,16 @@ const PlaceModal = () => {
                     errors={errors}
                     required
                 />
+                <div className="flex flex-row gap-4 justify-center text-xl">
+                    <InputCheckbox 
+                    id="e_mobiliado"
+                    type="checkbox"
+                    label="É mobiliada"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    />
+                </div>
             </div>
         </div>
     )

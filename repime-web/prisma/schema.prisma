@@ -9,15 +9,15 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(cuid())
-  name             String    @db.VarChar(100)
+  id               String       @id @default(cuid())
+  name             String       @db.VarChar(100)
   image            String?
-  email            String    @unique
-  emailVerified    DateTime? @map("email_verified") @db.Date
+  email            String       @unique
+  emailVerified    DateTime?    @map("email_verified") @db.Date
   senha            String?
-  contato          String?   @db.VarChar(15)
-  is_administrador Boolean   @default(false)
-  accounts         Account[]
+  contato          String?      @db.VarChar(15)
+  is_administrador Boolean      @default(false)
+  accounts         Account?
   tb_residencia    Residencia[]
   sessions         Session[]
 
@@ -39,7 +39,7 @@ model FotoVaga {
   id      Int    @id @default(autoincrement())
   id_vaga Int
   foto    String
-  tb_vaga Vaga   @relation(fields: [id_vaga], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_vaga Vaga   @relation(fields: [id_vaga], references: [id], onDelete: Cascade)
 
   @@map("tb_foto_vaga")
 }
@@ -67,9 +67,9 @@ model Residencia {
   id_cidade         Int
   id_user           String
   tipo              tipos_residencia
-  tb_cidade         Cidade           @relation(fields: [id_cidade], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_cidade         Cidade           @relation(fields: [id_cidade], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tb_usuario        User             @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tb_vaga           Vaga[]
-  tb_usuario        User       @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("tb_residencia")
 }
@@ -90,14 +90,14 @@ model Vaga {
   e_mobiliado   Boolean?
   id_residencia Int
   tb_foto_vaga  FotoVaga[]
-  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade)
 
   @@map("tb_vaga")
 }
 
 model Account {
   id                String   @id @default(cuid())
-  userId            String   @map("user_id") @unique
+  userId            String   @unique @map("user_id")
   type              String?
   provider          String
   providerAccountId String   @map("provider_account_id")

@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import usePlaceModal from "../../hooks/usePlaceModal";
-import PlaceModal from "../modals/PlaceModal";
 
 interface ResidencesBoxProps {
     key: number;
@@ -45,13 +44,20 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
         })
     }
 
+    let tipo: String;
+    if(residence.tipo === 'republica'){
+        tipo = "República - "
+    }else{
+        tipo = "Kitnet - "
+    }
+
     return (
         <div className="m-2 p-4 max-w-screen-lg mx-auto border-[2px] border-zinc-400 rounded-2xl">
             <div className="flex flex-col gap-6">
                 <div className="flow-root">
                     <div className="float-left">
                         <Heading 
-                            title={residence.nome}
+                            title={tipo + residence.nome}
                             subtitle={`${residence.end_rua} ${residence.end_numero}, ${residence.end_bairro}`}
                         />
                     </div>

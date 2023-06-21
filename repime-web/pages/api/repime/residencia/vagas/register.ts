@@ -8,7 +8,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
          const vaga = await prisma.vaga.create({
             data: {
                 mensalidade: Number(req.body.mensalidade),
-                informacoes_adicionais: req.body.informacoes_adicionais,
+                descricao: req.body.descricao,
+                e_mobiliado: req.body.e_mobiliado,
                 tb_residencia: {
                     connect: {
                         id: Number(req.body.tb_residencia.id)
