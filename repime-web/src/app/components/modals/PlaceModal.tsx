@@ -21,7 +21,7 @@ const PlaceModal = () => {
     const router = useRouter();
     const [step, setStep] = useState(STEPS.DESCRIPTION);
     const [isLoading, setIsLoading] = useState(false);
-    
+ 
     const {
         register,
         handleSubmit,
@@ -36,9 +36,6 @@ const PlaceModal = () => {
             fotoVaga: {
                 foto: '',
             },
-            tb_residencia: {
-                id: placeModal.id,
-            },
             descricao: '',
             mensalidade: '',
             e_mobiliado: false
@@ -46,8 +43,6 @@ const PlaceModal = () => {
     });
 
     const imgSrc = watch('fotoVaga.foto');
-    
-    console.log(placeModal.id);
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -93,8 +88,9 @@ const PlaceModal = () => {
         if (step !== STEPS.IMAGE) {
             return onNext();
         }
-        
         setIsLoading(true);
+
+        data.tb_residencia = Number(placeModal.residenceId);
 
         axios.post('/api/repime/residencia/vagas/register', data)
         .then((response) => {

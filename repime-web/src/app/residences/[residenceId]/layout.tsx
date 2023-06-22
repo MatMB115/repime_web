@@ -7,6 +7,7 @@ import ResidencePanel from "@/app/components/residence/ResidencePanel";
 import EmptyState from "@/app/components/EmptyState";
 import PrivateRoute from "@/app/components/PrivateRoute";
 import PlaceModal from "@/app/components/modals/PlaceModal";
+import ResidenceModalUpdate from "@/app/components/modals/ResidenceUpdateModal";
 
 export default async function ResidencesLayout({
   children,
@@ -32,6 +33,7 @@ export default async function ResidencesLayout({
       <PrivateRoute user={currentUser!} route={path} >
         <ClienteOnly>
           <ResidenceModal currentUser={currentUser} />
+          <ResidenceModalUpdate currentUser={currentUser} />
           <ResidencePanel residences={currentResidences} />
           <PlaceModal />
           <AddButton label={"+"} />

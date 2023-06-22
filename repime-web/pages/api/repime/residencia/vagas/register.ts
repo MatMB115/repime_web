@@ -3,8 +3,8 @@ import prisma from "../../../../../src/app/libs/prisma_db";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
     try {
+        console.log(req.body.tb_residencia);
          const vaga = await prisma.vaga.create({
             data: {
                 mensalidade: Number(req.body.mensalidade),
@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 e_mobiliado: req.body.e_mobiliado,
                 tb_residencia: {
                     connect: {
-                        id: Number(req.body.tb_residencia.id)
+                        id: Number(req.body.tb_residencia)
                     }
                 }
             }

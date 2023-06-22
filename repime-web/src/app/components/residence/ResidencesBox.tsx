@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import usePlaceModal from "../../hooks/usePlaceModal";
+import useResidenceUpdateModal from "../../hooks/useResidenceUpdateModal";
 
 interface ResidencesBoxProps {
     key: number;
@@ -19,7 +20,7 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
     
     const router = useRouter();
     const placeModal = usePlaceModal();
-    placeModal.id = residence.id;
+    const residenceModal = useResidenceUpdateModal();
 
     const { 
         handleSubmit,
@@ -44,6 +45,16 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
         })
     }
 
+    const handleInsertVaga = () => {
+        placeModal.setResidenceId(Number(residence.id));
+        placeModal.onOpen();
+    };
+    
+    const handleAtualizarResidencia = () => {
+        residenceModal.setResidenceId(Number(residence.id));
+        residenceModal.onOpen();
+    };
+
     let tipo: String;
     if(residence.tipo === 'republica'){
         tipo = "República - "
@@ -65,11 +76,11 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
                     <div className="float-right">
                         <div className="flex flex-row gap-4 py-4 items-center">
                             <div className="border-repimehardblue border-[3px] font-bold rounded-3xl p-1">
-                                <button onClick={() => {}}>Atualizar</button>
+                                <button onClick={handleAtualizarResidencia}>Atualizar</button>
                             </div>
                             
                             <div className="border-repimehardblue border-[3px] font-bold rounded-3xl p-1">
-                                <button onClick={placeModal.onOpen}>Inserir vaga</button>
+                                <button onClick={handleInsertVaga}>Inserir vaga</button>
                             </div>
 
                             <div className="border-repimepink border-[3px] font-bold rounded-3xl p-1">

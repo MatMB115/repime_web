@@ -6,10 +6,10 @@ interface ResidenceModalStore {
     onClose: () => void;
 }
 
-const useRegisterModal = create<ResidenceModalStore>((set) => ({
+const useResidenceModal = create<ResidenceModalStore>((set) => ({
     isOpen: false,
     onOpen: () => set({ isOpen: true}),
     onClose: () => set({isOpen: false}),
 }))
 
-export default useRegisterModal;
+export default useResidenceModal;

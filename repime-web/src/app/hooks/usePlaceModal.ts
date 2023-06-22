@@ -1,17 +1,19 @@
 import { create } from "zustand";
 
 interface PlaceModalStore {
-    isOpen: boolean;
-    onOpen: () => void;
-    onClose: () => void;
-    id: number;
+  isOpen: boolean;
+  residenceId: Number | null;
+  onOpen: () => void;
+  onClose: () => void;
+  setResidenceId: (id: Number) => void;
 }
 
 const usePlaceModal = create<PlaceModalStore>((set) => ({
-    isOpen: false,
-    onOpen: () => set({ isOpen: true}),
-    onClose: () => set({isOpen: false}),
-    id: 0
-}))
+  isOpen: false,
+  residenceId: null,
+  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({ isOpen: false }),
+  setResidenceId: (id: Number) => set({ residenceId: Number(id) }),
+}));
 
 export default usePlaceModal;

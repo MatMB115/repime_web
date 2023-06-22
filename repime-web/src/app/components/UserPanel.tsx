@@ -75,12 +75,16 @@ const UserPanel: React.FC<UserPanelProps> = ({
                             Contato: {currentUser?.contato}
                         </div>
                     </div>
-                    <div className="p-3 border-repimepink border-[3px] text-repimepink font-bold rounded-3xl">
-                        <button onClick={handleSubmit(onSubmit)}>Delete Account</button>
-                    </div>
-                    
-                </div>
-                
+
+                    <div className="flex flex-row gap-4 py-4 items-center">
+                        <div className="p-3 border-repimehardblue border-[3px] text-repimehardblue font-bold rounded-3xl">
+                            <button onClick={handleSubmit(onSubmit)}>Atualizar Conta</button>
+                        </div>
+                        <div className="p-3 border-repimepink border-[3px] text-repimepink font-bold rounded-3xl">
+                            <button onClick={handleSubmit(onSubmit)}>Deletar Conta</button>
+                        </div>
+                    </div>  
+                </div> 
             </div>
         </Container>
     );
