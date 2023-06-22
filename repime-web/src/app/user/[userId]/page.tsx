@@ -22,7 +22,7 @@ const userPage = async () => {
         <PrivateRoute user={currentUser} route={path}>
             <ClienteOnly>
                 <UserPanel currentUser={currentUser} /> 
-                <UserUpdateModal currentUser={currentUser}/>
+                <UserUpdateModal currentUser={currentUser} />
             </ClienteOnly>
         </PrivateRoute>
         

@@ -6,10 +6,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const user = await prisma.user.update({
             data: {
+                email: req.body.email,
                 name: req.body.nome,
                 senha: req.body.senha == null || req.body.senha == "" ? null : bcrypt.hashSync(req.body.senha, 10),
                 contato: req.body.contato,
-                image: req.body.foto
+                image: req.body.foto,
             },
             where: {
                 id: req.body.id

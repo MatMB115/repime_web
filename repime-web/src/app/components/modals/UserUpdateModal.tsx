@@ -16,6 +16,7 @@ import validator from 'validator';
 import { User } from "@prisma/client"
 import useUserUpdateModal from '@/app/hooks/useUserUpdateModal';
 import ImageUpload from "../inputs/ImageUpload";
+import { signOut } from "next-auth/react";
 
 enum STEPS {
     INFO = 0,
@@ -45,6 +46,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
         defaultValues: {
             id: currentUser?.id,
             nome: null,
+            email: currentUser?.email,
             senha: null,
             contato: null,
             foto: null
@@ -52,6 +54,9 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) =>{
+        if (step !== STEPS.IMAGE) {
+            return onNext();
+        }
         setIsLoading(true);
         
         let validData = true;
@@ -66,12 +71,13 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
         }
         
         if(validData) {
-            axios.post('/api/repime/user/update', data)
+            axios.put('/api/repime/user/update', data)
             .then(() => {
                 toast.success('Atualização do perfil realizado com sucesso');
                 userEditModal.onClose();
+                signOut()
             })
-            .catch((err) =>{
+            .catch((err) => {
                 toast.error('Algo deu errado: ' + err);
             })
         }
@@ -98,7 +104,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
 
     const actionLabel = useMemo(() => {
         if (step === STEPS.IMAGE){
-            return "Criar";
+            return "Atualizar";
         }
 
         return "Próxima"

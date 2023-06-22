@@ -5,7 +5,6 @@ import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import PlaceCard from "./components/places/PlaceCard";
 
-
 export default async function Home() {
   const places = await getPlaces();
   const currentUser = await getCurrentUser();

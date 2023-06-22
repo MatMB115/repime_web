@@ -67,8 +67,8 @@ model Residencia {
   id_cidade         Int
   id_user           String
   tipo              tipos_residencia
-  tb_cidade         Cidade           @relation(fields: [id_cidade], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  tb_usuario        User             @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tb_cidade         Cidade           @relation(fields: [id_cidade], references: [id], onDelete: Cascade)
+  tb_usuario        User             @relation(fields: [id_user], references: [id], onDelete: Cascade)
   tb_vaga           Vaga[]
 
   @@map("tb_residencia")
@@ -158,6 +158,42 @@ view residencia_vagas_fotos_cidade {
   cidade_nome       String?           @db.VarChar(50)
   pais              String?           @db.VarChar(50)
   uf                String?           @db.VarChar(2)
+}
+
+view place_page {
+  id_vaga           Int?         @unique
+  mensalidade       Float?
+  descricao         String?
+  id_foto_vaga      Int?
+  foto              String?
+  id_residencia     Int?
+  residencia_nome   String?           @db.VarChar(50)
+  tem_garagem       Boolean?
+  end_numero        Int?
+  end_rua           String?           @db.VarChar(75)
+  end_bairro        String?           @db.VarChar(75)
+  end_complemento   String?           @db.VarChar(75)
+  end_cep           String?           @db.VarChar(8)
+  tem_animais       Boolean?
+  oferece_almoco    Boolean?
+  oferece_janta     Boolean?
+  tipo_republica    tipos_rep?
+  fundacao          DateTime?         @db.Date
+  tem_trote         Boolean?
+  tem_diarista      Boolean?
+  tempo_de_contrato Int?
+  agua_inclusa      Boolean?
+  internet_inclusa  Boolean?
+  energia_inclusa   Boolean?
+  tipo              tipos_residencia?
+  id_cidade         Int?
+  cidade_nome       String?           @db.VarChar(50)
+  pais              String?           @db.VarChar(50)
+  uf                String?           @db.VarChar(2)
+  id                String?
+  name              String?           @db.VarChar(100)
+  image             String?
+  contato           String?           @db.VarChar(15)
 }
 
 enum tipos_rep {
