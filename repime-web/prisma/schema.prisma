@@ -161,7 +161,7 @@ view residencia_vagas_fotos_cidade {
 }
 
 view place_page {
-  id_vaga           Int?         @unique
+  id_vaga           Int               @unique
   mensalidade       Float?
   descricao         String?
   id_foto_vaga      Int?
