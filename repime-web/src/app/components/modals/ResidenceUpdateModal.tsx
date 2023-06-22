@@ -11,10 +11,11 @@ import CitySelect from "../inputs/CitySelect";
 import Input from "../inputs/Input";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { User } from '@prisma/client';
 import InputCheckbox from "../inputs/InputCheckbox";
 import RepTypeSelect from "../inputs/RepTypeSelect";
+import useUserUpdateModal from "@/app/hooks/useUserUpdateModal";
 
 enum STEPS {
     CATEGORY = 0,
@@ -35,7 +36,7 @@ const ResidenceModalUpdate: React.FC<ResidenceModalProps> = ({
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
-
+    
     const {
         register,
         handleSubmit,

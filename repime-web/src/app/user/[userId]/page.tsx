@@ -3,6 +3,7 @@ import ClienteOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
 import PrivateRoute from "@/app/components/PrivateRoute";
 import UserPanel from "@/app/components/UserPanel";
+import UserUpdateModal from '@/app/components/modals/UserUpdateModal'
 
 const userPage = async () => {
     const currentUser = await getCurrentUser();
@@ -20,9 +21,8 @@ const userPage = async () => {
     return ( 
         <PrivateRoute user={currentUser} route={path}>
             <ClienteOnly>
-            <UserPanel 
-                currentUser={currentUser}
-            />          
+                <UserPanel currentUser={currentUser} /> 
+                <UserUpdateModal currentUser={currentUser}/>
             </ClienteOnly>
         </PrivateRoute>
         

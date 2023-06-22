@@ -8,15 +8,17 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import useUserUpdateModal from "@/app/hooks/useUserUpdateModal";
 
 interface UserPanelProps {
-    currentUser?: User;
+    currentUser?: User | null;
 }
 
 const UserPanel: React.FC<UserPanelProps> = ({
     currentUser
 }) => {
     const router = useRouter();
+    const userUpdateModal = useUserUpdateModal();
 
     const { 
         handleSubmit,
@@ -78,7 +80,7 @@ const UserPanel: React.FC<UserPanelProps> = ({
 
                     <div className="flex flex-row gap-4 py-4 items-center">
                         <div className="p-3 border-repimehardblue border-[3px] text-repimehardblue font-bold rounded-3xl">
-                            <button onClick={handleSubmit(onSubmit)}>Atualizar Conta</button>
+                            <button onClick={userUpdateModal.onOpen}>Atualizar Conta</button>
                         </div>
                         <div className="p-3 border-repimepink border-[3px] text-repimepink font-bold rounded-3xl">
                             <button onClick={handleSubmit(onSubmit)}>Deletar Conta</button>

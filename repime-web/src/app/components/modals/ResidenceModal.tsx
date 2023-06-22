@@ -2,7 +2,6 @@
 import { useMemo, useState } from "react";
 
 import useResidenceModal from "@/app/hooks/useResidenceModal";
-
 import Modal from "./Modal";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
@@ -12,7 +11,7 @@ import CitySelect from "../inputs/CitySelect";
 import Input from "../inputs/Input";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { User } from '@prisma/client';
 import InputCheckbox from "../inputs/InputCheckbox";
 import RepTypeSelect from "../inputs/RepTypeSelect";
