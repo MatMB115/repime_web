@@ -9,6 +9,7 @@ interface ButtonProps {
     outline?: boolean;
     small?: boolean;
     icon?: IconType;
+    pink?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,7 +18,8 @@ const Button: React.FC<ButtonProps> = ({
     disabled,
     outline,
     small,
-    icon: Icon
+    icon: Icon,
+    pink
 }) => {
     return ( 
         <button
@@ -31,6 +33,8 @@ const Button: React.FC<ButtonProps> = ({
                 hover:opacity-80
                 transition
                 w-full
+                ${pink ? 'bg-repimepink': 'bg-repimehardblue'}
+                ${pink ? 'border-repimepink': 'bg-repimehardblue'}
                 ${outline ? 'bg-white' : 'bg-repimehardblue'}
                 ${outline ? 'border-black' : 'border-repimehardblue'}
                 ${outline ? 'text-black' : 'text-white'}

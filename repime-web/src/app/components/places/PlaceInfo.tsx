@@ -83,7 +83,7 @@ const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
                             <>
                                 <div className="flex flex-row gap-2 items-center">
                                     <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Almoço</div>
+                                    <div>Garagem</div>
                                 </div>
                             </>
                         )}

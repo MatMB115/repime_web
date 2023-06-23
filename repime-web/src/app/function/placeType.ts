@@ -1,7 +1,7 @@
 export default function placeType(tipo: string){
     if(tipo === 'republica'){
-        return "República";
+        return "república";
     }else{
-        return "Kitnet"
+        return "kitnet"
     }
 }

@@ -25,12 +25,12 @@ export const categories = [
     {
         label: 'República',
         icon: AiOutlineHome,
-        description: 'Mostra apenas as vagas de república'
+        description: 'Esta residência é uma república'
     },
     {
         label: 'Kitnets',
         icon: BiHotel,
-        description: 'Mostra apenas as vagas de kitnet'
+        description: 'Esta residência é uma kitnet'
     },
 ]
 

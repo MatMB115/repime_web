@@ -4,6 +4,7 @@ import Button from "@/app/components/Button";
 import Container from "@/app/components/Container";
 import PlaceHead from "@/app/components/places/PlaceHead";
 import PlaceInfo from "@/app/components/places/PlaceInfo";
+import getContactMsg from "@/app/function/getContactMsg";
 import isOwner from "@/app/function/isOwner";
 import isRepublica from "@/app/function/isRepublica";
 import placeType from "@/app/function/placeType";
@@ -25,9 +26,9 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
 }) => {
     const tipo = placeType(place?.tipo as string);
     const republica = isRepublica(place?.tipo as string);
-    const formatContact = place?.contato?.replaceAll(' ', '');
     const router = useRouter();
     const checkOwner = isOwner(currentUser?.id!, place?.id!)
+    const msg = getContactMsg(tipo, place?.contato!, place?.end_rua!, place?.end_numero!, place?.mensalidade!)
 
     const { 
         handleSubmit,
@@ -122,7 +123,7 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
                                 <hr />
                                 <div className="p-4">
                                     <div className="p-2">
-                                        <Link href={"https://wa.me/55" + formatContact} target="_blank">
+                                        <Link href={msg} target="_blank">
                                             <Button  
                                             label="Entre em contato" 
                                             onClick={()=>{}}
@@ -131,23 +132,11 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
                                     </div>
                                     <div className="p-2">
                                         {checkOwner && (
-                                            <button
-                                            onClick={handleSubmit(onSubmit)}
-                                            className="
-                                                relative
-                                                disable:opacity-70
-                                                disabled:cursor-not-allowed
-                                                rounded-lg
-                                                hover:opacity-80
-                                                transition
-                                                w-full
-                                                p-3
-                                                text-white
-                                                bg-repimepink
-                                            "
-                                        >
-                                            Delete
-                                        </button>
+                                            <Button
+                                                label="Delete"
+                                                onClick={handleSubmit(onSubmit)}
+                                                pink
+                                            />
                                         )}
                                     </div>
                                 </div>

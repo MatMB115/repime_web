@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 const Logo = () => {
     const router = useRouter();
@@ -14,8 +13,8 @@ const Logo = () => {
             onClick={() => router.push('/')}
             alt="Logo"
             className="md:block cursor-pointer"
-            height={"50"}
-            width={"50"}
+            height={"45"}
+            width={"45"}
             src={"/images/logo.png"}
             />
                 <div 
