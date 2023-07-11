@@ -192,6 +192,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
             onClose={userEditModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
             body={bodyContent}
+            medium
         />
     );
 }

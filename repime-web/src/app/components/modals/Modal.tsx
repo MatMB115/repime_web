@@ -15,6 +15,8 @@ interface ModalProps{
     disabled?: boolean;
     secondaryAction?: () => void;
     secondaryActionLabel?: string;
+    pink?: boolean;
+    medium?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -27,7 +29,9 @@ const Modal: React.FC<ModalProps> = ({
     actionLabel,
     disabled,
     secondaryAction,
-    secondaryActionLabel
+    secondaryActionLabel,
+    pink,
+    medium
 }) => {
     const [showModal, setShowModal] = useState(isOpen);
 
@@ -83,18 +87,21 @@ const Modal: React.FC<ModalProps> = ({
             "
         >
             <div
-                className="
+                className={`
                     relative
                     w-full
                     md:w-4/6
                     lg:w-3/6
                     xl:w-2/5
+                    ${medium ? 'md:w-1/5' : 'md:w-4/6'}
+                    ${medium ? 'lg:w-1/4' : 'lg:w-3/6'}
+                    ${medium ? 'xl:w-1/3' : 'xl:w-2/5'}
                     my-6
                     mx-auto
                     h-full
                     lg:h-auto
                     md:h-auto
-                "
+                `}
             >
                 {/* content */}
                 <div
@@ -177,6 +184,7 @@ const Modal: React.FC<ModalProps> = ({
                                     />
                                 )}
                                 <Button 
+                                    pink={pink}
                                     disabled={disabled}
                                     label={actionLabel}
                                     onClick={handleSubmit}

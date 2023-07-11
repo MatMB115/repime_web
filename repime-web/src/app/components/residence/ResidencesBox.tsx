@@ -8,6 +8,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import usePlaceModal from "../../hooks/usePlaceModal";
 import useResidenceUpdateModal from "../../hooks/useResidenceUpdateModal";
+import useDeleteModal from "@/app/hooks/useDeleteModal";
+import DeleteModal from "../modals/DeleteModal";
 
 interface ResidencesBoxProps {
     key: number;
@@ -21,6 +23,7 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
     const router = useRouter();
     const placeModal = usePlaceModal();
     const residenceModal = useResidenceUpdateModal();
+    const deleteModal = useDeleteModal();
 
     const { 
         handleSubmit,
@@ -38,7 +41,9 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
         axios.post('/api/repime/residencia/remove', data)
         .then((response) => {
             toast.success(response.data.repime.msg_ret);
+            deleteModal.onClose()
             router.refresh();
+            
         })
         .catch(() => {
             toast.error('Algo deu errado');
@@ -63,6 +68,7 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
     }
 
     return (
+        <>
         <div className="m-2 p-4 max-w-screen-lg mx-auto border-[2px] border-zinc-400 rounded-2xl">
             <div className="flex flex-col gap-6">
                 <div className="flow-root">
@@ -84,13 +90,15 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
                             </div>
 
                             <div className="border-repimepink border-[3px] font-bold rounded-3xl p-1">
-                                <button onClick={handleSubmit(onSubmit)}>Deletar</button>
+                                <button onClick={deleteModal.onOpen}>Deletar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <DeleteModal onSubmit={handleSubmit(onSubmit)}/>
+        </>
     );
 }
 
