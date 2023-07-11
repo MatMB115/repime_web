@@ -19,7 +19,7 @@ const GoogleMapsComponent: React.FC<GoogleMapsProps> = (
     console.log(process.env.GOOGLE_MAPS_API as string);
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: process.env.GOOGLE_CLIENT_API_KEY as string
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_API_KEY as string
     })
 
     const [map, setMap] = React.useState(null)
