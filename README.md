@@ -68,7 +68,6 @@ As orientações estão divididas nos seguintes tópicos:
     - [Layout para telas de maiores :desktop\_computer:](#layout-para-telas-de-maiores-desktop_computer)
     - [Layout para telas de médias :computer:](#layout-para-telas-de-médias-computer)
     - [Layout para telas de pequenas :iphone:](#layout-para-telas-de-pequenas-iphone)
-  - [To Do :heavy\_check\_mark:](#to-do-heavy_check_mark)
   - [Tecnologias :technologist:](#tecnologias-technologist)
   - [Contribuidores](#contribuidores)
 
@@ -79,8 +78,9 @@ As orientações estão divididas nos seguintes tópicos:
  - [x] CRUD de Kitnets;
  - [x] CRUD de República;
  - [x] CRUD de Vagas;
- - [ ] Visualizar detalhes das vagas;
- - [ ] Vagas agrupadas por residêncais;
+ - [X] Visualizar detalhes das vagas;
+ - [ ] Maps na tela de vaga;
+ - [ ] Modal de remoção de vaga;
  - [ ] Filtros de vagas;
  - [ ] Dashboard.
 
@@ -174,82 +174,6 @@ Design base do figma - [RepiME](https://www.figma.com/proto/Xdomencyno1SR2ac3t2a
   <img alt="Residence mobile page screenshot" title="#First" src="https://imgur.com/A3Er6kY.png" width="254px">
 </p>
 
----
-## To Do :heavy_check_mark:
-
-- [x] Projeto RepiME
-  - [x] Prospecção
-    - [x] Estudo do Tema
-      - [x] Estudar Domínio de Aplicação
-      - [x] Divisão de Tarefas
-  - [x] Análise
-    - [x] Documento de Requisitos
-      - [x] Elaborar DRE
-        - [x] Revisar DRE
-        - [x] Submeter DRE para Aprovação do Cliente
-    - [x] Est. Prel. Tamanho
-      - [x] Estimar Tamanho do Projeto
-      - [x] Revisar Estimativa de Tamanho do Projeto
-    - [x] Est. Prel. Cronograma
-      - [x] Elaborar Cronograma Preliminar
-      - [x] Revisar Cronograma Preliminar
-    - [x] MRB
-      - [x] Elaborar MRB
-      - [x] Revisar MRB
-  - [x] Projeto
-    - [x] Diagrama de Classes
-      - [x] Elaborar Diagrama de Classe
-      - [x] Revisar Diagrama de Classe
-      - [x] Atualizar MRB
-    - [x] Planejamento
-      - [x] Pesquisar Soluções Existentes
-      - [x] Definir Linguagens e Frameworks
-      - [x] Revisar Divisão de Tarefas
-    - [ ] Desenvolvimento
-      - [ ] Release 01
-        - [ ] Implementações
-          - [ ] Manter Usuário - RC01
-            - [x] Implementar RFS01
-            - [ ] Implementar RFS02
-            - [x] Implementar RFS03
-            - [x] Implementar RFS04
-          - [ ] Manter República - RC02
-            - [x] Implementar RFS13
-            - [ ] Implementar RFS14
-            - [x] Implementar RFS15
-            - [x] Implementar RFS16
-          - [x] Testes Release 01
-            - [x] Testar RC01
-            - [x] Testar RC02
-      - [ ] Release 02
-        - [ ] Implementações
-          - [ ] Manter Kitnet - RC04
-            - [x] Implementar RFS17
-            - [ ] Implementar RFS18
-            - [x] Implementar RFS19
-            - [x] Implementar RFS20
-          - [x] Testes Release 02
-            - [x] Testar RC04
-        - [ ] Release 03 
-          - [ ] Implementações
-            - [ ] Manter Vagas - RC03
-              - [x] Implementar RFS09
-              - [ ] Implementar RFS10
-              - [x] Implementar RFS11
-              - [x] Implementar RFS12
-            - [ ] Testes Release 03
-              - [ ] Testar RC03
-        - [ ] Release 04 
-          - [ ] Implementações
-            - [ ] Manter Dashboard - RC05
-              - [ ] Implementar RFS21
-              - [ ] Implementar RFS22
-              - [ ] Implementar RFS23
-            - [ ] Testes Release 04
-              - [ ] Testar RC06
-      - [ ] Monitoramento e Controle
-        - [ ] Acompanhar Projeto
-        - [ ] Gerência de Configuração
 ---
 ## Tecnologias :technologist:
     O ponto de início deste projeto foi uma aplicação NextJS, as dependências utilizadas estão presentes no package.json. 
