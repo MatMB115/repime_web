@@ -60,7 +60,7 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
                     <PlaceHead 
                         title={`${place?.end_rua} ${place?.end_numero} ${place?.end_complemento} em ${place?.end_bairro} - ${place?.cidade_nome}`}
                         imageSrc={place!.foto}
-                        locationValue={`${place?.pais}, ${place?.uf}`}
+                        locationValue={`${place?.end_cep} - ${place?.pais}, ${place?.uf}`}
                         id={place!.id_vaga}
                         currentUser={currentUser!}
                     />
@@ -74,14 +74,13 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
                         "
                     >
                         <PlaceInfo
+                            placeName={place?.residencia_nome!}
                             hostName={place?.name!}
                             hostImg={place?.image!}
                             description={place?.descricao!}
                             hasGarage={place?.tem_garagem!}
                             burgh={place?.end_bairro!}
                             complement={place?.end_complemento!}
-                            cep={place?.end_cep!}
-                            price={place?.mensalidade!}
                             hasPets={place?.tem_animais!}
                             hasLunch={place?.oferece_almoco!}
                             hasDinner={place?.oferece_janta!}

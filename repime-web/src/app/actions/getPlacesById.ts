@@ -19,6 +19,15 @@ export default async function getPlaceById(
     if(!place) {
       return null;
     }
+    
+    const updateVisitas = await prisma.vaga.update({
+      where:{
+        id: place.id_vaga
+      },
+      data: {
+        qtd_visitas: { increment: 1}
+      }
+    });
 
     return place;
   } catch (error: any){

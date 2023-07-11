@@ -6,14 +6,13 @@ import PlaceCategory from "./PlaceCategory";
 
 
 interface PlaceInfoRep {
+    placeName: string,
     hostName: string,
     hostImg: string;
     description: string;
     hasGarage: boolean;
     burgh: string;
     complement: string;
-    cep: string;
-    price: number;
     hasPets: boolean;
     hasLunch: boolean;
     hasDinner: boolean;
@@ -28,12 +27,11 @@ interface PlaceInfoRep {
 }
 
 const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
+    placeName,
     hostName,
     hostImg,
     description,
     hasGarage,
-    cep,
-    price,
     hasPets,
     hasLunch,
     hasDinner,
@@ -61,113 +59,108 @@ const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
                         gap-2
                     "
                 >
-                    <div>Ofertada por {hostName}</div>
+                    <div>Ofertada por {hostName} em {isRep} {isRep ? 'república' : 'kitnet'} {placeName}</div>
                     <Avatar src={hostImg} />
                 </div>
                 <div className="font-semibold text-zinc-700">Contato: {contato}</div>
+                
                 {contract && (
                     <div className="font-semibold text-zinc-700">Tempo do Contrato: {contract} meses</div>
                 )}
                 <div 
                     className="
-                        flex
-                        flex-row
+                        grid
                         items-center
                         gap-2
                         font-light
                         text-neutral-500
+                        grid-cols-4
                     "
                 >
-                    <div>
-                        {hasGarage && (
-                            <>
-                                <div className="flex flex-row gap-2 items-center">
-                                    <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Garagem</div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    <div>
-                        {hasPets && (
-                            <>
-                                <div className="flex flex-row gap-2 items-center">
-                                    <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Animais</div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    <div>
-                        {hasLunch && (
-                            <>
-                                <div className="flex flex-row gap-2 items-center">
-                                    <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Almoço</div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    <div>
-                        {hasDinner && (
-                            <>
-                                <div className="flex flex-row gap-2 items-center">
-                                    <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Janta</div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    <div>
-                        {hasDiarist && (
-                            <>
-                                <div className="flex flex-row gap-2 items-center">
-                                    <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Diarista</div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    <div>
-                        {hasPranks && (
-                            <>
-                                <div className="flex flex-row gap-2 items-center">
-                                    <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Trotes</div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    <div>
-                        {includeEnergy && (
-                            <>
-                                <div className="flex flex-row gap-2 items-center">
-                                    <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Energia Inclusa</div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    <div>
-                        {includeInternet && (
-                            <>
-                                <div className="flex flex-row gap-2 items-center">
-                                    <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Internet Inclusa</div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    <div>
-                        {includeWater && (
-                            <>
-                                <div className="flex flex-row gap-2 items-center">
-                                    <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
-                                    <div>Água Inclusa</div>
-                                </div>
-                            </>
-                        )}
-                    </div>
+
+                    {hasGarage && (
+                        <>
+                            <div className="flex flex-row gap-2 items-center">
+                                <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
+                                <div>Garagem</div>
+                            </div>
+                        </>
+                    )}
+
+
+                    {hasPets && (
+                        <>
+                            <div className="flex flex-row gap-2 items-center">
+                                <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
+                                <div>Animais</div>
+                            </div>
+                        </>
+                    )}
+
+
+                    {hasLunch && (
+                        <>
+                            <div className="flex flex-row gap-2 items-center">
+                                <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
+                                <div>Almoço</div>
+                            </div>
+                        </>
+                    )}
+
+                    {hasDinner && (
+                        <>
+                            <div className="flex flex-row gap-2 items-center">
+                                <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
+                                <div>Janta</div>
+                            </div>
+                        </>
+                    )}
+
+                    {hasDiarist && (
+                        <>
+                            <div className="flex flex-row gap-2 items-center">
+                                <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
+                                <div>Diarista</div>
+                            </div>
+                        </>
+                    )}
+
+                    {hasPranks && (
+                        <>
+                            <div className="flex flex-row gap-2 items-center">
+                                <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
+                                <div>Trotes</div>
+                            </div>
+                        </>
+                    )}
+
+                    {includeEnergy && (
+                        <>
+                            <div className="flex flex-row gap-2 items-center">
+                                <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
+                                <div>Energia Inclusa</div>
+                            </div>
+                        </>
+                    )}
+
+                    {includeInternet && (
+                        <>
+                            <div className="flex flex-row gap-2 items-center">
+                                <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
+                                <div>Internet Inclusa</div>
+                            </div>
+                        </>
+                    )}
+
+                    {includeWater && (
+                        <>
+                            <div className="flex flex-row gap-2 items-center">
+                                <div className="p-2 h-1 w-1 bg-repimeblue rounded-lg"></div>
+                                <div>Água Inclusa</div>
+                            </div>
+                        </>
+                    )}
+
                 </div>
             </div>
             <hr />

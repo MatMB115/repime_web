@@ -6,6 +6,7 @@ import './globals.css'
 import { Nunito } from 'next/font/google'
 import ToasterProvider from './providers/ToasterProvider'
 import getCurrentUser from './actions/getCurrentUser'
+import SearchModal from './components/modals/SearchModal'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -26,6 +27,7 @@ export default async function RootLayout({
 			<body className={nunito.className}>
 				<ClienteOnly>
 					<ToasterProvider />
+					<SearchModal />
 					<LoginModal />
 					<RegisterModal />
 					<Navbar currentUser={currentUser} />

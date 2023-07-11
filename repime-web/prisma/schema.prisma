@@ -89,6 +89,7 @@ model Vaga {
   descricao     String?
   e_mobiliado   Boolean?
   id_residencia Int
+  qtd_visitas   Int?       @default(0)
   tb_foto_vaga  FotoVaga[]
   tb_residencia Residencia @relation(fields: [id_residencia], references: [id], onDelete: Cascade)
 
