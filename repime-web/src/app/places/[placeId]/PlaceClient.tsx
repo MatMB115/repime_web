@@ -1,5 +1,5 @@
 'use client'
-
+import { GoogleMap } from "@react-google-maps/api"
 import Button from "@/app/components/Button";
 import Container from "@/app/components/Container";
 import PlaceHead from "@/app/components/places/PlaceHead";
@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import GoogleMapsComponent from "@/app/components/MapsComponent"
 
 interface PlaceClientProps {
     place: place_page | null;
@@ -30,41 +31,42 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
     const checkOwner = isOwner(currentUser?.id!, place?.id!)
     const msg = getContactMsg(tipo, place?.contato!, place?.end_rua!, place?.end_numero!, place?.mensalidade!)
 
-    const { 
+    const {
         handleSubmit,
         formState: {
             errors,
         }
     } = useForm<FieldValues>({
-        defaultValues:{
+        defaultValues: {
             id: place?.id_vaga
         }
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        
+
         axios.post('/api/repime/residencia/vagas/remove', data)
-        .then((response) => {
-            toast.success(response.data.repime.msg_ret);
-            router.push('/');
-        })
-        .catch(() => {
-            toast.error('Algo deu errado');
-        })
+            .then((response) => {
+                toast.success(response.data.repime.msg_ret);
+                router.push('/');
+            })
+            .catch(() => {
+                toast.error('Algo deu errado');
+            })
     }
-    
-    return ( 
+
+    return (
         <Container>
+
             <div className="max-w-screen-lg mx-auto">
                 <div className="flex flex-col gap-6">
-                    <PlaceHead 
+                    <PlaceHead
                         title={`${place?.end_rua} ${place?.end_numero} ${place?.end_complemento} em ${place?.end_bairro} - ${place?.cidade_nome}`}
                         imageSrc={place!.foto}
                         locationValue={`${place?.end_cep} - ${place?.pais}, ${place?.uf}`}
                         id={place!.id_vaga}
                         currentUser={currentUser!}
                     />
-                    <div 
+                    <div
                         className="
                             grid
                             grid-cols-1
@@ -93,15 +95,15 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
                             includeInternet={place?.internet_inclusa!}
                             includeEnergy={place?.energia_inclusa!}
                         />
-                        <div 
+                        <div
                             className="
                                 order-first 
                                 mb-10 
                                 md:order-last 
                                 md:col-span-3
                             "
-                        >   
-                            <div 
+                        >
+                            <div
                                 className="
                                 bg-white 
                                     rounded-xl 
@@ -109,23 +111,23 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
                                 border-neutral-200 
                                     overflow-hidden
                                 "
-                                >
+                            >
                                 <div className="
                                 flex flex-row items-center gap-1 p-4">
                                     <div className="text-2xl font-semibold">
                                         R${place?.mensalidade}
                                     </div>
                                     <div className="font-light text-neutral-600">
-                                    mês
+                                        mês
                                     </div>
                                 </div>
                                 <hr />
                                 <div className="p-4">
                                     <div className="p-2">
                                         <Link href={msg} target="_blank">
-                                            <Button  
-                                            label="Entre em contato" 
-                                            onClick={()=>{}}
+                                            <Button
+                                                label="Entre em contato"
+                                                onClick={() => { }}
                                             />
                                         </Link>
                                     </div>
@@ -142,10 +144,15 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
                             </div>
                         </div>
                     </div>
+                    <GoogleMapsComponent
+                        addressUniversity="Av. B P S, 1303 - Pinheirinho, Itajubá - MG, 37500-903"
+                        addressPlace={String(place?.end_rua! + "," + place?.end_numero! + "," + place?.end_bairro + "," + place?.cidade_nome)}
+
+                    ></GoogleMapsComponent>
                 </div>
             </div>
         </Container>
     );
 }
- 
+
 export default PlaceClient;
