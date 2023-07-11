@@ -2,12 +2,14 @@
 
 import Button from "@/app/components/Button";
 import Container from "@/app/components/Container";
+import DeleteModal from "@/app/components/modals/DeleteModal";
 import PlaceHead from "@/app/components/places/PlaceHead";
 import PlaceInfo from "@/app/components/places/PlaceInfo";
 import getContactMsg from "@/app/function/getContactMsg";
 import isOwner from "@/app/function/isOwner";
 import isRepublica from "@/app/function/isRepublica";
 import placeType from "@/app/function/placeType";
+import useDeleteModal from "@/app/hooks/useDeleteModal";
 import { User, place_page } from "@prisma/client";
 import axios from "axios";
 import Link from "next/link";
@@ -29,7 +31,8 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
     const router = useRouter();
     const checkOwner = isOwner(currentUser?.id!, place?.id!)
     const msg = getContactMsg(tipo, place?.contato!, place?.end_rua!, place?.end_numero!, place?.mensalidade!)
-
+    const deleteModal = useDeleteModal();
+    
     const { 
         handleSubmit,
         formState: {
@@ -46,6 +49,7 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
         axios.post('/api/repime/residencia/vagas/remove', data)
         .then((response) => {
             toast.success(response.data.repime.msg_ret);
+            deleteModal.onClose()
             router.push('/');
         })
         .catch(() => {
@@ -124,18 +128,22 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
                                     <div className="p-2">
                                         <Link href={msg} target="_blank">
                                             <Button  
-                                            label="Entre em contato" 
-                                            onClick={()=>{}}
+                                                label="Entre em contato" 
+                                                onClick={()=>{}}
                                             />
                                         </Link>
                                     </div>
                                     <div className="p-2">
                                         {checkOwner && (
-                                            <Button
-                                                label="Delete"
-                                                onClick={handleSubmit(onSubmit)}
-                                                pink
-                                            />
+                                            <>
+                                                <Button
+                                                    label="Delete"
+                                                    onClick={deleteModal.onOpen}
+                                                    pink
+                                                />
+                                                <DeleteModal onSubmit={handleSubmit(onSubmit)} />
+                                            </>
+                                            
                                         )}
                                     </div>
                                 </div>
