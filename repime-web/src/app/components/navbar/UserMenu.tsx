@@ -36,9 +36,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             toast.error("Faça login primeiro!");
             return loginModal.onOpen();
         }
-        if(!isOpen){
-            setIsOpen(false);
-        }
+        setIsOpen(false);
         return router.push(`/residences/${currentUser?.id}`);
     }, [currentUser, loginModal, router, isOpen]);
 
@@ -47,9 +45,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             toast.error("Faça login primeiro!");
             return loginModal.onOpen();
         }
-        if(!isOpen){
-            setIsOpen(false);
-        }
+        setIsOpen(false);
         return router.push(`/user/${currentUser?.id}`);
     }, [currentUser, loginModal, router, isOpen]);
     
