@@ -129,10 +129,16 @@ model Session {
   @@map("tb_sessoes")
 }
 
+model tb_vaga_deletada {
+  id     Int                   @id(map: "tb_vagas_deletadas_pkey") @default(autoincrement())
+  motivo motivo_vaga_deletada?
+}
+
 view residencia_vagas_fotos_cidade {
   id_vaga           Int               @unique
   mensalidade       Float?
   descricao         String?
+  qtd_visitas       Int?
   id_foto_vaga      Int?
   foto              String?
   id_residencia     Int?
@@ -206,4 +212,10 @@ enum tipos_rep {
 enum tipos_residencia {
   republica
   kitnet
+}
+
+enum motivo_vaga_deletada {
+  Preenchida
+  Encerrada
+  Denunciada
 }
