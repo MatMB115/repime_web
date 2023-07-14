@@ -4,7 +4,6 @@ import React from 'react'
 import { dashboard_stats } from "@prisma/client";
 import { FiUsers } from 'react-icons/fi'
 import { BsFillHousesFill } from 'react-icons/bs'
-import { HiBadgeCheck } from 'react-icons/hi'
 import { MdDeleteForever} from 'react-icons/md'
 import { FaDoorOpen } from 'react-icons/fa'
 

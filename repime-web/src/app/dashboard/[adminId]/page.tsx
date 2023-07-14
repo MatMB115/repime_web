@@ -1,13 +1,13 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClienteOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
-import TopCards from "@/app/components/TopCards";
-import BarChart from "@/app/components/BarChart";
+import TopCards from "@/app/components/dashboard/TopCards";
+import BarChart from "@/app/components/dashboard/BarChart";
 import Container from "@/app/components/Container";
-import MostViewedPlaces from "@/app/components/MostViewedPlaces";
-import getPlacesDashboard from "../actions/getPlacesDashboard"
-import getDashboardStats from "../actions/getDashboardStats"
-import getDeletedPlaces from "../actions/getDeletedPlaces";
+import MostViewedPlaces from "@/app/components/dashboard/MostViewedPlaces";
+import getPlacesDashboard from "../../actions/getPlacesDashboard"
+import getDashboardStats from "../../actions/getDashboardStats"
+import getDeletedPlaces from "../../actions/getDeletedPlaces";
 
 const dashboardPage = async () => {
     const currentUser = await getCurrentUser();

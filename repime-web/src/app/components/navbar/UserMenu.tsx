@@ -54,6 +54,15 @@ const UserMenu: React.FC<UserMenuProps> = ({
         return router.push('/');
     }, [router]);
 
+    const onAdmin = useCallback(() =>{
+        if (!currentUser){
+            toast.error("Faça login primeiro!");
+            return loginModal.onOpen();
+        }
+        setIsOpen(false);
+        return router.push(`/dashboard/${currentUser?.id}`);
+    }, [currentUser, loginModal, router, isOpen]);
+
     return ( 
         <div className="relative">
             <div 
@@ -134,7 +143,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                                 {currentUser.is_administrador ? (
                                     <>
                                     <MenuItem
-                                        onClick={() => {}}
+                                        onClick={onAdmin}
                                         label="Dashboard"
                                     />
 
