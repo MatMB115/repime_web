@@ -40,7 +40,6 @@ export default async function ResidencesLayout({
           {children}
         </ClienteOnly>
       </PrivateRoute>
-
     </>
   );
 }

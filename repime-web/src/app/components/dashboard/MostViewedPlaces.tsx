@@ -20,8 +20,8 @@ const MostViewedPlaces: React.FC<MostViewedPlacesProps> = ({
           >
             <div className= 'rounded-lg p-3'>
             <Image 
-              width={100}
-              height={100}
+              width={150}
+              height={150}
               alt="Vaga"
               src={place.foto as string}
               className="

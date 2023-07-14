@@ -68,27 +68,22 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
         <>
         <div className="m-2 p-4 max-w-screen-lg mx-auto border-[2px] border-zinc-400 rounded-2xl">
             <div className="flex flex-col gap-6">
-                <div className="flow-root">
-                    <div className="float-left">
-                        <Heading 
-                            title={tipo + residence.nome}
-                            subtitle={`${residence.end_rua} ${residence.end_numero}, ${residence.end_bairro}`}
-                        />
-                    </div>
-                    
-                    <div className="float-right">
-                        <div className="flex flex-row gap-4 py-4 items-center">
-                            <div className="border-repimehardblue border-[3px] font-bold rounded-3xl p-1">
-                                <button onClick={handleAtualizarResidencia}>Atualizar</button>
-                            </div>
-                            
-                            <div className="border-repimehardblue border-[3px] font-bold rounded-3xl p-1">
-                                <button onClick={handleInsertVaga}>Inserir vaga</button>
-                            </div>
+                <div className="flex flex-row justify-between">
+                    <Heading 
+                        title={tipo + residence.nome}
+                        subtitle={`${residence.end_rua} ${residence.end_numero}, ${residence.end_bairro}`}
+                    />
+                    <div className="flex flex-row gap-4 py-4 items-center">
+                        <div className="border-repimehardblue border-[3px] font-bold rounded-3xl p-1">
+                            <button onClick={handleAtualizarResidencia}>Atualizar</button>
+                        </div>
+                        
+                        <div className="border-repimehardblue border-[3px] font-bold rounded-3xl p-1">
+                            <button onClick={handleInsertVaga}>Inserir vaga</button>
+                        </div>
 
-                            <div className="border-repimepink border-[3px] font-bold rounded-3xl p-1">
-                                <button onClick={deleteModal.onOpen}>Deletar</button>
-                            </div>
+                        <div className="border-repimepink border-[3px] font-bold rounded-3xl p-1">
+                            <button onClick={deleteModal.onOpen}>Deletar</button>
                         </div>
                     </div>
                 </div>

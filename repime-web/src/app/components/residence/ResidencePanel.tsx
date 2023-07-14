@@ -28,8 +28,7 @@ const ResidencePanel: React.FC<ResidencePanelProps> = ({
                     />
                 ))}
             </div>
-        </Container>
-        
+        </Container> 
     );
 }
  

@@ -35,12 +35,12 @@ const dashboardPage = async () => {
                 <Container>
                     <main className='min-h-screen'>
                         <TopCards data={stats!} />
-                        <div className='p-4 grid md:grid-cols-3 grid-cols-1 gap-4'>
+                        <div className='flex flex-col md:flex-row gap-4 px-10'>
                             <PieChart data={totalKitnetRepublica!} />
                             <MostViewedPlaces data={places} />
                         </div>
                     </main>
-                    <div className='p-3 flex flex-col md:flex-row items-center '>
+                    <div className='px-3 flex flex-col md:flex-row gap-4 items-center '>
                         <BarChartDeletedPlaces data={deletedPlaces!} />
                         <BarChartVisitedPlaces data={visitedPlaces!} /> 
                     </div>
