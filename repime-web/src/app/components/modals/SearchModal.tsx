@@ -39,7 +39,7 @@ const SearchModal = () => {
                 title="Digite o nome da localização"
                 subtitle="Pesquise entre as vagas"
             />
-            <CitySelect />
+            
         </div>
     )
 
