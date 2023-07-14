@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 id: req.body.id
             }
         });
-
+        
         return res.status(200).json({
             "repime": {
                 'cod_ret': 0,
