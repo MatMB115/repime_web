@@ -2,6 +2,7 @@ SELECT
   v.id AS id_vaga,
   v.mensalidade,
   v.descricao,
+  v.qtd_visitas,
   ft.id AS id_foto_vaga,
   ft.foto,
   r.id AS id_residencia,
