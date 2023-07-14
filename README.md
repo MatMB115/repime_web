@@ -55,7 +55,7 @@ A aplicação web RepiMe busca centralizar, gerenciar e organizar as informaçõ
 
 Tendo em vista a forte tradição de repúblicas na cidade de Itajubá, muitos ingressantes nas universidades da cidade buscam acomodações durante o ciclo acadêmico. Nesse cenário, a fraca centralização das informações acerca das vagas gera um estresse que pode ser evitado.
 
-Conforme as atividades da disciplina de Gerência de Projetos de Software e Desenvolvimento de Sistemas na Web da Universidade Federal de Itajubá, a equipe de desenvolvedores deste projeto propôs uma aplicação que busca auxiliar os universitário no processo para encontrar uma moradia. A aplicação web RepiMe foi construída com framework Next.js.
+Conforme as atividades da disciplina de Gerência de Projetos de Software e Desenvolvimento de Sistemas na Web da Universidade Federal de Itajubá, a equipe de desenvolvedores deste projeto propôs uma aplicação que busca auxiliar os universitário no processo para encontrar uma moradia para que ele se sinta acolhido durante essa grande mudança em sua vida. A aplicação web RepiMe foi construída com React, utilizando o framework Next.js e mais tecnologias descritas abaixo.
 
 As orientações estão divididas nos seguintes tópicos:
 
@@ -79,10 +79,10 @@ As orientações estão divididas nos seguintes tópicos:
  - [x] CRUD de República;
  - [x] CRUD de Vagas;
  - [X] Visualizar detalhes das vagas;
- - [ ] Maps na tela de vaga;
- - [ ] Modal de remoção de vaga;
- - [ ] Filtros de vagas;
- - [ ] Dashboard.
+ - [X] Maps na tela de vaga;
+ - [X] Modal de remoção de vaga;
+ - [X] Filtros de vagas;
+ - [X] Dashboard.
 
 ---
 ## Banco de dados :chair: :game_die:
