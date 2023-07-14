@@ -203,6 +203,23 @@ view place_page {
   contato           String?           @db.VarChar(15)
 }
 
+view dashboard_stats {
+  total_residencias     BigInt
+  total_usuarios        BigInt
+  total_vagas_acessadas BigInt
+  total_vagas_deletadas BigInt
+
+  @@unique([total_residencias, total_usuarios, total_vagas_acessadas, total_vagas_deletadas])
+}
+
+view dashboard_chart {
+  count_preenchida BigInt
+  count_denunciada BigInt
+  count_outros     BigInt
+
+  @@unique([count_preenchida, count_denunciada, count_outros])
+}
+
 enum tipos_rep {
   masculina
   feminina
@@ -216,6 +233,6 @@ enum tipos_residencia {
 
 enum motivo_vaga_deletada {
   Preenchida
-  Encerrada
+  Outros
   Denunciada
 }
