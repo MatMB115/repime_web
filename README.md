@@ -4,7 +4,7 @@
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/MatMB115/repime_web">
 
   <a href="https://github.com/MatMB115/repime_web/releases/tag/RepiMe">
-    <img alt="Application Status" src="https://img.shields.io/badge/app status-off-f23838">
+    <img alt="Application Status" src="https://img.shields.io/badge/app status-running-6bd630">
   </a>
 
   <a href="https://github.com/MatMB115/repime_web/commits/main">
@@ -33,16 +33,25 @@
 
 <p align="center">
     <a href="https://nextjs.org/">
-        <img align="center" alt="RepiMe-Flutter" height="60" width="60" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original-wordmark.svg">
+        <img align="center" alt="NextJs" height="60" width="60" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original-wordmark.svg">
+    </a>
+    <a href="https://vercel.com/">
+        <img align="center" alt="Vercel" height="30" width="30" src="https://static.wikia.nocookie.net/logopedia/images/a/a7/Vercel_favicon.svg/revision/latest?cb=20221026155821">
     </a>
     <a href="https://www.typescriptlang.org/">
-        <img align="center" alt="RepiMe-Dart" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg">
+        <img align="center" alt="Typescript" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg">
     </a>
     <a href="https://nodejs.org/en">
-        <img align="center" alt="RepiMe-Dart" height="70" width="70" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg">
+        <img align="center" alt="NodeJs" height="70" width="70" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg">
     </a>
     <a href="https://www.npmjs.com/">
-        <img align="center" alt="RepiMe-Dart" height="70" width="60" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg">
+        <img align="center" alt="NPM" height="70" width="60" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg">
+    </a>
+    <a href="https://www.prisma.io/">
+        <img align="center" alt="Prisma ORM" height="80" width="80" src="https://cdn.worldvectorlogo.com/logos/prisma-2.svg">
+    </a>
+    <a href="https://tailwindcss.com/">
+        <img align="center" alt="TailwindCSS" height="40" width="40" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg">
     </a>
 </p>
 
@@ -79,6 +88,7 @@ As orientações estão divididas nos seguintes tópicos:
  - [x] CRUD de República;
  - [x] CRUD de Vagas;
  - [X] Visualizar detalhes das vagas;
+ - [x] Função de contato com proprietário;
  - [X] Maps na tela de vaga;
  - [X] Modal de remoção de vaga;
  - [X] Filtros de vagas;
@@ -92,7 +102,7 @@ A aplicação utiliza um banco relacional presente no modelo entidade relacionam
 
 Todos os comandos SQL utilizados para criar tabelas, tipos e funções estão presentes nesta [path](/database/scripts/) desse repositório. 
 
-Para realizar a conexão com o banco utilizou-se:
+Para realizar a conexão e manipulação do banco utilizou-se:
 >PostgreSQL - 15.2
 
 >PGadmin4 - 7.2
@@ -101,14 +111,15 @@ Para realizar a conexão com o banco utilizou-se:
 
 ---
 ## Pré-requisitos e configuração :hammer_and_wrench:
-No geral, para executar a aplicação é recomendado que o sistema já possua:
+No geral, para executar a aplicação localmente é recomendado que o sistema já possua:
 
     > Node.js
-    > npm
+    > NPM
 
 A aplicação utiliza tokens de serviços de terceiros:
 
     Social Login: Github/Google
+    Maps API: Google API Key
     DB Credentials: Heroku
     Cloundinary
 
