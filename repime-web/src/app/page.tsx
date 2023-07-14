@@ -5,6 +5,7 @@ import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import PlaceCard from "./components/places/PlaceCard";
 
+export const dynamic = 'force-dynamic'
 interface HomeProps {
   searchParams: IPlacesParams
 }
