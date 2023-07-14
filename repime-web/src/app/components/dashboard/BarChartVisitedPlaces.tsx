@@ -77,7 +77,7 @@ const BarChart: React.FC<BarChartProps> = ({
         maintainAspectRatio: false,
         responsive: true
     })
-  }, [])
+  }, [data])
 
   return (
     <>

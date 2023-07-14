@@ -70,7 +70,7 @@ const PieChart: React.FC<PieChartProps> = ({
       maintainAspectRatio: false,
       responsive: true
     });
-  }, []);
+  }, [data]);
 
   return (
     <>
