@@ -11,7 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { dashboard_chart } from "@prisma/client";
+import { dashboard_bar_chart_deleted_places } from "@prisma/client";
 
 ChartJS.register(
   CategoryScale,
@@ -33,7 +33,7 @@ interface ChartData {
 }
 
 interface BarChartProps {
-    data: dashboard_chart;
+    data: dashboard_bar_chart_deleted_places;
 }
 
 const BarChart: React.FC<BarChartProps> = ({

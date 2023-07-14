@@ -21,6 +21,7 @@ const CitySelect: React.FC<CitySelectProps> = ({
         {value: '1', label: 'Itajubá'},
         {value: '2', label: 'Piranguinho'},
         {value: '3', label: 'Pouso Alegre'},
+        {value: '4', label: 'Santa Rita do Sapucaí'},
     ];
     
     return ( 

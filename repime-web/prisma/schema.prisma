@@ -212,7 +212,14 @@ view dashboard_stats {
   @@unique([total_residencias, total_usuarios, total_vagas_acessadas, total_vagas_deletadas])
 }
 
-view dashboard_chart {
+view dashboard_pie_chart_kitnet_republica {
+  total_republicas BigInt
+  total_kitnets    BigInt
+
+  @@unique([total_republicas, total_kitnets])
+}
+
+view dashboard_bar_chart_deleted_places {
   count_preenchida BigInt
   count_denunciada BigInt
   count_outros     BigInt

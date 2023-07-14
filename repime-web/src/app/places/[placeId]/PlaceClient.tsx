@@ -27,7 +27,7 @@ const PlaceClient: React.FC<PlaceClientProps> = ({
     place,
     currentUser
 }) => {
-    const tipo = placeType(place?.tipo as string);
+    const tipo = placeType(place?.tipo as string, false);
     const republica = isRepublica(place?.tipo as string);
     const router = useRouter();
     const checkOwner = isOwner(currentUser?.id!, place?.id!)

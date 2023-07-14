@@ -10,6 +10,7 @@ import usePlaceModal from "../../hooks/usePlaceModal";
 import useResidenceUpdateModal from "../../hooks/useResidenceUpdateModal";
 import useDeleteModal from "@/app/hooks/useDeleteModal";
 import DeleteModal from "../modals/DeleteModal";
+import placeType from "@/app/function/placeType";
 
 interface ResidencesBoxProps {
     key: number;
@@ -60,12 +61,8 @@ const ResidencesBox: React.FC<ResidencesBoxProps> = ({
         residenceModal.onOpen();
     };
 
-    let tipo: String;
-    if(residence.tipo === 'republica'){
-        tipo = "República - "
-    }else{
-        tipo = "Kitnet - "
-    }
+    const tipo = placeType(residence.tipo, true);
+    
 
     return (
         <>
