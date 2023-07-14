@@ -44,8 +44,6 @@ const BarChart: React.FC<BarChartProps> = ({
     datasets: [],
   });
 
-  console.log(data)
-
   const [chartOptions, setChartOptions] = useState({});
 
   useEffect(() => {

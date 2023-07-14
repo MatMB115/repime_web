@@ -10,7 +10,7 @@ const MostViewedPlaces: React.FC<MostViewedPlacesProps> = ({
   data
 }) => {
   return (
-    <div className='w-full col-span-1 relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-white overflow-scroll'>
+    <div className='w-full relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-white overflow-scroll'>
       <h1>Vagas mais acessadas</h1>
       <ul>
         {data.map((place, id_vaga) => (
@@ -33,7 +33,7 @@ const MostViewedPlaces: React.FC<MostViewedPlacesProps> = ({
               "
             />
             </div>
-            <div className='pl-4'>
+            <div className='p-4'>
               <p className='text-gray-800 font-bold'>R${place.mensalidade}</p>
               <p className='text-gray-400 text-sm'>{place.residencia_nome}</p>
             </div>

@@ -227,6 +227,13 @@ view dashboard_bar_chart_deleted_places {
   @@unique([count_preenchida, count_denunciada, count_outros])
 }
 
+view dashboard_chart_qtd_visitas {
+  qtd_visitas_republica BigInt
+  qtd_visitas_kitnet    BigInt
+
+  @@unique([qtd_visitas_republica, qtd_visitas_kitnet])
+}
+
 enum tipos_rep {
   masculina
   feminina
