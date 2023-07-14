@@ -24,6 +24,7 @@ const RegisterModal = () => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
+    const [isInvalid, setIsInvalid] = useState(false);
 
     const {
         register, 
@@ -57,6 +58,7 @@ const RegisterModal = () => {
 
         if(!validator.isStrongPassword(data.senha)) {
             toast.error("Senha muito fraca!");
+            setIsInvalid(true);
             validData = false;
         }
         
@@ -66,6 +68,7 @@ const RegisterModal = () => {
                 toast.success('Cadastro efetuado com sucesso');
                 registerModal.onClose();
                 loginModal.onOpen();
+                setIsInvalid(false);
             })
             .catch((err) =>{
                 toast.error('Algo deu errado: ' + err);
@@ -116,6 +119,11 @@ const RegisterModal = () => {
                 errors={errors}
                 required
             />
+            {isInvalid && (
+                <div className='text-repimepink text-bold text-center'>
+                    Pelo menos um: caráter especial, letra maiúscula e números
+                </div>
+            )}
             <Input 
                 id="contato"
                 type="text"
