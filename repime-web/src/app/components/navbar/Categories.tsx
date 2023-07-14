@@ -1,8 +1,10 @@
 import Container from "../Container";
 
-import { GiCardJoker, GiPathDistance } from 'react-icons/gi'
-import { AiFillDollarCircle, AiOutlineHome } from 'react-icons/ai'
+import { GiCardJoker } from 'react-icons/gi'
+import { AiFillDollarCircle, AiOutlineHome, AiOutlineClear, AiFillCar } from 'react-icons/ai'
 import { usePathname, useSearchParams } from "next/navigation";
+import { BsHddNetworkFill } from "react-icons/bs"
+import { MdOutlinePets } from "react-icons/md"
 import { BiHotel } from 'react-icons/bi'
 import CategoryBox from "../CategoryBox";
 
@@ -13,9 +15,9 @@ export const categories = [
         description: 'Tradição de trotes na residência'
     },
     {
-        label: 'Proximidade',
-        icon: GiPathDistance,
-        description: 'Distância da residência até universidade'
+        label: 'Diarista',
+        icon: AiOutlineClear,
+        description: 'Possui diarista inclusa'
     },
     {
         label: 'Preço',
@@ -31,6 +33,21 @@ export const categories = [
         label: 'Kitnets',
         icon: BiHotel,
         description: 'Esta residência é uma kitnet'
+    },
+    {
+        label: 'Garagem',
+        icon: AiFillCar,
+        description: 'Esta residência possui garagem'
+    },
+    {
+        label: 'Internet',
+        icon: BsHddNetworkFill,
+        description: 'Internet está inclusa na mensalidade'
+    },
+    {
+        label: 'Animais',
+        icon: MdOutlinePets,
+        description: 'Esta residência possui pets'
     },
 ]
 
@@ -55,6 +72,7 @@ const Categories = () => {
                     items-center
                     justify-between
                     overflow-x-auto
+                   
                 "
             >
                 {categories.map((item) => (

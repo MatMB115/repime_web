@@ -1,10 +1,12 @@
 'use client'
+
 import qs from "query-string"
 import useSearchModal from "@/app/hooks/useSearchModal";
 import Modal from "./Modal";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import Heading from "../Heading";
+import CitySelect from "../inputs/CitySelect";
 
 const SearchModal = () => {
     const router = useRouter();
@@ -25,7 +27,11 @@ const SearchModal = () => {
             url: '/',
             query: updatedQuery
         }, {skipNull: true });
-    }, [params])
+
+        searchModal.onClose();
+
+        router.push(url);
+    }, [params, router, searchModal])
 
     let bodyContent = (
         <div className="flex flex-col gap-8">
@@ -33,6 +39,7 @@ const SearchModal = () => {
                 title="Digite o nome da localização"
                 subtitle="Pesquise entre as vagas"
             />
+            <CitySelect />
         </div>
     )
 
@@ -41,8 +48,8 @@ const SearchModal = () => {
             isOpen={searchModal.isOpen}
             onClose={searchModal.onClose}
             onSubmit={searchModal.onOpen}
-            title="Filters"
-            actionLabel="Search"
+            title="Filtros"
+            actionLabel="Busque"
             body={bodyContent}
         />
     );

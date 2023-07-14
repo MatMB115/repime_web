@@ -23,18 +23,17 @@ const GoogleMapsComponent: React.FC<GoogleMapsProps> = (
     })
 
     const [map, setMap] = React.useState(null)
-    let positions = [];
+    const positions = React.useMemo(() => [], []);
 
     const onLoad = React.useCallback(function (map) {
         const geocoder = new window.google.maps.Geocoder();
 
         getAddressResidencia(addressPlace, addressUniversity, map, positions, geocoder)
 
-    }, [])
+    }, [addressPlace, addressUniversity, positions])
 
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null)
-        positions = []
     }, [])
 
     return isLoaded ? (

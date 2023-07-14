@@ -38,7 +38,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         }
         setIsOpen(false);
         return router.push(`/residences/${currentUser?.id}`);
-    }, [currentUser, loginModal, router, isOpen]);
+    }, [currentUser, loginModal, router]);
 
     const onUserPage = useCallback(() =>{
         if (!currentUser){
@@ -47,7 +47,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         }
         setIsOpen(false);
         return router.push(`/user/${currentUser?.id}`);
-    }, [currentUser, loginModal, router, isOpen]);
+    }, [currentUser, loginModal, router]);
     
     const loggedOut = useCallback(() => {
         signOut();
