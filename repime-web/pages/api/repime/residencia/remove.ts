@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(200).json({
             "repime": {
                 'cod_ret': 0,
-                'msg_ret': "República foi deletada com sucesso!"
+                'msg_ret': "Residência foi deletada com sucesso!"
             }
         });
     } catch (e) {

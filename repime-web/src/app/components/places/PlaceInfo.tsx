@@ -77,7 +77,6 @@ const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
                         grid-cols-4
                     "
                 >
-
                     {hasGarage && (
                         <>
                             <div className="flex flex-row gap-2 items-center">
@@ -86,8 +85,6 @@ const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
                             </div>
                         </>
                     )}
-
-
                     {hasPets && (
                         <>
                             <div className="flex flex-row gap-2 items-center">
@@ -96,7 +93,6 @@ const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
                             </div>
                         </>
                     )}
-
 
                     {hasLunch && (
                         <>

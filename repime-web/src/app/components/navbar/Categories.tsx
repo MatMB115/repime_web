@@ -32,7 +32,7 @@ export const categories = [
         description: 'Esta residência é uma kitnet'
     },
     {
-        label: 'Repúblicas',
+        label: 'República',
         icon: AiOutlineHome,
         description: 'Esta residência é uma república'
     },
