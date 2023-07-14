@@ -36,7 +36,7 @@ export default async function ResidencesLayout({
           <ResidenceModalUpdate currentUser={currentUser} />
           <ResidencePanel residences={currentResidences} />
           <PlaceModal />
-          <AddButton label={"+"} />
+          {currentUser?.contato && <AddButton label={"+"}/>}
           {children}
         </ClienteOnly>
       </PrivateRoute>

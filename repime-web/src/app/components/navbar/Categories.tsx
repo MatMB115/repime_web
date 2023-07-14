@@ -1,9 +1,13 @@
 import Container from "../Container";
 
-import { GiCardJoker, GiPathDistance } from 'react-icons/gi'
-import { AiFillDollarCircle, AiOutlineHome } from 'react-icons/ai'
+import { GiCardJoker } from "react-icons/gi"
+import { AiOutlineHome, AiOutlineClear, AiFillCar } from 'react-icons/ai'
 import { usePathname, useSearchParams } from "next/navigation";
-import { BiHotel } from 'react-icons/bi'
+import { BsHddNetworkFill } from "react-icons/bs"
+import { MdOutlinePets } from "react-icons/md"
+import { IoWomanSharp, IoManSharp } from "react-icons/io5"
+import { BiHotel } from "react-icons/bi"
+import { GiTakeMyMoney, GiReceiveMoney } from "react-icons/gi";
 import CategoryBox from "../CategoryBox";
 
 export const categories = [
@@ -13,24 +17,54 @@ export const categories = [
         description: 'Tradição de trotes na residência'
     },
     {
-        label: 'Proximidade',
-        icon: GiPathDistance,
-        description: 'Distância da residência até universidade'
+        label: 'Diarista',
+        icon: AiOutlineClear,
+        description: 'Possui diarista inclusa'
     },
     {
-        label: 'Preço',
-        icon: AiFillDollarCircle,
-        description: 'Ordena pelo menor preço'
-    },
-    {
-        label: 'República',
-        icon: AiOutlineHome,
-        description: 'Esta residência é uma república'
+        label: 'Garagem',
+        icon: AiFillCar,
+        description: 'Esta residência possui garagem'
     },
     {
         label: 'Kitnets',
         icon: BiHotel,
         description: 'Esta residência é uma kitnet'
+    },
+    {
+        label: 'Repúblicas',
+        icon: AiOutlineHome,
+        description: 'Esta residência é uma república'
+    },
+    {
+        label: 'Menor Preço',
+        icon: GiReceiveMoney,
+        description: 'Ordena pelo menor preço'
+    },
+    {
+        label: 'Maior Preço',
+        icon: GiTakeMyMoney,
+        description: 'Ordena pelo maior preço'
+    },
+    {
+        label: 'Internet',
+        icon: BsHddNetworkFill,
+        description: 'Internet está inclusa na mensalidade'
+    },
+    {
+        label: 'Animais',
+        icon: MdOutlinePets,
+        description: 'Esta residência possui pets'
+    },
+    {
+        label: 'Rep.Feminina',
+        icon: IoWomanSharp,
+        description: 'Esta república exclusiva para mulheres'
+    },
+    {
+        label: 'Rep.Masculina',
+        icon: IoManSharp,
+        description: 'Esta residência exclusiva para homens'
     },
 ]
 

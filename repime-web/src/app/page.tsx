@@ -1,12 +1,17 @@
 import getCurrentUser from "./actions/getCurrentUser";
-import getPlaces from "./actions/getPlaces";
+import getPlaces, { IPlacesParams } from "./actions/getPlaces";
 import ClienteOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import PlaceCard from "./components/places/PlaceCard";
 
-export default async function Home() {
-  const places = await getPlaces();
+export const dynamic = 'force-dynamic'
+interface HomeProps {
+  searchParams: IPlacesParams
+}
+
+const Home = async ({ searchParams }: HomeProps)=>{
+  const places = await getPlaces(searchParams);
   const currentUser = await getCurrentUser();
 
   if (places.length === 0){
@@ -51,3 +56,5 @@ export default async function Home() {
     </ClienteOnly>
   )
 }
+
+export default Home;

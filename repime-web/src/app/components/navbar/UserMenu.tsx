@@ -61,7 +61,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         }
         setIsOpen(false);
         return router.push(`/dashboard/${currentUser?.id}`);
-    }, [currentUser, loginModal, router, isOpen]);
+    }, [currentUser, loginModal, router]);
 
     return ( 
         <div className="relative">
