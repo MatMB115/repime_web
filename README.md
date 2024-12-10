@@ -16,7 +16,7 @@
   </a>
 
   <a href="https://www.heroku.com/">
-  <img alt="Host database" src="https://img.shields.io/badge/database host-Heroku-red">
+  <img alt="Host database" src="https://img.shields.io/badge/database host-DigitalOcean-blue">
   </a>
 
 <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
