@@ -13,7 +13,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const authUser = await requireApiUser(req, res);
     const { id } = removeUserSchema.parse(req.body);
-    await UserService.remove(authUser, id);
+    
+    // Garante que o targetUserId seja uma string (id enviado ou o próprio authUser.id)
+    const targetUserId = id || authUser.id;
+    await UserService.remove(authUser, targetUserId);
 
     return success(res, "Sua conta foi removida com sucesso.");
   } catch (error) {
