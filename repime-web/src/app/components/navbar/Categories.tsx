@@ -94,7 +94,7 @@ const legacyCategoryToSlug: Record<string, string> = {
     'Rep.Masculina': 'rep-masculina',
 };
 
-const normalizeCategoryParam = (category: string | null) => {
+const normalizeCategoryParam = (category: string | null | undefined) => {
     if (!category) return undefined;
 
     return legacyCategoryToSlug[category] ?? category;
