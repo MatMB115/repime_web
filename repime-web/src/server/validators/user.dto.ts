@@ -15,19 +15,19 @@ export const updateUserSchema = z.object({
   nome: requiredText(100),
   email: z.string().trim().email("E-mail inválido").max(255),
   senha: z.preprocess(
-    (value) => (value === "" || value === null ? undefined : value),
+    (val) => (val === "" || val === null ? undefined : val),
     strongPassword.optional()
   ),
   contato: contactPhone,
   nome_contato: optionalText(100),
   foto: z.preprocess(
-    (value) => (value === "" || value === null ? undefined : value),
-    z.string().url().max(2048).optional()
+    (val) => (val === "" || val === null ? undefined : val),
+    z.string().max(2048).optional()
   ),
 });
 
 export const removeUserSchema = z.object({
-  id_usuario: z.string().min(1).optional(),
+  id: z.string().min(1).optional(),
 });
 
 export const loginUserSchema = z.object({

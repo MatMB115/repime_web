@@ -30,7 +30,7 @@ const UserPanel: React.FC<UserPanelProps> = ({
         }
     } = useForm<FieldValues>({
         defaultValues:{
-            id_usuario: currentUser?.id
+            id: currentUser?.id
         }
     });
 

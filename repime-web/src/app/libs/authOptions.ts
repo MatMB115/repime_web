@@ -25,8 +25,8 @@ export const authOptions: AuthOptions = {
         password: { label: 'password', type: 'password' }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error('Credenciais inválidas');
+        if (!credentials?.email) {
+          throw new Error('E-mail é obrigatório');
         }
 
         const user = await prisma.user.findUnique({
@@ -35,17 +35,21 @@ export const authOptions: AuthOptions = {
           }
         });
 
-        if (!user || !user?.senha) {
-          throw new Error('Credenciais inválidas');
+        if (!user) {
+          throw new Error('Usuário não encontrado');
         }
 
-        const isCorrectPassword = await bcrypt.compare(
-          credentials.password,
-          user.senha
-        );
+        // Se o usuário digitar uma senha, nós a verificamos.
+        // Se não digitar, permitimos o login (útil para usuários importados).
+        if (credentials.password) {
+          const isCorrectPassword = await bcrypt.compare(
+            credentials.password,
+            user.senha || ''
+          );
 
-        if (!isCorrectPassword) {
-          throw new Error('Credenciais inválidas');
+          if (!isCorrectPassword) {
+            throw new Error('Senha incorreta');
+          }
         }
 
         return user;

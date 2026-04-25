@@ -66,7 +66,7 @@ export const UserService = {
     assertSelfOrAdmin(authUser, targetUserId);
 
     try {
-      await prisma.user.update({
+      return await prisma.user.update({
         where: {
           id: targetUserId,
         },
