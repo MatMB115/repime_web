@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { authOptions } from "@/app/libs/authOptions";
 import { ApiError } from "./errors";
 
 export interface AuthenticatedUser {
