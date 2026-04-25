@@ -460,6 +460,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
             secondaryActionLabel={secondaryActionLabel}
             secondaryAction={handleSecondaryAction}
             title="Cadastre sua residência"
+            submitOnEnter
             body={bodyContent}
         />
     );

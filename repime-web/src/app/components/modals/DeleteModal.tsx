@@ -27,6 +27,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
             onSubmit={onSubmit}
             title="Confirmação"
             actionLabel="Deletar"
+            submitOnEnter
             body={bodyContent}
             pink
             medium

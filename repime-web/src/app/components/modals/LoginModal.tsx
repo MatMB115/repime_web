@@ -28,38 +28,38 @@ const LoginModal = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const {
-        register, 
+        register,
         handleSubmit,
         formState: {
             errors,
         }
     } = useForm<FieldValues>({
-        defaultValues:{
+        defaultValues: {
             email: '',
             senha: '',
         }
     });
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) =>{
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
 
         signIn('credentials', {
             ...data,
             redirect: false,
         })
-        .then((callback) =>{
-            setIsLoading(false);
+            .then((callback) => {
+                setIsLoading(false);
 
-            if(callback?.ok){
-                toast.success('Logged in');
-                router.refresh();
-                loginModal.onClose();
-            }
+                if (callback?.ok) {
+                    toast.success('Logged in');
+                    router.refresh();
+                    loginModal.onClose();
+                }
 
-            if(callback?.error){
-                toast.error(callback.error);
-            }
-        })
+                if (callback?.error) {
+                    toast.error(callback.error);
+                }
+            })
     }
 
     const toggle = useCallback(() => {
@@ -74,7 +74,7 @@ const LoginModal = () => {
                 subtitle="Entre com sua conta"
                 center
             />
-            <Input 
+            <Input
                 id="email"
                 type="text"
                 label="Email"
@@ -84,14 +84,13 @@ const LoginModal = () => {
                 required
             />
 
-            <Input 
+            <Input
                 id="senha"
                 type="password"
                 label="Senha"
                 disabled={isLoading}
                 register={register}
                 errors={errors}
-                required
             />
         </div>
     )
@@ -102,13 +101,13 @@ const LoginModal = () => {
             <Button
                 outline
                 label="Continue with Google"
-                icon={FcGoogle} 
+                icon={FcGoogle}
                 onClick={() => signIn('google')}
             />
             <Button
                 outline
                 label="Continue with Github"
-                icon={AiFillGithub} 
+                icon={AiFillGithub}
                 onClick={() => signIn('github')}
             />
             <div
@@ -123,14 +122,14 @@ const LoginModal = () => {
                     <div>
                         Primeira vez usando o RepiME?
                     </div>
-                    <div   
+                    <div
                         onClick={toggle}
                         className="
                             text-neutral-800 
                             cursor-pointer 
                             hover:underline
                         "
-                        >
+                    >
                         Crie uma conta
                     </div>
                 </div>
@@ -139,7 +138,7 @@ const LoginModal = () => {
     )
 
     return (
-        <Modal 
+        <Modal
             disabled={isLoading}
             isOpen={loginModal.isOpen}
             title="Entrar"
@@ -152,5 +151,5 @@ const LoginModal = () => {
         />
     );
 }
- 
+
 export default LoginModal;

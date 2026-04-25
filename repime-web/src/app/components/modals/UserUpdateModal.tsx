@@ -44,13 +44,13 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
         }
     } = useForm<FieldValues>({
         defaultValues: {
-            id: currentUser?.id,
-            nome: null,
-            email: currentUser?.email,
-            senha: null,
-            contato: null,
-            nome_contato: currentUser?.nome_contato,
-            foto: null
+            id: currentUser?.id || "",
+            nome: currentUser?.name || "",
+            email: currentUser?.email || "",
+            senha: "",
+            contato: currentUser?.contato || "",
+            nome_contato: currentUser?.nome_contato || "",
+            foto: currentUser?.image || ""
         }
     });
 
@@ -66,20 +66,22 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
             validData = false;
         }
 
-        if(!validator.isStrongPassword(data.senha)) {
-            toast.error("Senha muito fraca!");
+        // Só valida força da senha se ela for preenchida
+        if(data.senha && !validator.isStrongPassword(data.senha)) {
+            toast.error("Senha muito fraca! Use letras maiúsculas, minúsculas, números e símbolos.");
             validData = false;
         }
         
         if(validData) {
             axios.put('/api/repime/user/update', data)
             .then(() => {
-                toast.success('Atualização do perfil realizado com sucesso');
+                toast.success('Perfil atualizado com sucesso. Faça login novamente.');
                 userEditModal.onClose();
                 signOut()
             })
             .catch((err) => {
-                toast.error('Algo deu errado: ' + err);
+                const message = err.response?.data?.repime?.msg_ret || err.message;
+                toast.error('Algo deu errado: ' + message);
             })
         }
         setIsLoading(false);
@@ -200,6 +202,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
             secondaryAction={handleSecondaryAction}
             onClose={userEditModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
+            submitOnEnter
             body={bodyContent}
             medium
         />

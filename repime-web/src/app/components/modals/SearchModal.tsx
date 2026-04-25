@@ -82,6 +82,7 @@ const SearchModal = () => {
             onSubmit={onSubmit}
             title="Filtros"
             actionLabel="Busque"
+            submitOnEnter
             body={bodyContent}
         />
     );

@@ -78,7 +78,7 @@ const RegisterModal = () => {
         if(validData) {
             const { confirmarSenha, ...registerData } = data;
 
-            axios.post('/api/repime/user/register/', registerData)
+            axios.post('/api/register', registerData)
             .then(() => {
                 toast.success('Cadastro efetuado com sucesso');
                 registerModal.onClose();
@@ -87,7 +87,7 @@ const RegisterModal = () => {
                 setPasswordMismatch(false);
             })
             .catch((err) =>{
-                const message = err.response?.data?.repime?.msg_ret ?? err.message;
+                const message = err.response?.data?.message ?? err.message;
                 toast.error('Algo deu errado: ' + message);
             })
             .finally(() => {
@@ -226,6 +226,7 @@ const RegisterModal = () => {
             actionLabel="Continue"
             onClose={registerModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
+            submitOnEnter
             body={bodyContent}
             footer={footerContent}
         />

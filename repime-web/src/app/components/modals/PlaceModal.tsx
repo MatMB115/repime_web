@@ -180,6 +180,7 @@ const PlaceModal = () => {
             secondaryActionLabel={secondaryActionLabel}
             secondaryAction={handleSecondaryAction}
             title="Cadastre sua vaga"
+            submitOnEnter
             body={bodyContent}
         />
     );

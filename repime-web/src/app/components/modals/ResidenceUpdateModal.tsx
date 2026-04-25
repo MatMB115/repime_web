@@ -462,6 +462,7 @@ const ResidenceModalUpdate: React.FC<ResidenceModalProps> = ({
             secondaryActionLabel={secondaryActionLabel}
             secondaryAction={handleSecondaryAction}
             title="Atualize sua residência"
+            submitOnEnter
             body={bodyContent}
         />
     );
