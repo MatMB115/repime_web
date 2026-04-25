@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { User } from '@prisma/client';
 import InputCheckbox from "../inputs/InputCheckbox";
 import RepTypeSelect from "../inputs/RepTypeSelect";
+import ResidenceExtraFields from "../residence/ResidenceExtraFields";
 
 enum STEPS {
     CATEGORY = 0,
@@ -41,7 +42,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         handleSubmit,
         setValue,
         watch,
-        formState:{
+        formState: {
             errors,
         },
         reset
@@ -55,6 +56,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
             },
             residencia: {
                 nome: '',
+                descricao: '',
                 tem_garagem: false,
                 tipo: '',
                 end_numero: '',
@@ -69,6 +71,10 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                 tem_trote: false,
                 tem_diarista: false,
                 tempo_de_contrato: 0,
+                tempo_unifei: '',
+                tempo_centro: '',
+                internet_mbps: '',
+                instagram: '',
                 agua_inclusa: false,
                 internet_inclusa: false,
                 energia_inclusa: false
@@ -92,7 +98,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     }
 
     const onBack = () => {
-        setStep((value) => value -1);
+        setStep((value) => value - 1);
     };
 
     const onBackKitnet = () => {
@@ -107,7 +113,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         setStep((value) => value + 2);
     }
     const actionLabel = useMemo(() => {
-        if (step === STEPS.INFOREPUBLICA){
+        if (step === STEPS.INFOREPUBLICA || step === STEPS.INFOKITNET) {
             return "Criar";
         }
 
@@ -115,7 +121,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     }, [step]);
 
     const secondaryActionLabel = useMemo(() => {
-        if (step === STEPS.CATEGORY){
+        if (step === STEPS.CATEGORY) {
             return undefined;
         }
 
@@ -123,7 +129,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     }, [step]);
 
     const handleSecondaryAction = useMemo(() => {
-        if (step === STEPS.CATEGORY){
+        if (step === STEPS.CATEGORY) {
             return undefined;
         }
         else if (step === STEPS.INFOKITNET) {
@@ -136,28 +142,28 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         if (step !== STEPS.INFOREPUBLICA && step !== STEPS.INFOKITNET) {
-            if(step === STEPS.LOCATION && category === 'Kitnets') {
+            if (step === STEPS.LOCATION && category === 'Kitnets') {
                 return onNextKitnet();
             }
             return onNext();
         }
-        
+
         setIsLoading(true);
 
         axios.post('/api/repime/residencia/register', data)
-        .then((response) => {
-            toast.success('Sucesso! ' + response.data.repime.msg_ret);
-            router.refresh();
-            reset();
-            setStep(STEPS.CATEGORY);
-            residenceModal.onClose();
-        })
-        .catch(() => {
-            toast.error('Algo deu errado');
-        })
-        .finally(() => {
-            setIsLoading(false);
-        })
+            .then((response) => {
+                toast.success('Sucesso! ' + response.data.repime.msg_ret);
+                router.refresh();
+                reset();
+                setStep(STEPS.CATEGORY);
+                residenceModal.onClose();
+            })
+            .catch(() => {
+                toast.error('Algo deu errado');
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
     }
 
     let bodyContent = (
@@ -185,7 +191,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     />
                 </div>
                 <div key={categories[4].label} className="col-span-1">
-                    <CategoryInput 
+                    <CategoryInput
                         onClick={(category) => setCustomValue('residencia.tipo', category)}
                         selected={category === categories[4].label}
                         label={categories[4].label}
@@ -199,12 +205,12 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     if (step === STEPS.LOCATION) {
         bodyContent = (
             <div className="flex flex-col gap-2">
-                <Heading 
+                <Heading
                     title="Qual o endereço da residência?"
                     subtitle="Informe os detalhes da localização"
                 />
                 <div className=" flex flex-col gap-4">
-                    <Input 
+                    <Input
                         id="residencia.end_rua"
                         type="text"
                         label="Rua"
@@ -213,7 +219,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         errors={errors}
                         required
                     />
-                    <Input 
+                    <Input
                         id="residencia.end_bairro"
                         type="text"
                         label="Bairro"
@@ -222,7 +228,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         errors={errors}
                         required
                     />
-                    <Input 
+                    <Input
                         id="residencia.end_complemento"
                         type="text"
                         label="Complemento"
@@ -232,7 +238,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         required
                     />
                     <div className="flex flex-row gap-3">
-                        <Input 
+                        <Input
                             id="residencia.end_cep"
                             type="text"
                             label="CEP"
@@ -241,7 +247,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             errors={errors}
                             required
                         />
-                        <Input 
+                        <Input
                             id="residencia.end_numero"
                             type="number"
                             label="Número"
@@ -251,9 +257,9 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         />
                     </div>
                 </div>
-                
-                
-                <CitySelect 
+
+
+                <CitySelect
                     value={location}
                     onChange={(value) => setCustomValue('cidade', value)}
                 />
@@ -264,11 +270,11 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     if (step === STEPS.INFOREPUBLICA) {
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading 
+                <Heading
                     title="Quais as características da república?"
                     subtitle="Nos diga mais sobre sua residência"
                 />
-                <Input 
+                <Input
                     id="residencia.nome"
                     type="text"
                     label="Nome"
@@ -277,7 +283,15 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     errors={errors}
                     required
                 />
-                <Input 
+                <Input
+                    id="residencia.descricao"
+                    type="text"
+                    label="Sobre a residência"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                />
+                <Input
                     id="residencia.fundacao"
                     type="date"
                     label="Data de fundação"
@@ -286,14 +300,20 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     errors={errors}
                 />
 
-                <RepTypeSelect 
+                <ResidenceExtraFields
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                />
+
+                <RepTypeSelect
                     value={repType}
                     onChange={(value) => setCustomValue('republica.tipo', value)}
                 />
 
                 <div className="flex flex-col gap-2 text-xl">
                     <div className="flex flex-row gap-4 justify-center">
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.tem_garagem"
                             type="checkbox"
                             label="Tem garagem"
@@ -301,7 +321,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             register={register}
                             errors={errors}
                         />
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.tem_diarista"
                             type="checkbox"
                             label="Tem diarista"
@@ -311,7 +331,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         />
                     </div>
                     <div className="flex flex-row gap-4 justify-center">
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.tem_animais"
                             type="checkbox"
                             label="Tem animais"
@@ -319,7 +339,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             register={register}
                             errors={errors}
                         />
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.tem_trote"
                             type="checkbox"
                             label="Tem trotes"
@@ -329,7 +349,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         />
                     </div>
                     <div className="flex flex-row gap-4 justify-center">
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.oferece_almoco"
                             type="checkbox"
                             label="Oferece almoço"
@@ -337,7 +357,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             register={register}
                             errors={errors}
                         />
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.oferece_janta"
                             type="checkbox"
                             label="Oferece janta"
@@ -346,7 +366,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             errors={errors}
                         />
                     </div>
-                    
+
                 </div>
             </div>
         )
@@ -355,11 +375,11 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
     if (step === STEPS.INFOKITNET) {
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading 
+                <Heading
                     title="Quais as características das kitnets?"
                     subtitle="Nos diga mais sobre sua residência"
                 />
-                <Input 
+                <Input
                     id="residencia.nome"
                     type="text"
                     label="Nome"
@@ -368,7 +388,15 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     errors={errors}
                     required
                 />
-                <Input 
+                <Input
+                    id="residencia.descricao"
+                    type="text"
+                    label="Sobre a residência"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                />
+                <Input
                     id="residencia.tempo_de_contrato"
                     type="number"
                     label="Tempo de contrato (em meses)"
@@ -376,9 +404,14 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                     register={register}
                     errors={errors}
                 />
+                <ResidenceExtraFields
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                />
                 <div className="flex flex-col gap-2 text-lg">
                     <div className="flex flex-row gap-4 justify-center">
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.tem_garagem"
                             type="checkbox"
                             label="Tem garagem"
@@ -386,7 +419,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             register={register}
                             errors={errors}
                         />
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.internet_inclusa"
                             type="checkbox"
                             label="Internet inclusa no valor"
@@ -396,7 +429,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                         />
                     </div>
                     <div className="flex flex-row gap-4 justify-center">
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.energia_inclusa"
                             type="checkbox"
                             label="Energia inclusa no valor"
@@ -404,7 +437,7 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
                             register={register}
                             errors={errors}
                         />
-                        <InputCheckbox 
+                        <InputCheckbox
                             id="residencia.agua_inclusa"
                             type="checkbox"
                             label="Água inclusa no valor"
@@ -418,8 +451,8 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         )
     }
 
-    return ( 
-        <Modal 
+    return (
+        <Modal
             isOpen={residenceModal.isOpen}
             onClose={residenceModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
@@ -431,5 +464,5 @@ const ResidenceModal: React.FC<ResidenceModalProps> = ({
         />
     );
 }
- 
+
 export default ResidenceModal;

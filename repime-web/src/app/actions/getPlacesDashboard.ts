@@ -8,7 +8,11 @@ export default async function getPlacesDashboard() {
             }
         })
 
-        return places;
+        const uniquePlaces = Array.from(
+            new Map(places.map((place) => [place.id_vaga, place])).values()
+        );
+
+        return uniquePlaces;
     } catch (error: any) {
         throw new Error(error);
     }

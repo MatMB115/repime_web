@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "tb_cidade" ADD COLUMN     "lat" DOUBLE PRECISION,
+ADD COLUMN     "lng" DOUBLE PRECISION;
+
+-- AlterTable
+ALTER TABLE "tb_residencia" ADD COLUMN     "lat" DOUBLE PRECISION,
+ADD COLUMN     "lng" DOUBLE PRECISION;

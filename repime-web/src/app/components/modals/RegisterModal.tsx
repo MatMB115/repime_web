@@ -25,6 +25,7 @@ const RegisterModal = () => {
     const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
     const [isInvalid, setIsInvalid] = useState(false);
+    const [passwordMismatch, setPasswordMismatch] = useState(false);
 
     const {
         register, 
@@ -37,7 +38,9 @@ const RegisterModal = () => {
             email: '',
             nome: '',
             senha: '',
-            contato: ''
+            confirmarSenha: '',
+            contato: '',
+            nome_contato: ''
         }
     });
 
@@ -60,19 +63,37 @@ const RegisterModal = () => {
             toast.error("Senha muito fraca!");
             setIsInvalid(true);
             validData = false;
+        } else {
+            setIsInvalid(false);
+        }
+
+        if(data.senha !== data.confirmarSenha) {
+            toast.error('As senhas não coincidem!');
+            setPasswordMismatch(true);
+            validData = false;
+        } else {
+            setPasswordMismatch(false);
         }
         
         if(validData) {
-            axios.post('/api/repime/user/register/', data)
+            const { confirmarSenha, ...registerData } = data;
+
+            axios.post('/api/repime/user/register/', registerData)
             .then(() => {
                 toast.success('Cadastro efetuado com sucesso');
                 registerModal.onClose();
                 loginModal.onOpen();
                 setIsInvalid(false);
+                setPasswordMismatch(false);
             })
             .catch((err) =>{
-                toast.error('Algo deu errado: ' + err);
+                const message = err.response?.data?.repime?.msg_ret ?? err.message;
+                toast.error('Algo deu errado: ' + message);
             })
+            .finally(() => {
+                setIsLoading(false);
+            });
+            return;
         }
         setIsLoading(false);
     }
@@ -97,7 +118,6 @@ const RegisterModal = () => {
                 disabled={isLoading}
                 register={register}
                 errors={errors}
-                required
             />
 
             <Input 
@@ -107,7 +127,6 @@ const RegisterModal = () => {
                 disabled={isLoading}
                 register={register}
                 errors={errors}
-                required
             />
 
             <Input 
@@ -119,9 +138,21 @@ const RegisterModal = () => {
                 errors={errors}
                 required
             />
-            {isInvalid && (
-                <div className='text-repimepink text-bold text-center'>
-                    Pelo menos um: caráter especial, letra maiúscula e números
+            <div className={`text-sm text-center ${isInvalid ? 'text-repimepink font-semibold' : 'text-neutral-500'}`}>
+                A senha deve ter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial.
+            </div>
+            <Input 
+                id="confirmarSenha"
+                type="password"
+                label="Confirmar senha"
+                disabled={isLoading}
+                register={register}
+                errors={errors}
+                required
+            />
+            {passwordMismatch && (
+                <div className='text-sm text-repimepink font-semibold text-center'>
+                    As senhas precisam ser iguais.
                 </div>
             )}
             <Input 
@@ -133,6 +164,14 @@ const RegisterModal = () => {
                 errors={errors}
                 placeholder='XX YYYYYYYYY'
                 required
+            />
+            <Input 
+                id="nome_contato"
+                type="text"
+                label="Nome do contato no WhatsApp"
+                disabled={isLoading}
+                register={register}
+                errors={errors}
             />
         </div>
     )

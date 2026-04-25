@@ -5,11 +5,12 @@ import EmptyState from "@/app/components/EmptyState";
 import PlaceClient from "./PlaceClient";
 
 interface IParams {
-    placeId?: number;
+    placeId?: string;
 }
 
-const PlacePage = async ({ params }: { params: IParams }) => {
-    const place = await getPlaceById(params);
+const PlacePage = async ({ params }: { params: Promise<IParams> }) => {
+    const resolvedParams = await params;
+    const place = await getPlaceById(resolvedParams);
     const currentUser = await getCurrentUser();
 
     if (!place) {

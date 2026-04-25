@@ -146,6 +146,7 @@ const LoginModal = () => {
             actionLabel="Continue"
             onClose={loginModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
+            submitOnEnter
             body={bodyContent}
             footer={footerContent}
         />

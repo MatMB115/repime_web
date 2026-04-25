@@ -17,6 +17,7 @@ interface ModalProps{
     secondaryActionLabel?: string;
     pink?: boolean;
     medium?: boolean;
+    submitOnEnter?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -31,7 +32,8 @@ const Modal: React.FC<ModalProps> = ({
     secondaryAction,
     secondaryActionLabel,
     pink,
-    medium
+    medium,
+    submitOnEnter
 }) => {
     const [showModal, setShowModal] = useState(isOpen);
 
@@ -65,6 +67,19 @@ const Modal: React.FC<ModalProps> = ({
 
         secondaryAction();
     }, [disabled, secondaryAction]);
+
+    const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+        if(!submitOnEnter || event.key !== 'Enter') {
+            return;
+        }
+
+        if(event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLButtonElement) {
+            return;
+        }
+
+        event.preventDefault();
+        handleSubmit();
+    }, [handleSubmit, submitOnEnter]);
 
     if(!isOpen){
         return null;
@@ -114,6 +129,7 @@ const Modal: React.FC<ModalProps> = ({
                     `}
                 >
                     <div
+                        onKeyDown={handleKeyDown}
                         className="
                             translate
                             h-full

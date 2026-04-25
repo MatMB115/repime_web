@@ -3,13 +3,15 @@
 import Avatar from "../Avatar";
 import getCategory from "@/app/function/getCategory";
 import PlaceCategory from "./PlaceCategory";
+import ReactMarkdown from "react-markdown";
 
 
 interface PlaceInfoRep {
     placeName: string,
     hostName: string,
     hostImg: string;
-    description: string;
+    vagaDescription?: string | null;
+    residenciaDescription?: string | null;
     hasGarage: boolean;
     burgh: string;
     complement: string;
@@ -21,6 +23,10 @@ interface PlaceInfoRep {
     isRep: boolean;
     contato: string;
     contract: number;
+    walkToUnifei?: number | null;
+    walkToCenter?: number | null;
+    internetMbps?: number | null;
+    instagramHref?: string | null;
     includeWater: boolean;
     includeInternet: boolean;
     includeEnergy: boolean;
@@ -30,7 +36,8 @@ const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
     placeName,
     hostName,
     hostImg,
-    description,
+    vagaDescription,
+    residenciaDescription,
     hasGarage,
     hasPets,
     hasLunch,
@@ -40,16 +47,20 @@ const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
     isRep,
     contato,
     contract,
+    walkToUnifei,
+    walkToCenter,
+    internetMbps,
+    instagramHref,
     includeWater,
     includeEnergy,
     includeInternet
 }) => {
     const category = getCategory(isRep);
 
-    return ( 
+    return (
         <div className="col-span-4 flex flex-col gap-8">
             <div className="flex flex-col gap-2">
-                <div 
+                <div
                     className="
                         text-xl
                         font-semibold
@@ -59,15 +70,41 @@ const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
                         gap-2
                     "
                 >
-                    <div>Ofertada por {hostName} em {isRep} {isRep ? 'república' : 'kitnet'} {placeName}</div>
+                    <div>Ofertada por {hostName} </div>
                     <Avatar src={hostImg} />
                 </div>
                 <div className="font-semibold text-zinc-700">Contato: {contato}</div>
-                
+
                 {contract && (
                     <div className="font-semibold text-zinc-700">Tempo do Contrato: {contract} meses</div>
                 )}
-                <div 
+                {(walkToUnifei || walkToCenter || internetMbps || instagramHref) && (
+                    <div className="flex flex-col gap-2 rounded-md border border-neutral-200 p-4">
+                        <div className="font-semibold text-zinc-700">Características da residência</div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-neutral-600">
+                            {walkToUnifei && (
+                                <div>A pé: {walkToUnifei} min até a UNIFEI</div>
+                            )}
+                            {walkToCenter && (
+                                <div>A pé: {walkToCenter} min até o centro</div>
+                            )}
+                            {internetMbps && (
+                                <div>Internet: {internetMbps} Mbps</div>
+                            )}
+                            {instagramHref && (
+                                <a
+                                    href={instagramHref}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="text-repimehardblue hover:underline"
+                                >
+                                    Instagram da residência
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                )}
+                <div
                     className="
                         grid
                         items-center
@@ -160,18 +197,34 @@ const PlaceInfoRep: React.FC<PlaceInfoRep> = ({
                 </div>
             </div>
             <hr />
-            <PlaceCategory 
+            <PlaceCategory
                 icon={category.icon}
                 label={category.label}
                 description={category.description}
             />
             <hr />
-            <div className="text-lg font-light text-neutral-500">
-                {description}
+            <div className="flex flex-col gap-2">
+                <div className="text-base font-semibold text-neutral-800">Descrição da Vaga</div>
+                <div className="text-lg font-light text-neutral-500 prose-strong:font-bold prose-em:italic whitespace-pre-wrap">
+                    <ReactMarkdown>
+                        {vagaDescription || "Sem descrição da vaga."}
+                    </ReactMarkdown>
+                </div>
+            </div>
+            <hr />
+            <div className="flex flex-col gap-2">
+                <div className="text-base font-semibold text-neutral-800">
+                    {isRep ? "Sobre a República" : "Sobre a Kitnet"}
+                </div>
+                <div className="text-lg font-light text-neutral-500 prose-strong:font-bold prose-em:italic whitespace-pre-wrap">
+                    <ReactMarkdown>
+                        {residenciaDescription || `Sem descrição da ${isRep ? "república" : "kitnet"}.`}
+                    </ReactMarkdown>
+                </div>
             </div>
             <hr />
         </div>
     );
 }
- 
+
 export default PlaceInfoRep;

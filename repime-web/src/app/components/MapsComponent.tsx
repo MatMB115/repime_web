@@ -1,96 +1,110 @@
-import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+'use client'
 
+import React, { useState, useEffect } from 'react';
+import { GoogleMap, useJsApiLoader, MarkerF, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 
-interface GoogleMapsProps {
-    addressUniversity: string;
-    addressPlace: string;
+interface MapsProps {
+  lat?: number | null;
+  lng?: number | null;
 }
 
 const containerStyle = {
-    height: '700px'
+  width: '100%',
+  height: '400px',
+  borderRadius: '12px'
 };
 
-const GoogleMapsComponent: React.FC<GoogleMapsProps> = (
-    { addressUniversity,
-        addressPlace }
+// Coordenadas fixas da UNIFEI Itajubá
+const UNIFEI_COORDS = {
+  lat: -22.414705,
+  lng: -45.449742
+};
 
-) => {
-    console.log(process.env.GOOGLE_MAPS_API as string);
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_API_KEY as string
-    })
+const GoogleMapsComponent: React.FC<MapsProps> = ({ lat, lng }) => {
+  const [response, setResponse] = useState<google.maps.DirectionsResult | null>(null);
 
-    const [map, setMap] = React.useState(null)
-    const positions = React.useMemo(() => [], []);
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string
+  });
 
-    const onLoad = React.useCallback(function (map) {
-        const geocoder = new window.google.maps.Geocoder();
+  // Limpa a rota se as coordenadas mudarem
+  useEffect(() => {
+    setResponse(null);
+  }, [lat, lng]);
 
-        getAddressResidencia(addressPlace, addressUniversity, map, positions, geocoder)
+  if (!isLoaded) {
+    return (
+      <div className="h-[400px] w-full bg-gray-100 animate-pulse rounded-xl flex items-center justify-center text-neutral-400">
+        Carregando mapa...
+      </div>
+    );
+  }
 
-    }, [addressPlace, addressUniversity, positions])
+  if (!lat || !lng) {
+    return (
+      <div className="h-[400px] w-full bg-gray-100 rounded-xl flex items-center justify-center text-neutral-500 italic">
+        Localização não disponível para esta vaga.
+      </div>
+    );
+  }
 
-    const onUnmount = React.useCallback(function callback(map) {
-        setMap(null)
-    }, [])
+  const origin = { lat, lng };
 
-    return isLoaded ? (
-        <GoogleMap
-            mapContainerStyle={containerStyle}
-            onLoad={onLoad}
-            zoom={6}
-            onUnmount={onUnmount}
-        >
-            {
-            }
-        </GoogleMap>
-    ) : <></>
-}
+  const directionsCallback = (
+    res: google.maps.DirectionsResult | null,
+    status: google.maps.DirectionsStatus
+  ) => {
+    if (res !== null && status === 'OK' && !response) {
+      setResponse(res);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-2">
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={origin}
+        zoom={15}
+        options={{
+          disableDefaultUI: true,
+          zoomControl: true,
+        }}
+      >
+        {/* Renderiza a rota se disponível */}
+        {response && (
+          <DirectionsRenderer
+            options={{
+              directions: response,
+              suppressMarkers: false, // Mantém os marcadores padrão A e B
+            }}
+          />
+        )}
+
+        {/* Solicita a rota a pé até a UNIFEI */}
+        {!response && (
+          <DirectionsService
+            options={{
+              destination: UNIFEI_COORDS,
+              origin: origin,
+              travelMode: google.maps.TravelMode.WALKING
+            }}
+            callback={directionsCallback}
+          />
+        )}
+
+        {/* Marcador de fallback caso a rota falhe */}
+        {!response && <MarkerF position={origin} />}
+      </GoogleMap>
+      
+      {response && response.routes[0].legs[0] && (
+        <div className="text-sm font-medium text-neutral-600 flex justify-between px-2">
+          <span>Distância até a UNIFEI: <b>{response.routes[0].legs[0].distance?.text}</b></span>
+          <span>Tempo estimado a pé: <b>{response.routes[0].legs[0].duration?.text}</b></span>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default GoogleMapsComponent;
-
-function getAddressResidencia(address: string, addressUniversity: string, map: any, positions, geocoder) {
-    console.log(address);
-    geocoder.geocode({ address }, (results, status) => {
-        if (status === window.google.maps.GeocoderStatus.OK) {
-            const { location } = results![0].geometry;
-
-            const marker = {
-                map: map,
-                position: results![0].geometry.location,
-                icon: "/images/house_icon.png",
-            };
-            positions.push({ lat: location.lat(), lng: location.lng() });
-            new google.maps.Marker(marker);
-            getAddressUniversidade(addressUniversity, map, positions, geocoder)
-        }
-    });
-}
-
-function getAddressUniversidade(address: string, map: any, positions: any, geocoder) {
-    console.log(address);
-    geocoder.geocode({ address }, (results, status) => {
-        if (status === window.google.maps.GeocoderStatus.OK) {
-            const { location } = results![0].geometry;
-
-            const marker = {
-                position: results![0].geometry.location,
-                map: map, icon: "/images/university_icon.png"
-            };
-            positions.push({ lat: location.lat(), lng: location.lng() });
-            new google.maps.Marker(marker);
-            centralizeMaps();
-        }
-        function centralizeMaps() {
-            const centerLat = (positions[0].lat + positions[1].lat) / 2;
-            const centerLng = (positions[0].lng + positions[1].lng) / 2;
-            const bounds = new window.google.maps.LatLngBounds({ lat: centerLat, lng: centerLng });
-            map.fitBounds(bounds);
-            map.setZoom(14)
-        }
-    });
-}
-
-

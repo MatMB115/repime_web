@@ -7,28 +7,29 @@ import PlaceCard from "./components/places/PlaceCard";
 
 export const dynamic = 'force-dynamic'
 interface HomeProps {
-  searchParams: IPlacesParams
+  searchParams: Promise<IPlacesParams>
 }
 
-const Home = async ({ searchParams }: HomeProps)=>{
-  const places = await getPlaces(searchParams);
+const Home = async ({ searchParams }: HomeProps) => {
+  const resolvedSearchParams = await searchParams;
+  const places = await getPlaces(resolvedSearchParams);
   const currentUser = await getCurrentUser();
 
-  if (places.length === 0){
-    return(
+  if (places.length === 0) {
+    return (
       <ClienteOnly>
-        <EmptyState  
-          title="Não há vagas cadastradas" 
+        <EmptyState
+          title="Não há vagas cadastradas"
           subtitle="Seja o primeiro"
         />
       </ClienteOnly>
     )
   }
-  
+
   return (
     <ClienteOnly>
       <Container>
-        <div 
+        <div
           className="
             pt-24
             grid

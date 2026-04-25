@@ -1,17 +1,19 @@
-import {IconType} from "react-icons"
-import {useRouter, useSearchParams} from "next/navigation"
+import { IconType } from "react-icons"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react";
 import qs from "query-string"
 
 interface CategoryBoxProps {
     icon: IconType;
     label: string;
+    value: string;
     selected?: boolean;
 }
 
 const CategoryBox: React.FC<CategoryBoxProps> = ({
     icon: Icon,
     label,
+    value,
     selected
 
 }) => {
@@ -22,15 +24,15 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
         let currentQuery = {};
 
         if (params) {
-            currentQuery =  qs.parse(params.toString());          
+            currentQuery = qs.parse(params.toString());
         }
 
         const updatedQuery: any = {
             ...currentQuery,
-            category: label
+            category: value
         }
 
-        if(params?.get('category') === label) {
+        if (params?.get('category') === value) {
             delete updatedQuery.category;
         }
 
@@ -40,10 +42,10 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
         }, { skipNull: true });
 
         router.push(url);
-    }, [label, params, router]);
+    }, [params, router, value]);
 
-    return ( 
-        <div 
+    return (
+        <div
             onClick={handleClick}
             className={`
                 flex
@@ -55,11 +57,11 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
                 border-b-2
                 transition
                 cursor-pointer
-                ${selected? 'border-b-neutral-800' : 'border-transparent'}
-                ${selected? 'text-neutral-800': 'text-neutral-500'}
+                ${selected ? 'border-b-neutral-800' : 'border-transparent'}
+                ${selected ? 'text-neutral-800' : 'text-neutral-500'}
             `}
         >
-            <Icon size= {26} />
+            <Icon size={26} />
             <div className="font-medium text-sm">
                 {label}
             </div>

@@ -81,6 +81,10 @@ const UserPanel: React.FC<UserPanelProps> = ({
                         <div>
                             Contato: {currentUser?.contato}
                         </div>
+                        <hr className="border-zinc-400"/>
+                        <div>
+                            Nome no WhatsApp: {currentUser?.nome_contato || currentUser?.name}
+                        </div>
                     </div>
 
                     <div className="flex flex-row gap-4 py-4 items-center">

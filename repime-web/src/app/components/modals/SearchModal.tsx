@@ -14,6 +14,7 @@ const SearchModal = () => {
     const searchModal = useSearchModal();
 
     const [location, setLocation] = useState<CitySelectValue>()
+    const [searchTerm, setSearchTerm] = useState('');
 
     const onSubmit = useCallback(async () => {
         let currentQuery = {};
@@ -23,7 +24,8 @@ const SearchModal = () => {
 
         const updatedQuery: any = {
             ...currentQuery,
-            locationValue: location?.value
+            locationValue: location?.value,
+            searchTerm: searchTerm || undefined
         } 
 
         const url = qs.stringifyUrl({
@@ -34,13 +36,38 @@ const SearchModal = () => {
         searchModal.onClose();
 
         router.push(url);
-    }, [params, router, searchModal, location])
+    }, [params, router, searchModal, location, searchTerm])
 
     let bodyContent = (
         <div className="flex flex-col gap-8">
             <Heading 
+                title="O que você procura?"
+                subtitle="Pesquise pelo nome da república ou título da vaga"
+            />
+            <div className="w-full relative">
+                <input
+                    placeholder="Ex: República Alcatraz..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="
+                        peer
+                        w-full
+                        p-4
+                        font-light
+                        bg-white
+                        border-2
+                        rounded-md
+                        outline-none
+                        transition
+                        border-neutral-300
+                        focus:border-repimehardblue
+                    "
+                />
+            </div>
+            <hr />
+            <Heading 
                 title="Escolha uma cidade"
-                subtitle="Pesquise entre as vagas"
+                subtitle="Filtre por localização"
             />
             <CitySelect value={location} onChange={(value) => 
                 setLocation(value as CitySelectValue)

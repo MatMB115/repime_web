@@ -21,13 +21,13 @@ const PlaceModal = () => {
     const router = useRouter();
     const [step, setStep] = useState(STEPS.DESCRIPTION);
     const [isLoading, setIsLoading] = useState(false);
- 
+
     const {
         register,
         handleSubmit,
         setValue,
         watch,
-        formState:{
+        formState: {
             errors,
         },
         reset
@@ -36,6 +36,7 @@ const PlaceModal = () => {
             fotoVaga: {
                 foto: '',
             },
+            titulo: '',
             descricao: '',
             mensalidade: '',
             e_mobiliado: false
@@ -53,7 +54,7 @@ const PlaceModal = () => {
     }
 
     const onBack = () => {
-        setStep((value) => value -1);
+        setStep((value) => value - 1);
     };
 
     const onNext = () => {
@@ -61,7 +62,7 @@ const PlaceModal = () => {
     };
 
     const actionLabel = useMemo(() => {
-        if (step === STEPS.IMAGE){
+        if (step === STEPS.IMAGE) {
             return "Criar";
         }
 
@@ -69,14 +70,14 @@ const PlaceModal = () => {
     }, [step]);
 
     const secondaryActionLabel = useMemo(() => {
-        if (step === STEPS.DESCRIPTION){
+        if (step === STEPS.DESCRIPTION) {
             return undefined;
         }
         return "Voltar";
     }, [step]);
 
     const handleSecondaryAction = useMemo(() => {
-        if (step === STEPS.DESCRIPTION){
+        if (step === STEPS.DESCRIPTION) {
             return undefined;
         }
         else {
@@ -93,29 +94,29 @@ const PlaceModal = () => {
         data.tb_residencia = Number(placeModal.residenceId);
 
         axios.post('/api/repime/residencia/vagas/register', data)
-        .then((response) => {
-            toast.success('Sucesso! ' + response.data.repime.msg_ret);
-            router.refresh();
-            reset();
-            setStep(STEPS.DESCRIPTION);
-            placeModal.onClose();
-        })
-        .catch(() => {
-            toast.error('Algo deu errado');
-        })
-        .finally(() => {
-            setIsLoading(false);
-        })
+            .then((response) => {
+                toast.success('Sucesso! ' + response.data.repime.msg_ret);
+                router.refresh();
+                reset();
+                setStep(STEPS.DESCRIPTION);
+                placeModal.onClose();
+            })
+            .catch(() => {
+                toast.error('Algo deu errado');
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
     }
 
     let bodyContent = (
         <div className="flex flex-col gap-2">
-            <Heading 
+            <Heading
                 title="Nos diga mais sobre sua vaga"
                 subtitle="Informe os detalhes da sua vaga"
             />
             <div className=" flex flex-col gap-4">
-                <Input 
+                <Input
                     id="mensalidade"
                     type="number"
                     label="Mensalidade"
@@ -124,7 +125,15 @@ const PlaceModal = () => {
                     errors={errors}
                     required
                 />
-                <Input 
+                <Input
+                    id="titulo"
+                    type="text"
+                    label="Título da vaga"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                />
+                <Input
                     id="descricao"
                     type="text"
                     label="Informações adicionais sobre sua vaga"
@@ -134,36 +143,36 @@ const PlaceModal = () => {
                     required
                 />
                 <div className="flex flex-row gap-4 justify-center text-xl">
-                    <InputCheckbox 
-                    id="e_mobiliado"
-                    type="checkbox"
-                    label="É mobiliada"
-                    disabled={isLoading}
-                    register={register}
-                    errors={errors}
+                    <InputCheckbox
+                        id="e_mobiliado"
+                        type="checkbox"
+                        label="É mobiliada"
+                        disabled={isLoading}
+                        register={register}
+                        errors={errors}
                     />
                 </div>
             </div>
         </div>
     )
-    
+
     if (step === STEPS.IMAGE) {
         bodyContent = (
-          <div className="flex flex-col gap-8">
-            <Heading
-              title="Adicione uma foto da sua vaga"
-              subtitle="Mostre aos visitantes como sua vaga é"
-            />
-            <ImageUpload
-              onChange={(value) => setCustomValue('fotoVaga.foto', value)}
-              value={imgSrc}
-            />
-          </div>
+            <div className="flex flex-col gap-8">
+                <Heading
+                    title="Adicione uma foto da sua vaga"
+                    subtitle="Mostre aos visitantes como sua vaga é"
+                />
+                <ImageUpload
+                    onChange={(value) => setCustomValue('fotoVaga.foto', value)}
+                    value={imgSrc}
+                />
+            </div>
         )
     }
 
-    return ( 
-        <Modal 
+    return (
+        <Modal
             isOpen={placeModal.isOpen}
             onClose={placeModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
@@ -175,5 +184,5 @@ const PlaceModal = () => {
         />
     );
 }
- 
+
 export default PlaceModal;

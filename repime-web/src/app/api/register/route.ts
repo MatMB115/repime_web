@@ -1,31 +1,20 @@
-import bcrypt from "bcrypt";
-
-import prisma from "@/app/libs/prisma_db";
 import { NextResponse } from "next/server";
 
-export async function POST(
-    request: Request
-) {
-    const body = await request.json();
-    const {
-        email,
-        nome,
-        senha,
-        contato,
-        is_administrador
-    } = body;
+import { getErrorMessage, getErrorStatus } from "@/server/api/errors";
+import { UserService } from "@/server/services/userService";
+import { createUserSchema } from "@/server/validators/user.dto";
 
-    const hashedPassword = await bcrypt.hash(senha, 12)
+export async function POST(request: Request) {
+  try {
+    const input = createUserSchema.parse(await request.json());
 
-    const user = await prisma.user.create({
-        data: {
-            email: email,
-            name: nome,
-            senha: hashedPassword,
-            contato: contato,
-            is_administrador: is_administrador
-        }
-    });
+    await UserService.create(input);
 
-    return NextResponse.json(user);
+    return NextResponse.json({ message: "Usuário criado com sucesso!" });
+  } catch (error) {
+    return NextResponse.json(
+      { message: getErrorMessage(error) },
+      { status: getErrorStatus(error) }
+    );
+  }
 }

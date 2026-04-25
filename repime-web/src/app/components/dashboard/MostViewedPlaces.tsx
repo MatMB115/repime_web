@@ -13,25 +13,25 @@ const MostViewedPlaces: React.FC<MostViewedPlacesProps> = ({
     <div className='w-full relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-white overflow-scroll'>
       <h1>Vagas mais acessadas</h1>
       <ul>
-        {data.map((place, id_vaga) => (
+        {data.map((place, index) => (
           <li
-            key={id_vaga}
+            key={`${place.id_vaga}-${place.foto ?? index}`}
             className='bg-gray-50 hover:bg-gray-100 rounded-lg my-3 p-2 flex items-center cursor-pointer'
           >
-            <div className= 'rounded-lg p-3'>
-            <Image 
-              width={150}
-              height={150}
-              alt="Vaga"
-              src={place.foto as string}
-              className="
+            <div className='rounded-lg p-3'>
+              <Image
+                width={150}
+                height={150}
+                alt="Vaga"
+                src={place.foto as string}
+                className="
                   object-cover
                   h-50
                   w-50
                   group-hover:scale-110
                   transition
               "
-            />
+              />
             </div>
             <div className='p-4'>
               <p className='text-gray-800 font-bold'>R${place.mensalidade}</p>

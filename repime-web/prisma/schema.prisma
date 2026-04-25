@@ -16,6 +16,7 @@ model User {
   emailVerified    DateTime?    @map("email_verified") @db.Date
   senha            String?
   contato          String?      @db.VarChar(15)
+  nome_contato     String?      @db.VarChar(100)
   is_administrador Boolean      @default(false)
   accounts         Account?
   tb_residencia    Residencia[]
@@ -29,6 +30,8 @@ model Cidade {
   nome            String         @db.VarChar(50)
   pais            String         @db.VarChar(50)
   uf              String         @db.VarChar(2)
+  lat             Float?
+  lng             Float?
   tb_residencia   Residencia[]
   tb_universidade Universidade[]
 
@@ -47,6 +50,9 @@ model FotoVaga {
 model Residencia {
   id                Int              @id @default(autoincrement())
   nome              String           @db.VarChar(50)
+  descricao         String?
+  lat               Float?
+  lng               Float?
   tem_garagem       Boolean
   end_numero        Int
   end_rua           String           @db.VarChar(75)
@@ -61,6 +67,10 @@ model Residencia {
   tem_trote         Boolean?
   tem_diarista      Boolean?
   tempo_de_contrato Int?
+  tempo_unifei      Int?
+  tempo_centro      Int?
+  internet_mbps     Int?
+  instagram         String?
   agua_inclusa      Boolean?
   internet_inclusa  Boolean?
   energia_inclusa   Boolean?
@@ -85,6 +95,7 @@ model Universidade {
 
 model Vaga {
   id            Int        @id @default(autoincrement())
+  titulo        String?    @db.VarChar(200)
   mensalidade   Float
   descricao     String?
   e_mobiliado   Boolean?
@@ -136,6 +147,7 @@ model tb_vaga_deletada {
 
 view residencia_vagas_fotos_cidade {
   id_vaga           Int               @unique
+  titulo            String?           @db.VarChar(200)
   mensalidade       Float?
   descricao         String?
   qtd_visitas       Int?
@@ -143,6 +155,9 @@ view residencia_vagas_fotos_cidade {
   foto              String?
   id_residencia     Int?
   residencia_nome   String?           @db.VarChar(50)
+  residencia_descricao String?
+  lat               Float?
+  lng               Float?
   tem_garagem       Boolean?
   end_numero        Int?
   end_rua           String?           @db.VarChar(75)
@@ -157,6 +172,10 @@ view residencia_vagas_fotos_cidade {
   tem_trote         Boolean?
   tem_diarista      Boolean?
   tempo_de_contrato Int?
+  tempo_unifei      Int?
+  tempo_centro      Int?
+  internet_mbps     Int?
+  instagram         String?
   agua_inclusa      Boolean?
   internet_inclusa  Boolean?
   energia_inclusa   Boolean?
@@ -169,12 +188,16 @@ view residencia_vagas_fotos_cidade {
 
 view place_page {
   id_vaga           Int               @unique
+  titulo            String?           @db.VarChar(200)
   mensalidade       Float?
   descricao         String?
   id_foto_vaga      Int?
   foto              String?
   id_residencia     Int?
   residencia_nome   String?           @db.VarChar(50)
+  residencia_descricao String?
+  lat               Float?
+  lng               Float?
   tem_garagem       Boolean?
   end_numero        Int?
   end_rua           String?           @db.VarChar(75)
@@ -189,6 +212,10 @@ view place_page {
   tem_trote         Boolean?
   tem_diarista      Boolean?
   tempo_de_contrato Int?
+  tempo_unifei      Int?
+  tempo_centro      Int?
+  internet_mbps     Int?
+  instagram         String?
   agua_inclusa      Boolean?
   internet_inclusa  Boolean?
   energia_inclusa   Boolean?
@@ -201,6 +228,7 @@ view place_page {
   name              String?           @db.VarChar(100)
   image             String?
   contato           String?           @db.VarChar(15)
+  nome_contato      String?           @db.VarChar(100)
 }
 
 view dashboard_stats {

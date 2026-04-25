@@ -49,6 +49,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
             email: currentUser?.email,
             senha: null,
             contato: null,
+            nome_contato: currentUser?.nome_contato,
             foto: null
         }
     });
@@ -162,6 +163,14 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
                 errors={errors}
                 placeholder='XX YYYYYYYYY'
                 required
+            />
+            <Input 
+                id="nome_contato"
+                type="text"
+                label="Nome do contato no WhatsApp"
+                disabled={isLoading}
+                register={register}
+                errors={errors}
             />
         </div>
     )

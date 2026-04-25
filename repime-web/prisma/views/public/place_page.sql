@@ -1,11 +1,13 @@
-SELECT
+SELECT DISTINCT ON (v.id)
   v.id AS id_vaga,
+  v.titulo,
   v.mensalidade,
   v.descricao,
   ft.id AS id_foto_vaga,
   ft.foto,
   r.id AS id_residencia,
   r.nome AS residencia_nome,
+  r.descricao AS residencia_descricao,
   r.tem_garagem,
   r.end_numero,
   r.end_rua,
@@ -20,6 +22,10 @@ SELECT
   r.tem_trote,
   r.tem_diarista,
   r.tempo_de_contrato,
+  r.tempo_unifei,
+  r.tempo_centro,
+  r.internet_mbps,
+  r.instagram,
   r.agua_inclusa,
   r.internet_inclusa,
   r.energia_inclusa,
@@ -31,18 +37,11 @@ SELECT
   u.id,
   u.name,
   u.image,
-  u.contato
-FROM
-  (
-    (
-      (
-        (
-          tb_vaga v
-          JOIN tb_foto_vaga ft ON ((v.id = ft.id_vaga))
-        )
-        JOIN tb_residencia r ON ((r.id = v.id_residencia))
-      )
-      JOIN tb_cidade c ON ((c.id = r.id_cidade))
-    )
-    JOIN tb_usuario u ON ((u.id = r.id_user))
-  );
+  u.contato,
+  u.nome_contato
+FROM tb_vaga v
+LEFT JOIN tb_foto_vaga ft ON v.id = ft.id_vaga
+JOIN tb_residencia r ON r.id = v.id_residencia
+JOIN tb_cidade c ON c.id = r.id_cidade
+JOIN tb_usuario u ON u.id = r.id_user
+ORDER BY v.id, ft.id ASC;
