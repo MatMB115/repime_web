@@ -45,7 +45,7 @@ export default async function getPlaces(
 
         if (locationValue) {
             query.id_cidade = {
-                equals: +locationValue,
+                equals: parseInt(locationValue, 10),
             };
         }
 

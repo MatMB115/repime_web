@@ -12,7 +12,7 @@ export const createVagaSchema = z.object({
   ),
   tb_residencia: positiveInt,
   fotoVaga: z.object({
-    foto: z.string().url().max(2048),
+    foto: z.string().max(2048).min(1, "A foto é obrigatória"),
   }),
 });
 

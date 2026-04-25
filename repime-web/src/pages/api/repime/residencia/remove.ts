@@ -1,0 +1,22 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import { requireApiUser } from "@/server/api/auth";
+import { failure, success } from "@/server/api/respond";
+import { ResidenciaService } from "@/server/services/residenciaService";
+import { removeResidenciaSchema } from "@/server/validators/residencia.dto";
+import { ApiError } from "@/server/api/errors";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    if (req.method !== "POST") {
+      throw new ApiError(405, "Método não permitido");
+    }
+
+    const authUser = await requireApiUser(req, res);
+    const { id } = removeResidenciaSchema.parse(req.body);
+    await ResidenciaService.remove(authUser, id);
+
+    return success(res, "Residência removida com sucesso!");
+  } catch (error) {
+    return failure(res, error);
+  }
+}
